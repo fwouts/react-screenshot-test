@@ -8,13 +8,12 @@ import uuid from "uuid";
 export class ScreenshotServer {
   private readonly app: Express;
   private server: Server | null = null;
-  private port = 3000;
 
   private readonly nodes: {
     [id: string]: React.ReactNode;
   } = {};
 
-  constructor() {
+  constructor(private readonly port: number) {
     this.app = express();
     this.app.get("/render/:nodeId", (req, res) => {
       const nodeId = req.params.nodeId;
@@ -32,14 +31,14 @@ export class ScreenshotServer {
     });
   }
 
-  start(port = this.port): Promise<void> {
+  start(): Promise<void> {
     if (this.server) {
       throw new Error(
         `Server is already running! Please only call start() once.`
       );
     }
     return new Promise(resolve => {
-      this.server = this.app.listen(port, resolve);
+      this.server = this.app.listen(this.port, resolve);
     });
   }
 
@@ -64,7 +63,19 @@ export class ScreenshotServer {
 }
 
 export class ScreenshotTaker {
-  constructor(private readonly server: ScreenshotServer) {}
+  private readonly server: ScreenshotServer;
+
+  constructor(port = 3000) {
+    this.server = new ScreenshotServer(port);
+  }
+
+  start() {
+    this.server.start();
+  }
+
+  stop() {
+    this.server.stop();
+  }
 
   async render(node: React.ReactNode) {
     const browser = await puppeteer.launch();

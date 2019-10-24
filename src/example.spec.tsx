@@ -1,16 +1,15 @@
 import React from "react";
-import { ScreenshotServer, ScreenshotTaker } from "./screenshot";
+import { ScreenshotTaker } from "./screenshot";
 
 describe("Example", () => {
-  const server = new ScreenshotServer();
-  const taker = new ScreenshotTaker(server);
+  const taker = new ScreenshotTaker();
 
   beforeAll(async () => {
-    await server.start(3000);
+    await taker.start();
   });
 
   afterAll(async () => {
-    await server.stop();
+    await taker.stop();
   });
 
   it("takes a screenshot", async () => {
