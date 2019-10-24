@@ -1,9 +1,17 @@
 {
   "name": "react-screenshot-test",
+  "version": "0.0.1",
+  "author": {
+    "name": "François Wouts",
+    "email": "f@zenc.io"
+  },
   "license": "MIT",
   "scripts": {
-    "test": "jest"
+    "build": "rm -rf dist; tsc",
+    "test": "jest",
+    "prepublish": "yarn build"
   },
+  "types": "dist/lib/index.d.ts",
   "devDependencies": {
     "@types/express": "^4.17.1",
     "@types/jest": "^24.0.19",
