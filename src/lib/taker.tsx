@@ -25,14 +25,14 @@ export class ScreenshotTaker {
     await this.browser.close();
   }
 
-  async render(node: React.ReactNode, filename: string) {
+  async render(node: React.ReactNode): Promise<string> {
     if (!this.browser) {
       throw new Error(`Please call start() once before render().`);
     }
     const page = await this.browser.newPage();
-    await this.server.serve(node, async url => {
+    return this.server.serve(node, async url => {
       await page.goto(url);
-      await page.screenshot({ path: filename });
+      return page.screenshot();
     });
   }
 }

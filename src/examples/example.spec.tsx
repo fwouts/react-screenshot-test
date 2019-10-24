@@ -1,5 +1,8 @@
+import { toMatchImageSnapshot } from "jest-image-snapshot";
 import React from "react";
 import { ScreenshotTaker } from "../lib/taker";
+
+expect.extend({ toMatchImageSnapshot });
 
 describe("Example", () => {
   const taker = new ScreenshotTaker();
@@ -12,15 +15,11 @@ describe("Example", () => {
     await taker.stop();
   });
 
-  it("takes a screenshot 1", async () => {
-    await taker.render(<div>Test 1</div>, "example-1.png");
+  it("takes screenshot 1", async () => {
+    expect(await taker.render(<div>Test 1</div>)).toMatchImageSnapshot();
   });
 
-  it("takes a screenshot 2", async () => {
-    await taker.render(<div>Test 2</div>, "example-2.png");
-  });
-
-  it("takes a screenshot 3", async () => {
-    await taker.render(<div>Test 3</div>, "example-3.png");
+  it("takes screenshot 2", async () => {
+    expect(await taker.render(<div>Test 2</div>)).toMatchImageSnapshot();
   });
 });
