@@ -6,7 +6,7 @@ export class ScreenshotRenderer {
   private readonly server: ScreenshotServer;
   private browser: puppeteer.Browser | null = null;
 
-  constructor(port = 3000) {
+  constructor(port = 3037) {
     this.server = new ScreenshotServer(port);
   }
 
