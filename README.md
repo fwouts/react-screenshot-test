@@ -7,7 +7,7 @@ It works best in conjunction with `jest-image-snapshot`.
 ```typescript
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import React from "react";
-import { ScreenshotRenderer } from "react-screenshot-renderer";
+import { ScreenshotRenderer } from "react-screenshot-test";
 
 expect.extend({ toMatchImageSnapshot });
 
