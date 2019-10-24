@@ -1,5 +1,5 @@
 import React from "react";
-import { ScreenshotTaker } from "./screenshot";
+import { ScreenshotTaker } from "./lib/taker";
 
 describe("Example", () => {
   const taker = new ScreenshotTaker();
