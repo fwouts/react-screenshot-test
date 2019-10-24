@@ -1,6 +1,6 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import React from "react";
-import { ScreenshotRenderer } from "../lib/renderer";
+import { ScreenshotRenderer } from "../lib";
 
 expect.extend({ toMatchImageSnapshot });
 
