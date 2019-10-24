@@ -40,7 +40,6 @@
   },
   "peerDependencies": {
     "react": "^16",
-    "react-dom": "^16",
-    "styled-components": "^4"
+    "react-dom": "^16"
   }
 }

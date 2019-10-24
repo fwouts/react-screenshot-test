@@ -1,9 +1,12 @@
-import express, { Express } from "express";
+import express, { Express, Response } from "express";
 import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import { ServerStyleSheet } from "styled-components";
 import uuid from "uuid";
+
+// Import ServerStyleSheet without importing styled-components, so that
+// projects which don't use styled-components don't crash.
+type ServerStyleSheet = import("styled-components").ServerStyleSheet;
 
 export class ScreenshotServer {
   private readonly app: Express;
@@ -21,23 +24,53 @@ export class ScreenshotServer {
       if (!node) {
         throw new Error(`No node to render for ID: ${nodeId}`);
       }
-      const sheet = new ServerStyleSheet();
-      try {
-        const rendered = ReactDOMServer.renderToString(
-          sheet.collectStyles(node)
-        );
-        res.send(
-          ReactDOMServer.renderToString(
-            <html>
-              <head>{sheet.getStyleElement()}</head>
-              <body dangerouslySetInnerHTML={{ __html: rendered }}></body>
-            </html>
-          )
-        );
-      } finally {
-        sheet.seal();
-      }
+
+      // In order to render styled components, we need to collect the styles.
+      // However, some projects don't use styled components, and it woudln't be
+      // fair to ask them to install it. Therefore, we rely on a dynamic import
+      // which we expect to fail if the package isn't installed. That's OK,
+      // because that means we can render without it.
+      import("styled-components")
+        .then(({ ServerStyleSheet }) => {
+          this.renderWithStyledComponents(new ServerStyleSheet(), res, node);
+        })
+        .catch(() => {
+          this.renderWithoutStyledComponents(res, node);
+        });
     });
+  }
+
+  private renderWithStyledComponents(
+    sheet: ServerStyleSheet,
+    res: Response,
+    node: React.ReactNode
+  ) {
+    // See https://www.styled-components.com/docs/advanced#server-side-rendering
+    // for details.
+    try {
+      const rendered = ReactDOMServer.renderToString(sheet.collectStyles(node));
+      res.send(
+        ReactDOMServer.renderToString(
+          <html>
+            <head>{sheet.getStyleElement()}</head>
+            <body dangerouslySetInnerHTML={{ __html: rendered }}></body>
+          </html>
+        )
+      );
+    } finally {
+      sheet.seal();
+    }
+  }
+
+  private renderWithoutStyledComponents(res: Response, node: React.ReactNode) {
+    // Simply render the node. This works with Emotion, too!
+    res.send(
+      ReactDOMServer.renderToString(
+        <html>
+          <body>{node}</body>
+        </html>
+      )
+    );
   }
 
   start(): Promise<void> {
