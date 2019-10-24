@@ -31,6 +31,10 @@ describe("Example", () => {
 
 That's it.
 
+## How does it work?
+
+Under the hood, we start a local server which renders components server-side. Each component is given its own dedicated page (e.g. /render/my-component). Then we use Puppeteer to take a screenshot of that page.
+
 ## TypeScript support
 
 This library is written in TypeScript. All declarations are included.
