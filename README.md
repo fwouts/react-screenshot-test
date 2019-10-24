@@ -37,15 +37,15 @@ Under the hood, we start a local server which renders components server-side. Ea
 
 ## CSS support
 
-At the moment, react-screenshot-test only supports inline CSS styles. It isn't yet able to server separate stylesheets.
+Because of how it's built, `react-screenshot-test` does not support CSS imports. However, libraries such as Emotion and Styled Components are supported.
 
 | CSS technique                                          | Supported |
 | ------------------------------------------------------ | --------- |
 | `<div style={...}`                                     | ✅        |
+| [Emotion](https://emotion.sh)                          | ✅        |
+| [Styled Components](https://www.styled-components.com) | ✅        |
 | `import "./style.css"`                                 | ❌        |
 | `import css from "./style.css"`                        | ❌        |
-| [Emotion](https://emotion.sh)                          | ✅        |
-| [Styled Components](https://www.styled-components.com) | ❌        |
 
 ## TypeScript support
 

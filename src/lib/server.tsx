@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
+import { ServerStyleSheet } from "styled-components";
 import uuid from "uuid";
 
 export class ScreenshotServer {
@@ -20,13 +21,22 @@ export class ScreenshotServer {
       if (!node) {
         throw new Error(`No node to render for ID: ${nodeId}`);
       }
-      res.send(
-        ReactDOMServer.renderToString(
-          <html>
-            <body>{node}</body>
-          </html>
-        )
-      );
+      const sheet = new ServerStyleSheet();
+      try {
+        const rendered = ReactDOMServer.renderToString(
+          sheet.collectStyles(node)
+        );
+        res.send(
+          ReactDOMServer.renderToString(
+            <html>
+              <head>{sheet.getStyleElement()}</head>
+              <body dangerouslySetInnerHTML={{ __html: rendered }}></body>
+            </html>
+          )
+        );
+      } finally {
+        sheet.seal();
+      }
     });
   }
 
