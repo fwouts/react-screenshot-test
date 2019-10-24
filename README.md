@@ -35,6 +35,18 @@ That's it.
 
 Under the hood, we start a local server which renders components server-side. Each component is given its own dedicated page (e.g. /render/my-component). Then we use Puppeteer to take a screenshot of that page.
 
+## CSS support
+
+At the moment, react-screenshot-test only supports inline CSS styles. It isn't yet able to server separate stylesheets.
+
+| CSS technique                                          | Supported |
+| ------------------------------------------------------ | --------- |
+| `<div style={...}`                                     | ✅        |
+| `import "./style.css"`                                 | ❌        |
+| `import css from "./style.css"`                        | ❌        |
+| [Emotion](https://emotion.sh)                          | ✅        |
+| [Styled Components](https://www.styled-components.com) | ❌        |
+
 ## TypeScript support
 
 This library is written in TypeScript. All declarations are included.

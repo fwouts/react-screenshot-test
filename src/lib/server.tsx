@@ -55,9 +55,9 @@ export class ScreenshotServer {
 
   async serve<T>(
     node: React.ReactNode,
-    ready: (url: string) => Promise<T>
+    ready: (url: string) => Promise<T>,
+    id = uuid.v4()
   ): Promise<T> {
-    const id = uuid.v4();
     this.nodes[id] = node;
     const result = await ready(`http://localhost:${this.port}/render/${id}`);
     delete this.nodes[id];

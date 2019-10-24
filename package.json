@@ -9,19 +9,25 @@
   "scripts": {
     "build": "rm -rf dist; tsc",
     "test": "jest",
+    "debug": "ts-node-dev src/debug/debug-renderer.tsx",
     "prepublish": "yarn build"
   },
   "types": "dist/lib/index.d.ts",
   "devDependencies": {
+    "@emotion/core": "^10.0.22",
+    "@emotion/styled": "^10.0.22",
     "@types/express": "^4.17.1",
     "@types/jest": "^24.0.19",
     "@types/jest-image-snapshot": "^2.8.0",
     "@types/puppeteer": "^1.20.2",
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
+    "@types/styled-components": "^4.1.19",
     "@types/uuid": "^3.4.5",
     "jest-image-snapshot": "^2.11.0",
+    "styled-components": "^4.4.0",
     "ts-jest": "^24.1.0",
+    "ts-node-dev": "^1.0.0-pre.43",
     "typescript": "^3.6.4"
   },
   "dependencies": {
