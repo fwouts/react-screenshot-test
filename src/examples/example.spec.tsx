@@ -1,25 +1,25 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import React from "react";
-import { ScreenshotTaker } from "../lib/taker";
+import { ScreenshotRenderer } from "../lib/renderer";
 
 expect.extend({ toMatchImageSnapshot });
 
 describe("Example", () => {
-  const taker = new ScreenshotTaker();
+  const renderer = new ScreenshotRenderer();
 
   beforeAll(async () => {
-    await taker.start();
+    await renderer.start();
   });
 
   afterAll(async () => {
-    await taker.stop();
+    await renderer.stop();
   });
 
   it("takes screenshot 1", async () => {
-    expect(await taker.render(<div>Test 1</div>)).toMatchImageSnapshot();
+    expect(await renderer.render(<div>Test 1</div>)).toMatchImageSnapshot();
   });
 
   it("takes screenshot 2", async () => {
-    expect(await taker.render(<div>Test 2</div>)).toMatchImageSnapshot();
+    expect(await renderer.render(<div>Test 2</div>)).toMatchImageSnapshot();
   });
 });

@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 import React from "react";
 import { ScreenshotServer } from "./server";
 
-export class ScreenshotTaker {
+export class ScreenshotRenderer {
   private readonly server: ScreenshotServer;
   private browser: puppeteer.Browser | null = null;
 
