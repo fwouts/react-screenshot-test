@@ -2,7 +2,7 @@ version: 2.1
 anchors:
   defaults: &defaults
     docker:
-      - image: circleci/node:11-browsers
+      - image: reelevant/docker-node-infinality
     working_directory: ~/repo
   restore_cache: &restore_cache
     restore_cache:
