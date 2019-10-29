@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  runner:
+    image: circleci/node:11-browsers
+    volumes:
+      - .:/repo
+    working_dir: /repo
+    command: bash -c "yarn install && yarn test"
