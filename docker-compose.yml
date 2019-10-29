@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   runner:
-    image: circleci/node:11-browsers
+    image: buildkite/puppeteer:v1.15.0
     volumes:
       - .:/repo
     working_dir: /repo
