@@ -12,7 +12,7 @@ export class ScreenshotRenderer {
 
   async start() {
     this.browser = await puppeteer.launch({
-      args: ["--disable-setuid-sandbox", "--font-render-hinting=medium"]
+      args: ["--no-sandbox", "--font-render-hinting=medium"]
     });
     await this.server.start();
   }

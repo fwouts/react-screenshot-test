@@ -5,4 +5,4 @@ services:
     volumes:
       - .:/repo
     working_dir: /repo
-    command: bash -c "yarn install && yarn test"
+    command: bash -c "yarn install && yarn test -u"
