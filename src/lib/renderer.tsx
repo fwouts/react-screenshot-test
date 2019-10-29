@@ -12,7 +12,7 @@ export class ScreenshotRenderer {
 
   async start() {
     this.browser = await puppeteer.launch({
-      args: ["--font-render-hinting=none"]
+      args: ["--font-render-hinting=medium"]
     });
     await this.server.start();
   }
