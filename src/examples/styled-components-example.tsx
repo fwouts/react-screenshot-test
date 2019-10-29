@@ -15,6 +15,6 @@ const Button = styled.button`
 
 export const StyledComponentsExample = () => (
   <Container>
-    <Button>This component was styled with styled-components</Button>
+    <Button>■■■■■</Button>
   </Container>
 );

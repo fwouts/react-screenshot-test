@@ -19,9 +19,7 @@ describe("Example", () => {
   });
 
   it("takes screenshot with simple element", async () => {
-    expect(
-      await renderer.render(<div>Simple element</div>)
-    ).toMatchImageSnapshot();
+    expect(await renderer.render(<div>■■■■■</div>)).toMatchImageSnapshot();
   });
 
   it("takes screenshot with inline style CSS example", async () => {

@@ -15,7 +15,7 @@ export const InlineStyleExample = () => (
         fontSize: "2em"
       }}
     >
-      This component was styled with inline styles
+      ■■■■■
     </button>
   </div>
 );
