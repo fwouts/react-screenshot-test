@@ -6,6 +6,7 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  font-family: Arial;
   background: #00f;
   color: #fff;
   padding: 8px;

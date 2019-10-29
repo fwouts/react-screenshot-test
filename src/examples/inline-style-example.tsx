@@ -8,6 +8,7 @@ export const InlineStyleExample = () => (
   >
     <button
       style={{
+        fontFamily: "Arial",
         background: "#00f",
         color: "#fff",
         padding: 8,
