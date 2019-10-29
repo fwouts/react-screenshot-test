@@ -34,6 +34,7 @@ jobs:
       - run: yarn test
       - store_artifacts:
           path: src/examples/__image_snapshots__
+          destination: snapshots
 workflows:
   check:
     jobs:
