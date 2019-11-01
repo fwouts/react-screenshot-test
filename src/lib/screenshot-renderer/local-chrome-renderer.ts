@@ -1,7 +1,7 @@
 import puppeteer from "puppeteer";
-import { Browser } from "./api";
+import { ScreenshotRenderer } from "./api";
 
-export class LocalBrowser implements Browser {
+export class LocalChromeRenderer implements ScreenshotRenderer {
   private browser: puppeteer.Browser | null = null;
 
   async start() {
@@ -19,13 +19,15 @@ export class LocalBrowser implements Browser {
     await this.browser.close();
   }
 
-  async render(url: string): Promise<string> {
+  async render(url: string) {
     if (!this.browser) {
       throw new Error(`Please call start() once before render().`);
     }
     const page = await this.browser.newPage();
     await page.goto(url);
-    const screenshot = await page.screenshot();
+    const screenshot = await page.screenshot({
+      encoding: "binary"
+    });
     await page.close();
     return screenshot;
   }

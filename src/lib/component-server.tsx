@@ -8,7 +8,7 @@ import uuid from "uuid";
 // projects which don't use styled-components don't crash.
 type ServerStyleSheet = import("styled-components").ServerStyleSheet;
 
-export class ScreenshotServer {
+export class ReactComponentServer {
   private readonly app: Express;
   private server: Server | null = null;
 

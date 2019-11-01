@@ -1,19 +1,34 @@
 import isDocker from "is-docker";
 import React from "react";
-import { Browser } from "./browser/api";
-import { DockerBrowser } from "./browser/docker-browser";
-import { LocalBrowser } from "./browser/local-browser";
-import { ScreenshotServer } from "./server";
+import { ReactComponentServer } from "./component-server";
+import { ScreenshotRenderer } from "./screenshot-renderer/api";
+import { DockerRenderer } from "./screenshot-renderer/docker-renderer";
+import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
 
-export class ScreenshotRenderer {
-  private readonly server: ScreenshotServer;
-  private readonly browser: Browser;
-  private readonly inDocker: boolean;
+export class ReactScreenshotRenderer {
+  private readonly server: ReactComponentServer;
+  private readonly browser: ScreenshotRenderer;
+  private readonly mode: "local" | "docker";
 
-  constructor(port = 3037) {
-    this.server = new ScreenshotServer(port);
-    this.inDocker = isDocker();
-    this.browser = this.inDocker ? new LocalBrowser() : new DockerBrowser();
+  constructor(
+    options: {
+      port?: number;
+      mode?: "default" | "local" | "docker";
+    } = {}
+  ) {
+    this.server = new ReactComponentServer(options.port || 3037);
+    switch (options.mode || "default") {
+      case "local":
+        this.mode = "local";
+        break;
+      case "docker":
+        this.mode = "docker";
+        break;
+      default:
+        this.mode = isDocker() ? "local" : "docker";
+    }
+    this.browser =
+      this.mode === "local" ? new LocalChromeRenderer() : new DockerRenderer();
   }
 
   async start() {
@@ -24,11 +39,12 @@ export class ScreenshotRenderer {
     await Promise.all([this.server.stop(), this.browser.stop()]);
   }
 
-  async render(node: React.ReactNode): Promise<string> {
+  async render(node: React.ReactNode) {
     return this.server.serve(node, async (port, path) => {
-      const url = this.inDocker
-        ? `http://localhost:${port}${path}`
-        : `http://host.docker.internal:${port}${path}`;
+      const url =
+        this.mode === "local"
+          ? `http://localhost:${port}${path}`
+          : `http://host.docker.internal:${port}${path}`;
       return this.browser.render(url);
     });
   }

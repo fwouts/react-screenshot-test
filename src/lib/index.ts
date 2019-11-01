@@ -1,1 +1,1 @@
-export { ScreenshotRenderer } from "./renderer";
+export { ReactScreenshotRenderer } from "./renderer";

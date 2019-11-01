@@ -1,11 +1,11 @@
 import bodyParser from "body-parser";
 import express from "express";
-import { LocalBrowser } from "../lib/browser/local-browser";
+import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
 
 const PORT = 3000;
 
 async function main() {
-  const browser = new LocalBrowser();
+  const browser = new LocalChromeRenderer();
   await browser.start();
   const app = express();
   app.use(bodyParser.json());

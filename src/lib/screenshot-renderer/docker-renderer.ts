@@ -1,12 +1,12 @@
 import axios from "axios";
 import Docker from "dockerode";
-import { Browser } from "./api";
+import { ScreenshotRenderer } from "./api";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
 const DOCKER_IMAGE_VERSION = "0.0.1";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
-export class DockerBrowser implements Browser {
+export class DockerRenderer implements ScreenshotRenderer {
   private readonly docker: Docker;
   private container: Docker.Container | null = null;
 
@@ -35,7 +35,7 @@ export class DockerBrowser implements Browser {
     await this.container.remove();
   }
 
-  async render(url: string): Promise<string> {
+  async render(url: string) {
     const response = await axios.post(
       `http://localhost:${this.port}/render`,
       {
