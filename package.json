@@ -10,7 +10,7 @@
     "build": "rm -rf dist; tsc",
     "test": "jest",
     "debug": "ts-node-dev src/debug/debug-renderer.tsx",
-    "prepublish": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "types": "dist/lib/index.d.ts",
   "devDependencies": {
