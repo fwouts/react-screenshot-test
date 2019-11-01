@@ -1,38 +1,54 @@
-import puppeteer from "puppeteer";
+import isDocker from "is-docker";
 import React from "react";
-import { ScreenshotServer } from "./server";
+import { ReactComponentServer } from "./component-server";
+import { ScreenshotRenderer } from "./screenshot-renderer/api";
+import { DockerRenderer } from "./screenshot-renderer/docker-renderer";
+import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
 
-export class ScreenshotRenderer {
-  private readonly server: ScreenshotServer;
-  private browser: puppeteer.Browser | null = null;
+/**
+ * ReactScreenshotRenderer renders screenshots of React components.
+ */
+export class ReactScreenshotRenderer {
+  private readonly server: ReactComponentServer;
+  private readonly browser: ScreenshotRenderer;
+  private readonly mode: "local" | "docker";
 
-  constructor(port = 3037) {
-    this.server = new ScreenshotServer(port);
+  constructor(
+    options: {
+      port?: number;
+      mode?: "default" | "local" | "docker";
+    } = {}
+  ) {
+    this.server = new ReactComponentServer(options.port || 3037);
+    switch (options.mode || "default") {
+      case "local":
+        this.mode = "local";
+        break;
+      case "docker":
+        this.mode = "docker";
+        break;
+      default:
+        this.mode = isDocker() ? "local" : "docker";
+    }
+    this.browser =
+      this.mode === "local" ? new LocalChromeRenderer() : new DockerRenderer();
   }
 
   async start() {
-    this.browser = await puppeteer.launch();
-    await this.server.start();
+    await Promise.all([this.server.start(), this.browser.start()]);
   }
 
   async stop() {
-    if (!this.browser) {
-      throw new Error(
-        `Browser is not open! Please make sure that start() was called.`
-      );
-    }
-    await this.server.stop();
-    await this.browser.close();
+    await Promise.all([this.server.stop(), this.browser.stop()]);
   }
 
-  async render(node: React.ReactNode): Promise<string> {
-    if (!this.browser) {
-      throw new Error(`Please call start() once before render().`);
-    }
-    const page = await this.browser.newPage();
-    return this.server.serve(node, async url => {
-      await page.goto(url);
-      return page.screenshot();
+  async render(node: React.ReactNode) {
+    return this.server.serve(node, async (port, path) => {
+      const url =
+        this.mode === "local"
+          ? `http://localhost:${port}${path}`
+          : `http://host.docker.internal:${port}${path}`;
+      return this.browser.render(url);
     });
   }
 }

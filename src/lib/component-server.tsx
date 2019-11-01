@@ -8,7 +8,10 @@ import uuid from "uuid";
 // projects which don't use styled-components don't crash.
 type ServerStyleSheet = import("styled-components").ServerStyleSheet;
 
-export class ScreenshotServer {
+/**
+ * ReactComponentServer renders React nodes in a plain HTML page.
+ */
+export class ReactComponentServer {
   private readonly app: Express;
   private server: Server | null = null;
 
@@ -98,11 +101,11 @@ export class ScreenshotServer {
 
   async serve<T>(
     node: React.ReactNode,
-    ready: (url: string) => Promise<T>,
+    ready: (port: number, path: string) => Promise<T>,
     id = uuid.v4()
   ): Promise<T> {
     this.nodes[id] = node;
-    const result = await ready(`http://localhost:${this.port}/render/${id}`);
+    const result = await ready(this.port, `/render/${id}`);
     delete this.nodes[id];
     return result;
   }

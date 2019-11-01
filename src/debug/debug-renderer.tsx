@@ -1,9 +1,9 @@
 import React from "react";
 import { StyledComponentsExample } from "../examples/styled-components-example";
-import { ScreenshotServer } from "../lib/server";
+import { ReactComponentServer } from "../lib/component-server";
 
 (async function() {
-  const server = new ScreenshotServer(3000);
+  const server = new ReactComponentServer(3000);
   await server.start();
   await server.serve(
     <StyledComponentsExample />,

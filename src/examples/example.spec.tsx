@@ -1,6 +1,6 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import React from "react";
-import { ScreenshotRenderer } from "../lib";
+import { ReactScreenshotRenderer } from "../lib";
 import { EmotionExample } from "./emotion-example";
 import { InlineStyleExample } from "./inline-style-example";
 import { StyledComponentsExample } from "./styled-components-example";
@@ -8,7 +8,7 @@ import { StyledComponentsExample } from "./styled-components-example";
 expect.extend({ toMatchImageSnapshot });
 
 describe("Example", () => {
-  const renderer = new ScreenshotRenderer();
+  const renderer = new ReactScreenshotRenderer();
 
   beforeAll(async () => {
     await renderer.start();
