@@ -1,9 +1,9 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import React from "react";
 import { ReactScreenshotRenderer } from "../lib";
-import { EmotionExample } from "./emotion-example";
-import { InlineStyleExample } from "./inline-style-example";
-import { StyledComponentsExample } from "./styled-components-example";
+import { EmotionExample } from "./components/emotion-example";
+import { InlineStyleExample } from "./components/inline-style-example";
+import { StyledComponentsExample } from "./components/styled-components-example";
 
 expect.extend({ toMatchImageSnapshot });
 

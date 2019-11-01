@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledComponentsExample } from "../examples/styled-components-example";
+import { StyledComponentsExample } from "../examples/components/styled-components-example";
 import { ReactComponentServer } from "../lib/component-server";
 
 (async function() {
