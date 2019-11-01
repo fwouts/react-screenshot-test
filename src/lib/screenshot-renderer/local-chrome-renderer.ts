@@ -1,6 +1,10 @@
 import puppeteer from "puppeteer";
 import { ScreenshotRenderer } from "./api";
 
+/**
+ * A screenshot renderer that uses Chrome (via Puppeteer) to take screenshots on
+ * the current platform.
+ */
 export class LocalChromeRenderer implements ScreenshotRenderer {
   private browser: puppeteer.Browser | null = null;
 

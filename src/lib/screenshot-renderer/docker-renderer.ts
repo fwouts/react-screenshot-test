@@ -6,6 +6,10 @@ const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
 const DOCKER_IMAGE_VERSION = "0.0.1";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
+/**
+ * A screenshot renderer that leverages a Docker container (which runs Chrome)
+ * to ensure that screenshots are consistent across platforms.
+ */
 export class DockerRenderer implements ScreenshotRenderer {
   private readonly docker: Docker;
   private container: Docker.Container | null = null;

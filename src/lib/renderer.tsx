@@ -5,6 +5,9 @@ import { ScreenshotRenderer } from "./screenshot-renderer/api";
 import { DockerRenderer } from "./screenshot-renderer/docker-renderer";
 import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
 
+/**
+ * ReactScreenshotRenderer renders screenshots of React components.
+ */
 export class ReactScreenshotRenderer {
   private readonly server: ReactComponentServer;
   private readonly browser: ScreenshotRenderer;

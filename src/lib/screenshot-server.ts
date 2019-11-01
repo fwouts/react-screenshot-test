@@ -4,6 +4,17 @@ import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer
 
 const PORT = 3000;
 
+/**
+ * A server with a /render POST endpoint, which takes a payload such as
+ *
+ * ```json
+ * {
+ *   "url": "https://www.google.com"
+ * }
+ * ```
+ *
+ * and returns a PNG screenshot of the URL.
+ */
 async function main() {
   const browser = new LocalChromeRenderer();
   await browser.start();
