@@ -100,5 +100,8 @@ public
 # TernJS port file
 .tern-port
 
+# Mac temporary files
+.DS_Store
+
 # Compiled directory
 dist/
