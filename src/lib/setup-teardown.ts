@@ -1,4 +1,6 @@
 import assertNever from "assert-never";
+import chalk from "chalk";
+import { PACKAGE_NAME } from "./constants";
 import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
@@ -15,7 +17,16 @@ export async function setUpScreenshotServer() {
     throw new Error(`Please only call setUpScreenshotServer() once.`);
   }
   screenshotServer = createScreenshotServer();
-  await screenshotServer.start();
+  try {
+    await screenshotServer.start();
+  } catch (e) {
+    if (e.message.indexOf("connect ECONNREFUSED /var/run/docker.sock") !== -1) {
+      throw chalk.red(
+        `\n\nBy default, ${PACKAGE_NAME} requires Docker to produce consistent screenshots across platforms.\n\nPlease ensure Docker is running, or force local rendering with:\n$ export SCREENSHOT_MODE=local\n`
+      );
+    }
+    throw e;
+  }
 }
 
 export async function tearDownScreenshotServer() {
