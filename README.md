@@ -1,5 +1,8 @@
 # react-screenshot-test
 
+![CircleCI](https://img.shields.io/circleci/build/github/fwouts/react-screenshot-test)
+![npm](https://img.shields.io/npm/v/react-screenshot-test)
+
 This is a dead simple library to screenshot test React components.
 
 It works best in conjunction with `jest-image-snapshot`.
