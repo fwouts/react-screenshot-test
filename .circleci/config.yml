@@ -28,10 +28,20 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: Set up Git LFS
+          command: |
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+            apt-get update
+            apt-get install -y git-lfs openssh-client
+            git lfs install
+            mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+            ssh git@github.com git-lfs-authenticate "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" download
+            git lfs pull
       - *restore_cache
       - run: yarn install
       - *save_cache
-      - run: git lfs pull
       - run: yarn test
       - store_artifacts:
           path: src/examples/__image_snapshots__
