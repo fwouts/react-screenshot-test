@@ -1,4 +1,5 @@
 import express, { Express, Response } from "express";
+import getPort from "get-port";
 import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
@@ -14,12 +15,13 @@ type ServerStyleSheet = import("styled-components").ServerStyleSheet;
 export class ReactComponentServer {
   private readonly app: Express;
   private server: Server | null = null;
+  private port: number | null = null;
 
   private readonly nodes: {
     [id: string]: React.ReactNode;
   } = {};
 
-  constructor(private readonly port: number) {
+  constructor() {
     this.app = express();
     this.app.get("/render/:nodeId", (req, res) => {
       const nodeId = req.params.nodeId;
@@ -82,12 +84,13 @@ export class ReactComponentServer {
     );
   }
 
-  start(): Promise<void> {
+  async start(): Promise<void> {
     if (this.server) {
       throw new Error(
         `Server is already running! Please only call start() once.`
       );
     }
+    this.port = await getPort();
     return new Promise(resolve => {
       this.server = this.app.listen(this.port, resolve);
     });
@@ -110,6 +113,11 @@ export class ReactComponentServer {
     ready: (port: number, path: string) => Promise<T>,
     id = uuid.v4()
   ): Promise<T> {
+    if (!this.server || !this.port) {
+      throw new Error(
+        `Server is not running! Please make sure that start() was called.`
+      );
+    }
     this.nodes[id] = node;
     const result = await ready(this.port, `/render/${id}`);
     delete this.nodes[id];

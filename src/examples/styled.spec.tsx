@@ -7,7 +7,7 @@ import { StyledComponentsExample } from "./components/styled-components-example"
 
 expect.extend({ toMatchImageSnapshot });
 
-describe("Example", () => {
+describe("Styled components", () => {
   const renderer = new ReactScreenshotRenderer();
 
   beforeAll(async () => {
@@ -16,12 +16,6 @@ describe("Example", () => {
 
   afterAll(async () => {
     await renderer.stop();
-  });
-
-  it("takes screenshot with simple element", async () => {
-    expect(
-      await renderer.render(<div>Simple element</div>)
-    ).toMatchImageSnapshot();
   });
 
   it("takes screenshot with inline style CSS example", async () => {

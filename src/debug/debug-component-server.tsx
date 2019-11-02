@@ -3,12 +3,12 @@ import { StyledComponentsExample } from "../examples/components/styled-component
 import { ReactComponentServer } from "../lib/component-server";
 
 (async function() {
-  const server = new ReactComponentServer(3000);
+  const server = new ReactComponentServer();
   await server.start();
   await server.serve(
     <StyledComponentsExample />,
-    url => {
-      console.log(`Ready to serve at ${url}`);
+    (port, path) => {
+      console.log(`Ready to serve at http://localhost:${port}${path}`);
       return new Promise(() => {
         // Never resolve.
       });

@@ -9,7 +9,7 @@
   "scripts": {
     "build": "rm -rf dist; tsc",
     "test": "jest",
-    "debug": "ts-node-dev src/debug/debug-renderer.tsx",
+    "debug-component-server": "ts-node-dev src/debug/debug-component-server.tsx",
     "prepublishOnly": "yarn build"
   },
   "types": "dist/lib/index.d.ts",
@@ -35,9 +35,11 @@
     "typescript": "^3.6.4"
   },
   "dependencies": {
+    "assert-never": "^1.2.0",
     "axios": "^0.19.0",
     "dockerode": "^3.0.2",
     "express": "^4.17.1",
+    "get-port": "^5.0.0",
     "is-docker": "^2.0.0",
     "puppeteer": "^2.0.0",
     "uuid": "^3.3.3"

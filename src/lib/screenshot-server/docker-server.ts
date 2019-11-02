@@ -1,20 +1,19 @@
-import axios from "axios";
 import Docker from "dockerode";
-import { ScreenshotRenderer } from "./api";
+import { ScreenshotServer } from "./api";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
 const DOCKER_IMAGE_VERSION = "0.0.1";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
 /**
- * A screenshot renderer that leverages a Docker container (which runs Chrome)
- * to ensure that screenshots are consistent across platforms.
+ * A screenshot server running inside a Docker container (which runs Chrome) to
+ * ensure that screenshots are consistent across platforms.
  */
-export class DockerRenderer implements ScreenshotRenderer {
+export class DockerScreenshotServer implements ScreenshotServer {
   private readonly docker: Docker;
   private container: Docker.Container | null = null;
 
-  constructor(private readonly port = 3038) {
+  constructor(private readonly port: number) {
     this.docker = new Docker({ socketPath: "/var/run/docker.sock" });
   }
 
@@ -37,19 +36,6 @@ export class DockerRenderer implements ScreenshotRenderer {
     }
     await this.container.kill();
     await this.container.remove();
-  }
-
-  async render(url: string) {
-    const response = await axios.post(
-      `http://localhost:${this.port}/render`,
-      {
-        url
-      },
-      {
-        responseType: "arraybuffer"
-      }
-    );
-    return response.data;
   }
 }
 

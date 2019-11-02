@@ -5,4 +5,4 @@ RUN yarn install
 COPY tsconfig.json .
 COPY src/lib src/lib
 RUN yarn build
-ENTRYPOINT [ "node", "dist/lib/screenshot-server.js" ]
+ENTRYPOINT [ "node", "dist/lib/docker-entrypoint.js" ]
