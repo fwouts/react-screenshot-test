@@ -54,10 +54,14 @@ export class ReactComponentServer {
       const rendered = ReactDOMServer.renderToString(sheet.collectStyles(node));
       res.send(
         ReactDOMServer.renderToString(
-          <html>
-            <head>{sheet.getStyleElement()}</head>
-            <body dangerouslySetInnerHTML={{ __html: rendered }}></body>
-          </html>
+          React.createElement(
+            "html",
+            null,
+            React.createElement("head", null, sheet.getStyleElement()),
+            React.createElement("body", {
+              dangerouslySetInnerHTML: { __html: rendered }
+            })
+          )
         )
       );
     } finally {
@@ -69,9 +73,11 @@ export class ReactComponentServer {
     // Simply render the node. This works with Emotion, too!
     res.send(
       ReactDOMServer.renderToString(
-        <html>
-          <body>{node}</body>
-        </html>
+        React.createElement(
+          "html",
+          null,
+          React.createElement("body", null, node)
+        )
       )
     );
   }
