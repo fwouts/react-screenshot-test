@@ -28,6 +28,12 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run:
+          name: Set up Git LFS
+          command: |
+            sudo apt-get install -y git-lfs
+            git lfs install
+            git lfs pull
       - *restore_cache
       - run: yarn install
       - *save_cache
