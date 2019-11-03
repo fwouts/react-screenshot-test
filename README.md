@@ -109,6 +109,11 @@ for (const [device, viewport] of Object.entries(VIEWPORTS)) {
 }
 ```
 
+## Storing image snapshots
+
+We recommend using [Git LFS](https://git-lfs.github.com) to store image
+snapshots. This will help prevent your Git repository from becoming bloated over time. See our [`.gitattributes`](.gitattributes) for an example setup.
+
 ## TypeScript support
 
 This library is written in TypeScript. All declarations are included.
