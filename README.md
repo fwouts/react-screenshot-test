@@ -75,6 +75,40 @@ Because of how it's built, `react-screenshot-test` does not support CSS imports.
 | `import "./style.css"`                                 | ❌        |
 | `import css from "./style.css"`                        | ❌        |
 
+## Simulating various screen sizes
+
+The `render()` method takes an optional `viewport` argument, which you can leverage to simulate various screen sizes or mobile devices.
+
+For example, you can define the following viewports:
+
+```typescript
+import { devices, Viewport } from "puppeteer";
+
+export const VIEWPORTS: {
+  [name: string]: Viewport;
+} = {
+  Desktop: {
+    width: 1024,
+    height: 768
+  },
+  "iPhone X": devices["iPhone X"].viewport
+};
+```
+
+then use a loop to generate a separate test for each viewport:
+
+```typescript
+for (const [device, viewport] of Object.entries(VIEWPORTS)) {
+  describe(device, () => {
+    it("takes screenshot with simple element", async () => {
+      expect(
+        await renderer.render(<div>Simple element</div>, viewport)
+      ).toMatchImageSnapshot();
+    });
+  });
+}
+```
+
 ## TypeScript support
 
 This library is written in TypeScript. All declarations are included.
