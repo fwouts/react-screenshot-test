@@ -1,3 +1,5 @@
+import { Viewport } from "puppeteer";
+
 /**
  * A screenshot renderer takes screenshots of arbitrary URLs.
  *
@@ -8,5 +10,5 @@
 export interface ScreenshotRenderer {
   start(): Promise<void>;
   stop(): Promise<void>;
-  render(url: string): Promise<Buffer>;
+  render(url: string, viewport?: Viewport): Promise<Buffer>;
 }

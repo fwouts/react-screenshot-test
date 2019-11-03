@@ -2,7 +2,7 @@ import Docker from "dockerode";
 import { ScreenshotServer } from "./api";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
-const DOCKER_IMAGE_VERSION = "0.0.1";
+const DOCKER_IMAGE_VERSION = "0.0.2";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
 /**

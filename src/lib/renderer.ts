@@ -1,11 +1,9 @@
+import { Viewport } from "puppeteer";
 import React from "react";
 import { ReactComponentServer } from "./component-server";
 import { ScreenshotRenderer } from "./screenshot-renderer/api";
 import { ServerRenderer } from "./screenshot-renderer/server-renderer";
-import {
-  SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_PORT
-} from "./screenshot-server/config";
+import { SCREENSHOT_MODE, SCREENSHOT_SERVER_PORT } from "./screenshot-server/config";
 
 /**
  * ReactScreenshotRenderer renders screenshots of React components.
@@ -35,13 +33,13 @@ export class ReactScreenshotRenderer {
     ]);
   }
 
-  async render(node: React.ReactNode) {
+  async render(node: React.ReactNode, viewport?: Viewport) {
     return this.componentServer.serve(node, async (port, path) => {
       const url =
         SCREENSHOT_MODE === "local"
           ? `http://localhost:${port}${path}`
           : `http://host.docker.internal:${port}${path}`;
-      return this.screenshotRenderer.render(url);
+      return this.screenshotRenderer.render(url, viewport);
     });
   }
 }
