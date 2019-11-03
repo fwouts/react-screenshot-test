@@ -23,11 +23,14 @@ export class LocalChromeRenderer implements ScreenshotRenderer {
     await this.browser.close();
   }
 
-  async render(url: string) {
+  async render(url: string, viewport?: puppeteer.Viewport) {
     if (!this.browser) {
       throw new Error(`Please call start() once before render().`);
     }
     const page = await this.browser.newPage();
+    if (viewport) {
+      await page.setViewport(viewport);
+    }
     await page.goto(url);
     const screenshot = await page.screenshot({
       encoding: "binary"

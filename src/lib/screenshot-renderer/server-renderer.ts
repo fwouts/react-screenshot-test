@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Viewport } from "puppeteer";
 import { ScreenshotRenderer } from "./api";
 
 /**
@@ -16,11 +17,12 @@ export class ServerRenderer implements ScreenshotRenderer {
     // Do nothing.
   }
 
-  async render(url: string) {
+  async render(url: string, viewport?: Viewport) {
     const response = await axios.post(
       `${this.baseUrl}/render`,
       {
-        url
+        url,
+        viewport
       },
       {
         responseType: "arraybuffer"

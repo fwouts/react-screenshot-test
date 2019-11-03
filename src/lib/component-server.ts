@@ -9,6 +9,11 @@ import uuid from "uuid";
 // projects which don't use styled-components don't crash.
 type ServerStyleSheet = import("styled-components").ServerStyleSheet;
 
+const viewportMeta = React.createElement("meta", {
+  name: "viewport",
+  content: "width=device-width, initial-scale=1.0"
+});
+
 /**
  * ReactComponentServer renders React nodes in a plain HTML page.
  */
@@ -59,7 +64,12 @@ export class ReactComponentServer {
           React.createElement(
             "html",
             null,
-            React.createElement("head", null, sheet.getStyleElement()),
+            React.createElement(
+              "head",
+              null,
+              viewportMeta,
+              sheet.getStyleElement()
+            ),
             React.createElement("body", {
               dangerouslySetInnerHTML: { __html: rendered }
             })
@@ -78,6 +88,7 @@ export class ReactComponentServer {
         React.createElement(
           "html",
           null,
+          React.createElement("head", null, viewportMeta),
           React.createElement("body", null, node)
         )
       )
