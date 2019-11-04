@@ -1,4 +1,5 @@
-import { devices, Viewport } from "puppeteer";
+import { devices } from "puppeteer";
+import { Viewport } from "../lib";
 
 export const VIEWPORTS: {
   [name: string]: Viewport;

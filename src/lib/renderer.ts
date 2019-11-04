@@ -1,9 +1,11 @@
-import { Viewport } from "puppeteer";
 import React from "react";
 import { ReactComponentServer } from "./component-server";
-import { ScreenshotRenderer } from "./screenshot-renderer/api";
+import { ScreenshotRenderer, Viewport } from "./screenshot-renderer/api";
 import { ServerRenderer } from "./screenshot-renderer/server-renderer";
-import { SCREENSHOT_MODE, SCREENSHOT_SERVER_PORT } from "./screenshot-server/config";
+import {
+  SCREENSHOT_MODE,
+  SCREENSHOT_SERVER_PORT
+} from "./screenshot-server/config";
 
 /**
  * ReactScreenshotRenderer renders screenshots of React components.

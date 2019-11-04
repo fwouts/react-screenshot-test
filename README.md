@@ -82,7 +82,8 @@ The `render()` method takes an optional `viewport` argument, which you can lever
 For example, you can define the following viewports:
 
 ```typescript
-import { devices, Viewport } from "puppeteer";
+import { devices } from "puppeteer";
+import { Viewport } from "react-screenshot-test";
 
 export const VIEWPORTS: {
   [name: string]: Viewport;

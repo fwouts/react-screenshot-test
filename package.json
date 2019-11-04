@@ -27,6 +27,7 @@
     "@types/uuid": "^3.4.6",
     "jest": "^24.9.0",
     "jest-image-snapshot": "^2.11.0",
+    "puppeteer": "^2.0.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "styled-components": "^4.4.1",
@@ -42,7 +43,6 @@
     "express": "^4.17.1",
     "get-port": "^5.0.0",
     "is-docker": "^2.0.0",
-    "puppeteer": "^2.0.0",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {

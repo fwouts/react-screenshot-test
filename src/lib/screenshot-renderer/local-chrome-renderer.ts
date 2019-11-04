@@ -1,15 +1,26 @@
-import puppeteer from "puppeteer";
-import { ScreenshotRenderer } from "./api";
+import { ScreenshotRenderer, Viewport } from "./api";
+
+type Browser = import("puppeteer").Browser;
 
 /**
  * A screenshot renderer that uses Chrome (via Puppeteer) to take screenshots on
  * the current platform.
  */
 export class LocalChromeRenderer implements ScreenshotRenderer {
-  private browser: puppeteer.Browser | null = null;
+  private browser: Browser | null = null;
 
   async start() {
-    this.browser = await puppeteer.launch({
+    // Puppeteer is not a dependency, because most users would likely use Docker
+    // which is the default behaviour.
+    let puppeteer;
+    try {
+      puppeteer = await import("puppeteer");
+    } catch (e) {
+      throw new Error(
+        `Please install the 'puppeteer' package:\n\nUsing NPM:\n$ npm install -D puppeteer\n\nUsing Yarn:\n$ yarn add -D puppeteer`
+      );
+    }
+    this.browser = await puppeteer.default.launch({
       args: ["--no-sandbox"]
     });
   }
@@ -23,7 +34,7 @@ export class LocalChromeRenderer implements ScreenshotRenderer {
     await this.browser.close();
   }
 
-  async render(url: string, viewport?: puppeteer.Viewport) {
+  async render(url: string, viewport?: Viewport) {
     if (!this.browser) {
       throw new Error(`Please call start() once before render().`);
     }
