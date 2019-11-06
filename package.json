@@ -18,7 +18,7 @@
     "@emotion/styled": "^10.0.23",
     "@types/dockerode": "^2.5.20",
     "@types/express": "^4.17.2",
-    "@types/jest": "^24.0.21",
+    "@types/jest": "^24.0.22",
     "@types/jest-image-snapshot": "^2.11.0",
     "@types/puppeteer": "^1.20.2",
     "@types/react": "^16.9.11",
