@@ -42,9 +42,9 @@ you would quickly run into issues where screenshots are inconsistent across
 platforms. This is, for better or worse, expected behaviour.
 
 In order to work around this issue, `react-screenshot-test` will default to
-running Puppeteer inside Docker to take screenshots of your components. This
-ensures that generated screenshots are consistent regardless of which platform
-you run your tests on.
+running Puppeteer (i.e. Chrome) inside Docker to take screenshots of your
+components. This ensures that generated screenshots are consistent regardless of
+which platform you run your tests on.
 
 You can override this behaviour by setting the `SCREENSHOT_MODE` environment
 variable to `local`, which will always use a local browser instead of Docker.
