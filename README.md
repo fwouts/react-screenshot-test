@@ -23,12 +23,11 @@ That's it. Well, almost!
 
 All that's left is configuring Jest's `globalSetup` and `globalTeardown` scripts:
 
-```typescript
-// globalSetup
-export default async () => setUpScreenshotServer();
-
-// globalTeardown
-export default async () => tearDownScreenshotServer();
+```json
+{
+  "globalSetup": "react-screenshot-test/global-setup",
+  "globalTeardown": "react-screenshot-test/global-teardown"
+}
 ```
 
 ## How does it work?

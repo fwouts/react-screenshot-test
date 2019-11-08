@@ -10,7 +10,7 @@ import {
 import { DockerScreenshotServer } from "./screenshot-server/docker-server";
 import { LocalScreenshotServer } from "./screenshot-server/local-server";
 
-let screenshotServer: ScreenshotServer | null = null;
+export let screenshotServer: ScreenshotServer | null = null;
 
 export async function setUpScreenshotServer() {
   if (screenshotServer) {
@@ -29,15 +29,6 @@ export async function setUpScreenshotServer() {
   }
 }
 
-export async function tearDownScreenshotServer() {
-  if (!screenshotServer) {
-    throw new Error(
-      `Please make sure that setUpScreenshotServer() was called.`
-    );
-  }
-  await screenshotServer.stop();
-}
-
 function createScreenshotServer(): ScreenshotServer {
   switch (SCREENSHOT_MODE) {
     case "local":
@@ -51,3 +42,5 @@ function createScreenshotServer(): ScreenshotServer {
       throw assertNever(SCREENSHOT_MODE);
   }
 }
+
+export default setUpScreenshotServer;
