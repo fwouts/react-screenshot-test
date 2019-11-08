@@ -30,6 +30,14 @@ All that's left is configuring Jest's `globalSetup` and `globalTeardown` scripts
 }
 ```
 
+You can then generate screenshots with `jest -u`, just like you normally do with
+snapshot tests.
+
+## What does it look like?
+
+Here's a real example of a pull request where a component was changed:
+[![Example PR](example-pr.png)](https://github.com/fwouts/react-screenshot-test/pull/12/files#diff-e61c081cbc935befbe8d3333de26ff6d)
+
 ## How does it work?
 
 Under the hood, we start a local server which renders components server-side. Each component is given its own dedicated page (e.g. /render/my-component). Then we use Puppeteer to take a screenshot of that page.
