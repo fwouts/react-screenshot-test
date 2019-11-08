@@ -1,4 +1,5 @@
 import axios from "axios";
+import chalk from "chalk";
 import { Viewport } from "puppeteer";
 import { ScreenshotRenderer } from "./api";
 
@@ -18,16 +19,31 @@ export class ServerRenderer implements ScreenshotRenderer {
   }
 
   async render(url: string, viewport?: Viewport) {
-    const response = await axios.post(
-      `${this.baseUrl}/render`,
-      {
-        url,
-        viewport
-      },
-      {
-        responseType: "arraybuffer"
-      }
-    );
-    return response.data;
+    try {
+      const response = await axios.post(
+        `${this.baseUrl}/render`,
+        {
+          url,
+          viewport
+        },
+        {
+          responseType: "arraybuffer"
+        }
+      );
+      return response.data;
+    } catch (e) {
+      console.error(
+        chalk.red(
+          `Unable to reach screenshot server. Please make sure that your Jest configuration contains the following:
+
+{
+  "globalSetup": "react-screenshot-test/global-setup",
+  "globalTeardown": "react-screenshot-test/global-teardown"
+}
+`
+        )
+      );
+      throw e;
+    }
   }
 }
