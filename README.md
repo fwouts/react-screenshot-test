@@ -79,3 +79,7 @@ snapshots. This will help prevent your Git repository from becoming bloated over
 ## TypeScript support
 
 This library is written in TypeScript. All declarations are included.
+
+## Browser support
+
+At the moment, screenshots are only generated with Chrome. However, the design can be extended to any headless browser. File an issue if you'd like to help make this happen.
