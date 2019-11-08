@@ -5,44 +5,31 @@
 
 This is a dead simple library to screenshot test React components.
 
-It works best in conjunction with `jest-image-snapshot`.
-
 ```typescript
-import { toMatchImageSnapshot } from "jest-image-snapshot";
+// my-component.spec.jsx (or .tsx)
+
 import React from "react";
-import {
-  ReactScreenshotRenderer,
-  setUpScreenshotServer,
-  tearDownScreenshotServer
-} from "react-screenshot-test";
+import { ReactScreenshotTest } from "../lib";
+import { VIEWPORTS } from "./viewports";
 
-expect.extend({ toMatchImageSnapshot });
-
-describe("Example", () => {
-  const renderer = new ReactScreenshotRenderer();
-
-  beforeAll(async () => {
-    // Note: this should move to your globalSetup script if you have multiple tests.
-    await setUpScreenshotServer();
-
-    await renderer.start();
-  });
-
-  afterAll(async () => {
-    await renderer.stop();
-
-    // Note: this should move to your globalTeardown script if you have multiple tests.
-    await tearDownScreenshotServer();
-  });
-
-  it("takes screenshot", async () => {
-    const image = await renderer.render(<div>Test</div>);
-    expect(image).toMatchImageSnapshot();
-  });
-});
+ReactScreenshotTest.create("Using runner")
+  .viewports(VIEWPORTS)
+  .shoot("with title", <MyComponent title="Hello, World!" />)
+  .shoot("without title", <MyComponent title={null} />)
+  .run();
 ```
 
-That's it.
+That's it. Well, almost!
+
+All that's left is configuring Jest's `globalSetup` and `globalTeardown` scripts:
+
+```typescript
+// globalSetup
+export default async () => setUpScreenshotServer();
+
+// globalTeardown
+export default async () => tearDownScreenshotServer();
+```
 
 ## How does it work?
 

@@ -1,5 +1,3 @@
 import { setUpScreenshotServer } from "../../lib";
 
-export default async () => {
-  await setUpScreenshotServer();
-};
+export default async () => setUpScreenshotServer();
