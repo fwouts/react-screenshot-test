@@ -73,7 +73,7 @@ export class ReactScreenshotTest {
     }
     this.ran = true;
     if (Object.keys(this._viewports).length === 0) {
-      throw new Error(`Please define viewports with .addViewport()`);
+      throw new Error(`Please define viewports with .viewport()`);
     }
     if (Object.keys(this._shots).length === 0) {
       throw new Error(`Please define shots with .shoot()`);
