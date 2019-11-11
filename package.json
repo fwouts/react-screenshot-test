@@ -23,7 +23,7 @@
     "@types/puppeteer": "^1.20.2",
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",
-    "@types/styled-components": "^4.1.22",
+    "@types/styled-components": "^4.4.0",
     "@types/uuid": "^3.4.6",
     "jest": "^24.9.0",
     "puppeteer": "^2.0.0",
