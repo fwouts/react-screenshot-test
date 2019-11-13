@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist; tsc",
-    "test": "jest",
+    "unit-test": "jest",
+    "screenshot-test": "jest -c jest.screenshot.config.js",
     "debug-component-server": "ts-node-dev src/debug/debug-component-server.tsx",
     "prepublishOnly": "yarn build"
   },

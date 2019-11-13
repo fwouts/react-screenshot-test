@@ -24,7 +24,15 @@ jobs:
       - run: yarn install
       - *save_cache
       - run: yarn build
-  test:
+  unit-test:
+    <<: *defaults
+    steps:
+      - checkout
+      - *restore_cache
+      - run: yarn install
+      - *save_cache
+      - run: yarn unit-test
+  screenshot-test:
     <<: *defaults
     steps:
       - checkout
@@ -37,7 +45,7 @@ jobs:
       - *restore_cache
       - run: yarn install
       - *save_cache
-      - run: yarn test
+      - run: yarn screenshot-test
       - store_artifacts:
           path: src/examples/__image_snapshots__
           destination: snapshots
