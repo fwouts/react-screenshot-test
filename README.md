@@ -6,16 +6,27 @@
 This is a dead simple library to screenshot test React components.
 
 ```typescript
-// my-component.screenshot.jsx (or .tsx)
+// FancyButton.screenshot.jsx (or .tsx)
 
 import React from "react";
 import { ReactScreenshotTest } from "react-screenshot-test";
-import { VIEWPORTS } from "./viewports";
+import { FancyButton } from "./FancyButton";
 
-ReactScreenshotTest.create("Using runner")
-  .viewports(VIEWPORTS)
-  .shoot("with title", <MyComponent title="Hello, World!" />)
-  .shoot("without title", <MyComponent title={null} />)
+ReactScreenshotTest.create("FancyButton")
+  .viewport("Desktop", {
+    width: 1024,
+    height: 768
+  })
+  .viewport("iPhone X", {
+    width: 375,
+    height: 812,
+    deviceScaleFactor: 3,
+    isMobile: true,
+    hasTouch: true,
+    isLandscape: false
+  })
+  .shoot("with label", <FancyButton label="Hello, World!" />)
+  .shoot("empty label", <FancyButton />)
   .run();
 ```
 
@@ -40,8 +51,8 @@ just like you would with Jest snapshots.
 
 ## What does it look like?
 
-Here's a real example of a pull request where a component was changed:
-[![Example PR](example-pr.png)](https://github.com/fwouts/react-screenshot-test/pull/12/files#diff-e61c081cbc935befbe8d3333de26ff6d)
+Here's a [real example](https://github.com/fwouts/react-screenshot-test/pull/18/files?short_path=9fa0253#diff-9fa0253d6c3a2b1cf8ec498eec18360e) of a pull request where a component was changed:
+[![Example PR](example-pr.png)](https://github.com/fwouts/react-screenshot-test/pull/18/files?short_path=c1101dd#diff-c1101ddb11729f8ee0750df5e9595b47)
 
 ## How does it work?
 
