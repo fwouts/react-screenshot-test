@@ -21,7 +21,7 @@ ReactScreenshotTest.create("Using runner")
 
 That's it. Well, almost!
 
-All that's left is configuring up Jest for your screenshot tests:
+All that's left is configuring Jest for your screenshot tests:
 
 ```js
 // jest.screenshot.config.js
