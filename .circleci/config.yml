@@ -49,9 +49,15 @@ jobs:
       - store_artifacts:
           path: src/examples/__image_snapshots__
           destination: snapshots
+  docker-image:
+    <<: *defaults
+    steps:
+      - checkout
+      - docker build
 workflows:
   check:
     jobs:
       - build
       - unit-test
       - screenshot-test
+      - docker-image
