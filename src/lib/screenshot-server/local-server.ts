@@ -28,7 +28,9 @@ export class LocalScreenshotServer implements ScreenshotServer {
     this.app.post("/render", async (req, res) => {
       const url = req.body.url;
       const viewport = req.body.viewport;
-      const screenshot = await this.renderer.render(url, viewport);
+      const screenshot = await (viewport
+        ? this.renderer.render(url, viewport)
+        : this.renderer.render(url));
       res.contentType("image/png");
       res.end(screenshot);
     });
