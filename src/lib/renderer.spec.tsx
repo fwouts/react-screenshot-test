@@ -37,7 +37,7 @@ describe("ReactScreenshotRenderer", () => {
     });
   });
 
-  describe("start", () => {
+  describe("stop", () => {
     it("stops both", async () => {
       const renderer = new ReactScreenshotRenderer(
         mockComponentServer,
