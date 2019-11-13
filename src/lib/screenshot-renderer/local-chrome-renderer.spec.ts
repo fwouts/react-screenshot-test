@@ -9,7 +9,7 @@ jest.mock("puppeteer");
 describe("LocalChromeRenderer", () => {
   let mockBrowser: jest.Mocked<Browser>;
   let mockPage: jest.Mocked<Page>;
-  
+
   beforeEach(() => {
     mockPage = partialMock<Page>({
       goto: jest.fn(),
