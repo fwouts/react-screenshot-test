@@ -9,7 +9,7 @@ This is a dead simple library to screenshot test React components.
 // my-component.screenshot.jsx (or .tsx)
 
 import React from "react";
-import { ReactScreenshotTest } from "../lib";
+import { ReactScreenshotTest } from "react-screenshot-test";
 import { VIEWPORTS } from "./viewports";
 
 ReactScreenshotTest.create("Using runner")
