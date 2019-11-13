@@ -12,6 +12,8 @@
     "react-screenshot-test": "^0.0.13"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.22",
+    "@emotion/styled": "^10.0.23",
     "react": "^16.11.0",
     "react-dom": "^16.11.0"
   }
