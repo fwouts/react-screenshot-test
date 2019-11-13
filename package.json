@@ -5,6 +5,9 @@
     "name": "François Wouts",
     "email": "f@zenc.io"
   },
+  "repository": {
+    "url": "https://github.com/fwouts/react-screenshot-test"
+  },
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist; tsc",
