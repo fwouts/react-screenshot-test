@@ -11,6 +11,7 @@ describe("LocalChromeRenderer", () => {
   let mockPage: jest.Mocked<Page>;
 
   beforeEach(() => {
+    jest.resetAllMocks();
     mockPage = partialMock<Page>({
       goto: jest.fn(),
       screenshot: jest.fn(),
