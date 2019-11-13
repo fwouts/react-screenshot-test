@@ -13,7 +13,7 @@ const Button = styled.button`
   font-size: 2em;
 `;
 
-export const EmotionExample = () => (
+export const EmotionComponent = () => (
   <Container>
     <Button>This component was styled with Emotion</Button>
   </Container>

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const InlineStyleExample = () => (
+export const InlineStyleComponent = () => (
   <div
     style={{
       padding: 16

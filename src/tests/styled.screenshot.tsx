@@ -1,13 +1,13 @@
 import React from "react";
 import { ReactScreenshotTest } from "../lib";
-import { EmotionExample } from "./components/emotion-example";
-import { InlineStyleExample } from "./components/inline-style-example";
-import { StyledComponentsExample } from "./components/styled-components-example";
+import { EmotionComponent } from "./components/emotion";
+import { InlineStyleComponent } from "./components/inline-style";
+import { StyledComponentsComponent } from "./components/styled-components";
 import { VIEWPORTS } from "./viewports";
 
 ReactScreenshotTest.create("Styled components")
   .viewports(VIEWPORTS)
-  .shoot("inline style CSS", <InlineStyleExample />)
-  .shoot("emotion CSS", <EmotionExample />)
-  .shoot("styled-components CSS", <StyledComponentsExample />)
+  .shoot("inline style CSS", <InlineStyleComponent />)
+  .shoot("emotion CSS", <EmotionComponent />)
+  .shoot("styled-components CSS", <StyledComponentsComponent />)
   .run();

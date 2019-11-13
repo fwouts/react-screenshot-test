@@ -13,7 +13,7 @@ const Button = styled.button`
   font-size: 2em;
 `;
 
-export const StyledComponentsExample = () => (
+export const StyledComponentsComponent = () => (
   <Container>
     <Button>This component was styled with styled-components</Button>
   </Container>
