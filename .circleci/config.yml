@@ -53,7 +53,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - docker build
+      - run: docker build
 workflows:
   check:
     jobs:
