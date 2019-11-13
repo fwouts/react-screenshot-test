@@ -6,7 +6,7 @@
 This is a dead simple library to screenshot test React components.
 
 ```typescript
-// my-component.spec.jsx (or .tsx)
+// my-component.screenshot.jsx (or .tsx)
 
 import React from "react";
 import { ReactScreenshotTest } from "../lib";
@@ -21,17 +21,22 @@ ReactScreenshotTest.create("Using runner")
 
 That's it. Well, almost!
 
-All that's left is configuring Jest's `globalSetup` and `globalTeardown` scripts:
+All that's left is configuring up Jest for your screenshot tests:
 
-```json
-{
-  "globalSetup": "react-screenshot-test/global-setup",
-  "globalTeardown": "react-screenshot-test/global-teardown"
-}
+```js
+// jest.screenshot.config.js
+
+module.exports = {
+  preset: "ts-jest", // Only if you use TypeScript
+  testEnvironment: "node",
+  globalSetup: "react-screenshot-test/global-setup",
+  globalTeardown: "react-screenshot-test/global-teardown",
+  testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"]
+};
 ```
 
-You can then generate screenshots with `jest -u`, just like you normally do with
-snapshot tests.
+You can then generate screenshots with `jest -c jest.screenshot.config.js -u`,
+just like you would with Jest snapshots.
 
 ## What does it look like?
 
