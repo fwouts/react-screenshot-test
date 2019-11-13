@@ -11,15 +11,12 @@ import {
  * ReactScreenshotRenderer renders screenshots of React components.
  */
 export class ReactScreenshotRenderer {
-  private readonly componentServer: ReactComponentServer;
-  private readonly screenshotRenderer: ScreenshotRenderer;
-
-  constructor() {
-    this.componentServer = new ReactComponentServer();
-    this.screenshotRenderer = new ServerRenderer(
+  constructor(
+    private readonly componentServer = new ReactComponentServer(),
+    private readonly screenshotRenderer: ScreenshotRenderer = new ServerRenderer(
       `http://localhost:${SCREENSHOT_SERVER_PORT}`
-    );
-  }
+    )
+  ) {}
 
   async start() {
     await Promise.all([
@@ -41,7 +38,9 @@ export class ReactScreenshotRenderer {
         SCREENSHOT_MODE === "local"
           ? `http://localhost:${port}${path}`
           : `http://host.docker.internal:${port}${path}`;
-      return this.screenshotRenderer.render(url, viewport);
+      return viewport
+        ? this.screenshotRenderer.render(url, viewport)
+        : this.screenshotRenderer.render(url);
     });
   }
 }
