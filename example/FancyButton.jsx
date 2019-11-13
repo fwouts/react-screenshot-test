@@ -6,8 +6,8 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
-  background: #00f;
-  color: #fff;
+  background: #f80a;
+  color: #000;
   padding: 8px;
   border-radius: 4px;
   font-size: 2em;
