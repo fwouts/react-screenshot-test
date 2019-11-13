@@ -55,6 +55,21 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: docker build .
+  example:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Set up Git LFS
+          command: |
+            sudo apt-get install -y git-lfs
+            git lfs install
+            git lfs pull
+      - run: cd example && yarn install
+      - run: cd example && yarn screenshot-test
+      - store_artifacts:
+          path: example/__image_snapshots__
+          destination: example-snapshots
 workflows:
   check:
     jobs:
@@ -62,3 +77,4 @@ workflows:
       - unit-test
       - screenshot-test
       - docker-image
+      - example
