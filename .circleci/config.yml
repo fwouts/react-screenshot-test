@@ -53,4 +53,5 @@ workflows:
   check:
     jobs:
       - build
-      - test
+      - unit-test
+      - screenshot-test
