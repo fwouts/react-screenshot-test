@@ -3,6 +3,6 @@ WORKDIR /renderer
 COPY package.json yarn.lock .yarnclean ./
 RUN yarn install
 COPY tsconfig.json .
-COPY src/lib src/lib
+COPY src src
 RUN yarn build
 ENTRYPOINT [ "node", "dist/lib/docker-entrypoint.js" ]
