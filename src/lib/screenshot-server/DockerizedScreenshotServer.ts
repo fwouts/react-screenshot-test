@@ -9,7 +9,7 @@ const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
  * A screenshot server running inside a Docker container (which runs Chrome) to
  * ensure that screenshots are consistent across platforms.
  */
-export class DockerScreenshotServer implements ScreenshotServer {
+export class DockerizedScreenshotServer implements ScreenshotServer {
   private readonly docker: Docker;
   private container: Docker.Container | null = null;
 

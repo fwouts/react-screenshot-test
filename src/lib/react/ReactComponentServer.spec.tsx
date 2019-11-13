@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { ReactComponentServer } from "./component-server";
+import { ReactComponentServer } from "./ReactComponentServer";
 
 describe("ReactComponentServer", () => {
   beforeEach(() => {

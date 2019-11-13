@@ -1,7 +1,19 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
-import { ReactScreenshotRenderer } from "./renderer";
-import { Viewport } from "./screenshot-renderer/api";
+import { Viewport } from "../screenshot-renderer/api";
+import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 
+/**
+ * ReactScreenshotTest is a builder for screenshot tests.
+ *
+ * Example usage:
+ * ```
+ * ReactScreenshotTest.create("Using runner")
+ *     .viewports(VIEWPORTS)
+ *     .shoot("with title", <MyComponent title="Hello, World!" />)
+ *     .shoot("without title", <MyComponent title={null} />)
+ *     .run();
+ * ```
+ */
 export class ReactScreenshotTest {
   private readonly _viewports: {
     [name: string]: Viewport;
@@ -80,7 +92,7 @@ export class ReactScreenshotTest {
     }
     expect.extend({ toMatchImageSnapshot });
     describe(this.componentName, () => {
-      const renderer = new ReactScreenshotRenderer();
+      const renderer = new ReactScreenshotTaker();
 
       beforeAll(async () => {
         await renderer.start();

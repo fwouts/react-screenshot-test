@@ -2,13 +2,13 @@ import axios, { AxiosResponse } from "axios";
 import { dummy } from "../../testing/dummy";
 import { mocked } from "../../testing/mock";
 import { partialMock } from "../../testing/partial-mock";
-import { ServerRenderer } from "./server-renderer";
+import { HttpScreenshotRenderer } from "./HttpScreenshotRenderer";
 
 jest.mock("axios");
 
 const SERVER_URL = "http://localhost:1234";
 
-describe("ServerRenderer", () => {
+describe("HttpScreenshotRenderer", () => {
   const dummyBinaryScreenshot: Buffer = dummy();
 
   beforeEach(() => {
@@ -22,7 +22,7 @@ describe("ServerRenderer", () => {
 
   describe("render", () => {
     it("takes a screenshot", async () => {
-      const renderer = new ServerRenderer(SERVER_URL);
+      const renderer = new HttpScreenshotRenderer(SERVER_URL);
       await renderer.start();
       const screenshot = await renderer.render("http://example.com");
       expect(screenshot).toBe(dummyBinaryScreenshot);
@@ -38,7 +38,7 @@ describe("ServerRenderer", () => {
     });
 
     it("sets the viewport if provided", async () => {
-      const renderer = new ServerRenderer(SERVER_URL);
+      const renderer = new HttpScreenshotRenderer(SERVER_URL);
       await renderer.start();
       await renderer.render("http://example.com", {
         width: 1024,
@@ -58,7 +58,7 @@ describe("ServerRenderer", () => {
     });
 
     it("does not set the viewport if not provided", async () => {
-      const renderer = new ServerRenderer(SERVER_URL);
+      const renderer = new HttpScreenshotRenderer(SERVER_URL);
       await renderer.start();
       await renderer.render("http://example.com");
       expect(axios.post).toHaveBeenCalledWith(

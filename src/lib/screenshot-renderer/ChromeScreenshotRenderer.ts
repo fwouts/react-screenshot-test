@@ -6,7 +6,7 @@ type Browser = import("puppeteer").Browser;
  * A screenshot renderer that uses Chrome (via Puppeteer) to take screenshots on
  * the current platform.
  */
-export class LocalChromeRenderer implements ScreenshotRenderer {
+export class ChromeScreenshotRenderer implements ScreenshotRenderer {
   private browser: Browser | null = null;
 
   async start() {

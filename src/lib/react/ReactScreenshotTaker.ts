@@ -1,19 +1,19 @@
 import React from "react";
-import { ReactComponentServer } from "./component-server";
-import { ScreenshotRenderer, Viewport } from "./screenshot-renderer/api";
-import { ServerRenderer } from "./screenshot-renderer/server-renderer";
+import { ReactComponentServer } from "./ReactComponentServer";
+import { ScreenshotRenderer, Viewport } from "../screenshot-renderer/api";
+import { HttpScreenshotRenderer } from "../screenshot-renderer/HttpScreenshotRenderer";
 import {
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
-} from "./screenshot-server/config";
+} from "../screenshot-server/config";
 
 /**
- * ReactScreenshotRenderer renders screenshots of React components.
+ * ReactScreenshotTaker renders screenshots of React components.
  */
-export class ReactScreenshotRenderer {
+export class ReactScreenshotTaker {
   constructor(
     private readonly componentServer = new ReactComponentServer(),
-    private readonly screenshotRenderer: ScreenshotRenderer = new ServerRenderer(
+    private readonly screenshotRenderer: ScreenshotRenderer = new HttpScreenshotRenderer(
       `http://localhost:${SCREENSHOT_SERVER_PORT}`
     )
   ) {}

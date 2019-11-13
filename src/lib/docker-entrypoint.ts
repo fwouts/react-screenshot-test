@@ -1,8 +1,8 @@
-import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
-import { LocalScreenshotServer } from "./screenshot-server/local-server";
+import { ChromeScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
+import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer";
 
 const screenshotServer = new LocalScreenshotServer(
-  new LocalChromeRenderer(),
+  new ChromeScreenshotRenderer(),
   3000
 );
 screenshotServer

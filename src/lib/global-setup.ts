@@ -1,14 +1,14 @@
 import assertNever from "assert-never";
 import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
-import { LocalChromeRenderer } from "./screenshot-renderer/local-chrome-renderer";
+import { ChromeScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
 } from "./screenshot-server/config";
-import { DockerScreenshotServer } from "./screenshot-server/docker-server";
-import { LocalScreenshotServer } from "./screenshot-server/local-server";
+import { DockerizedScreenshotServer } from "./screenshot-server/DockerizedScreenshotServer";
+import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer";
 
 export let screenshotServer: ScreenshotServer | null = null;
 
@@ -33,11 +33,11 @@ function createScreenshotServer(): ScreenshotServer {
   switch (SCREENSHOT_MODE) {
     case "local":
       return new LocalScreenshotServer(
-        new LocalChromeRenderer(),
+        new ChromeScreenshotRenderer(),
         SCREENSHOT_SERVER_PORT
       );
     case "docker":
-      return new DockerScreenshotServer(SCREENSHOT_SERVER_PORT);
+      return new DockerizedScreenshotServer(SCREENSHOT_SERVER_PORT);
     default:
       throw assertNever(SCREENSHOT_MODE);
   }

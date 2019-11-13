@@ -1,3 +1,3 @@
-export { ReactScreenshotRenderer } from "./renderer";
-export { ReactScreenshotTest } from "./runner";
+export { ReactScreenshotTaker } from "./react/ReactScreenshotTaker";
+export { ReactScreenshotTest } from "./react/ReactScreenshotTest";
 export { Viewport } from "./screenshot-renderer/api";

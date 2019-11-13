@@ -2,7 +2,7 @@ import axios from "axios";
 import getPort from "get-port";
 import { partialMock } from "../../testing/partial-mock";
 import { ScreenshotRenderer } from "../screenshot-renderer/api";
-import { LocalScreenshotServer } from "./local-server";
+import { LocalScreenshotServer } from "./LocalScreenshotServer";
 
 describe("LocalScreenshotServer", () => {
   let mockRenderer: jest.Mocked<ScreenshotRenderer>;

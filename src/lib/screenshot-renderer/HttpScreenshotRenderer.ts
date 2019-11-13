@@ -7,7 +7,7 @@ import { ScreenshotRenderer } from "./api";
  * A screenshot renderer that leverages a screenshot server (not necessarily
  * running on the same machine) to take screenshots.
  */
-export class ServerRenderer implements ScreenshotRenderer {
+export class HttpScreenshotRenderer implements ScreenshotRenderer {
   constructor(private readonly baseUrl: string) {}
 
   async start() {

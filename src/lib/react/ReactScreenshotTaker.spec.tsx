@@ -1,10 +1,10 @@
 import React from "react";
-import { partialMock } from "../testing/partial-mock";
-import { ReactComponentServer } from "./component-server";
-import { ReactScreenshotRenderer } from "./renderer";
-import { ScreenshotRenderer } from "./screenshot-renderer/api";
+import { partialMock } from "../../testing/partial-mock";
+import { ReactComponentServer } from "./ReactComponentServer";
+import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
+import { ScreenshotRenderer } from "../screenshot-renderer/api";
 
-describe("ReactScreenshotRenderer", () => {
+describe("ReactScreenshotTaker", () => {
   let mockComponentServer: jest.Mocked<ReactComponentServer>;
   let mockScreenshotRenderer: jest.Mocked<ScreenshotRenderer>;
 
@@ -27,7 +27,7 @@ describe("ReactScreenshotRenderer", () => {
 
   describe("start", () => {
     it("starts both", async () => {
-      const renderer = new ReactScreenshotRenderer(
+      const renderer = new ReactScreenshotTaker(
         mockComponentServer,
         mockScreenshotRenderer
       );
@@ -39,7 +39,7 @@ describe("ReactScreenshotRenderer", () => {
 
   describe("stop", () => {
     it("stops both", async () => {
-      const renderer = new ReactScreenshotRenderer(
+      const renderer = new ReactScreenshotTaker(
         mockComponentServer,
         mockScreenshotRenderer
       );
@@ -51,7 +51,7 @@ describe("ReactScreenshotRenderer", () => {
 
   describe("render", () => {
     it("delegates without viewport", async () => {
-      const renderer = new ReactScreenshotRenderer(
+      const renderer = new ReactScreenshotTaker(
         mockComponentServer,
         mockScreenshotRenderer
       );
@@ -67,7 +67,7 @@ describe("ReactScreenshotRenderer", () => {
     });
 
     it("delegates with viewport", async () => {
-      const renderer = new ReactScreenshotRenderer(
+      const renderer = new ReactScreenshotTaker(
         mockComponentServer,
         mockScreenshotRenderer
       );

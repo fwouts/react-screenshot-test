@@ -1,6 +1,6 @@
 import React from "react";
 import { StyledComponentsExample } from "../examples/components/styled-components-example";
-import { ReactComponentServer } from "../lib/component-server";
+import { ReactComponentServer } from "../lib/react/ReactComponentServer";
 
 (async function() {
   const server = new ReactComponentServer();
