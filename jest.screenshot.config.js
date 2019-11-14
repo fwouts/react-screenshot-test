@@ -4,7 +4,7 @@ module.exports = {
   globalSetup: "./src/lib/global-setup.ts",
   globalTeardown: "./src/lib/global-teardown.ts",
   transform: {
-    "^.+\\.css$": "jest-transform-css"
+    "^.+\\.css$": "./src/css-transform"
   },
   testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"],
   testPathIgnorePatterns: ["/dist/", "/example/", "/node_modules/"]
