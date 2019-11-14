@@ -99,3 +99,12 @@ This library is written in TypeScript. All declarations are included.
 ## Browser support
 
 At the moment, screenshots are only generated with Chrome. However, the design can be extended to any headless browser. File an issue if you'd like to help make this happen.
+
+## Comparison
+
+| Tool                                                                         | Type   | Open Source | Price for 100,000 snapshots/month | Jest integration | Review process                                                         |
+| ---------------------------------------------------------------------------- | ------ | ----------- | --------------------------------- | ---------------- | ---------------------------------------------------------------------- |
+| [react-screenshot-test](https://www.npmjs.com/package/react-screenshot-test) | Visual | ✅          | Free                              | ✅               | Pull request                                                           |
+| [Jest snapshots](https://jestjs.io/docs/en/snapshot-testing)                 | JSX    | ✅          | Free                              | ✅               | Pull request                                                           |
+| [Percy](https://percy.io)                                                    | Visual | ❌          | [\$469](https://percy.io/pricing) | ❌               | Separate UI                                                            |  |
+| [storycap](https://github.com/reg-viz/storycap)                              | Visual | ✅          | Free                              | ❌               | Implicit approval with [reg-suit](https://github.com/reg-viz/reg-suit) |
