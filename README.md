@@ -1,4 +1,4 @@
-# react-screenshot-test
+[![Logo](brand/logo.png)](https://www.npmjs.com/package/react-screenshot-test)
 
 [![CircleCI](https://img.shields.io/circleci/build/github/fwouts/react-screenshot-test)](https://circleci.com/gh/fwouts/react-screenshot-test/tree/master)
 [![npm](https://img.shields.io/npm/v/react-screenshot-test)](https://www.npmjs.com/package/react-screenshot-test)
