@@ -29,6 +29,7 @@
     "@types/styled-components": "^4.4.0",
     "@types/uuid": "^3.4.6",
     "jest": "^24.9.0",
+    "jest-transform-css": "^2.0.0",
     "prettier": "^1.19.1",
     "puppeteer": "^2.0.0",
     "react": "^16.11.0",
@@ -36,7 +37,8 @@
     "styled-components": "^4.4.1",
     "ts-jest": "^24.1.0",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "typescript-plugin-css-modules": "^2.0.2"
   },
   "dependencies": {
     "assert-never": "^1.2.0",

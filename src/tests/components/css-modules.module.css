@@ -1,0 +1,11 @@
+.container {
+  padding: 16px;
+}
+
+.styledButton {
+  background: #00f;
+  color: #fff;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 2em;
+}
