@@ -5,7 +5,7 @@
 
 This is a dead simple library to screenshot test React components.
 
-[![Code example](example-code.png)](example/FancyButton.screenshot.jsx)
+[![Code example](example-code.png)](https://github.com/fwouts/react-screenshot-test/tree/master/example/FancyButton.screenshot.jsx)
 
 That's it. Well, almost!
 
