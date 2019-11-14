@@ -85,3 +85,9 @@ At the moment, screenshots are only generated with Chrome. However, the design c
 | [Jest snapshots](https://jestjs.io/docs/en/snapshot-testing)                 | ❌     | ✅          | Free                              | ✅               | Pull request                                                           |
 | [Percy](https://percy.io)                                                    | ✅     | ❌          | [\$469](https://percy.io/pricing) | ❌               | Separate UI                                                            |  |
 | [storycap](https://github.com/reg-viz/storycap)                              | ✅     | ✅          | Free                              | ❌               | Implicit approval with [reg-suit](https://github.com/reg-viz/reg-suit) |
+
+## Reporting issues
+
+If something doesn't work, or if the documentation is unclear, please do not hesitate to [raise an issue](https://github.com/fwouts/react-screenshot-test/issues)!
+
+If it doesn't work for you, it probably doesn't work for others either 🙃
