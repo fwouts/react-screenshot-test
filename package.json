@@ -48,7 +48,7 @@
     "express": "^4.17.1",
     "get-port": "^5.0.0",
     "is-docker": "^2.0.0",
-    "jest-image-snapshot": "^2.11.0",
+    "jest-image-snapshot": "^2.11.1",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
