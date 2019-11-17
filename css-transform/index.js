@@ -1,10 +1,35 @@
 // Note: this was forked from
 // https://github.com/dferber90/jest-transform-css/blob/master/index.js
 
+const { cosmiconfigSync } = require("cosmiconfig");
 const crossSpawn = require("cross-spawn");
 
+const explorer = cosmiconfigSync("react-screenshot-test");
+const transformConfig = explorer.search();
+
 module.exports = {
-  process: (src, filename, config, options) => {
+  process: (src, filename) => {
+    // No modules processing when plain CSS is used.
+    // You can create react-screenshot-test.config.js in your project and add
+    // module.exports = { modules: true };
+    // or
+    // module.exports = { modules: filename => filename.endsWith(".mod.css") };
+    // to enable css module transformation.
+    const useModules =
+      transformConfig &&
+      transformConfig.config &&
+      ((typeof transformConfig.config.cssModules === "boolean" &&
+        transformConfig.config.cssModules) ||
+        (typeof transformConfig.config.cssModules === "function" &&
+          transformConfig.config.cssModules(filename)));
+    if (!useModules) {
+      return `
+        const { recordCss } = require("react-screenshot-test");
+        recordCss(${JSON.stringify(src)});
+        module.exports = {};
+      `;
+    }
+
     // The "process" function of this Jest transform must be sync,
     // but postcss is async. So we spawn a sync process to do an sync
     // transformation!
