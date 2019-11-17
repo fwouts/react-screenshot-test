@@ -2,9 +2,9 @@
   padding: 16px;
 }
 
-.styled-button {
-  background: #00f;
-  color: #fff;
+.styledButton {
+  background: #f80;
+  color: #000;
   padding: 8px;
   border-radius: 4px;
   font-size: 2em;
