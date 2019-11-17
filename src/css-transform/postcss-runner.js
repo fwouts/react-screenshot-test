@@ -1,4 +1,5 @@
-// Forked from https://github.com/dferber90/jest-transform-css/blob/master/postcss-runner.js
+// Note: this was forked from
+// https://github.com/dferber90/jest-transform-css/blob/master/postcss-runner.js
 
 const postcss = require("postcss");
 const postcssrc = require("postcss-load-config");
