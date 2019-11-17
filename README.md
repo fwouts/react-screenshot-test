@@ -19,7 +19,10 @@ module.exports = {
   testEnvironment: "node",
   globalSetup: "react-screenshot-test/global-setup",
   globalTeardown: "react-screenshot-test/global-teardown",
-  testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"]
+  testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"],
+  transform: {
+    "^.+\\.css$": "react-screenshot-test/css-transform"
+  }
 };
 ```
 
@@ -54,13 +57,24 @@ variable to `local`, which will always use a local browser instead of Docker.
 
 CSS-in-JS libraries such as Emotion and Styled Components are supported.
 
-| CSS technique                                          | Supported                                                               |
-| ------------------------------------------------------ | ----------------------------------------------------------------------- |
-| `<div style={...}`                                     | ✅                                                                      |
-| [Emotion](https://emotion.sh)                          | ✅                                                                      |
-| [Styled Components](https://www.styled-components.com) | ✅                                                                      |
-| `import "./style.css"`                                 | [Coming soon!](https://github.com/fwouts/react-screenshot-test/pull/19) |
-| `import css from "./style.css"`                        | [Coming soon!](https://github.com/fwouts/react-screenshot-test/pull/19) |
+| CSS technique                                          | Supported |
+| ------------------------------------------------------ | --------- |
+| `<div style={...}`                                     | ✅        |
+| [Emotion](https://emotion.sh)                          | ✅        |
+| [Styled Components](https://www.styled-components.com) | ✅        |
+| `import "./style.css"`                                 | ✅        |
+| `import css from "./style.css"`                        | ✅        |
+
+In order to use CSS Modules, you will need to create a config file to tell us
+which CSS files represent CSS modules:
+
+```js
+// react-screenshot-test.config.js
+
+module.exports = {
+  cssModules: name => name.endsWith(".module.css")
+};
+```
 
 ## Storing image snapshots
 

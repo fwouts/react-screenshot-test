@@ -1,3 +1,3 @@
 module.exports = {
-  cssModules: filename => filename.endsWith(".module.css")
+  cssModules: name => name.endsWith(".module.css")
 };
