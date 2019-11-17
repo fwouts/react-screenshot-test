@@ -54,7 +54,7 @@ module.exports = {
 
     // Finally, inject the styles to the document
     return `
-      const { recordCss } = require("${__dirname}/recorded-css");
+      const { recordCss } = require("react-screenshot-test");
       recordCss(${JSON.stringify(css)});
       module.exports = ${JSON.stringify(tokens)};
     `;

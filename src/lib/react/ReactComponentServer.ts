@@ -4,7 +4,7 @@ import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import uuid from "uuid";
-import { readRecordedCss } from "../../css-transform/recorded-css";
+import { readRecordedCss } from "../recorded-css";
 
 // Import ServerStyleSheet without importing styled-components, so that
 // projects which don't use styled-components don't crash.
