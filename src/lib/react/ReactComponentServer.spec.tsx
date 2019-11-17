@@ -16,9 +16,14 @@ describe("ReactComponentServer", () => {
       // Fuzzy match.
       expect(data).toContain("<div>Hello, World!</div>");
       // Exact match.
-      expect(data).toMatchInlineSnapshot(
-        `"<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><style></style></head><body><div>Hello, World!</div></body></html>"`
-      );
+      expect(data).toMatchInlineSnapshot(`
+        "<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><style>
+        * {
+          transition: none !important;
+          animation: none !important;
+        }
+        </style></head><body><div>Hello, World!</div></body></html>"
+      `);
       rendered = true;
     });
     expect(rendered).toBe(true);
