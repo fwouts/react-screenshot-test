@@ -39,8 +39,7 @@
     "styled-components": "^4.4.1",
     "ts-jest": "^24.1.0",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.2",
-    "typescript-plugin-css-modules": "^2.0.2"
+    "typescript": "^3.7.2"
   },
   "dependencies": {
     "assert-never": "^1.2.0",
