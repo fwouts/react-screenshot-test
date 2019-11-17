@@ -1,13 +1,31 @@
 [![Logo](brand/logo.png)](https://www.npmjs.com/package/react-screenshot-test)
 
-[![CircleCI](https://circleci.com/gh/fwouts/react-screenshot-test.svg?style=shield)](https://circleci.com/gh/fwouts/react-screenshot-test/tree/master)
-[![npm](https://badge.fury.io/js/react-screenshot-test.svg)](https://www.npmjs.com/package/react-screenshot-test)
-[![downloads](https://img.shields.io/npm/dt/react-screenshot-test.svg)](https://www.npmjs.com/package/react-screenshot-test)
-[![license](https://img.shields.io/npm/l/react-screenshot-test.svg)](https://www.npmjs.com/package/react-screenshot-test)
+<p align="center">
+  <a href="https://circleci.com/gh/fwouts/react-screenshot-test/tree/master">
+    <img src="https://circleci.com/gh/fwouts/react-screenshot-test.svg?style=shield" alt="CircleCI" />
+  </a>
+  <a href="https://www.npmjs.com/package/react-screenshot-test">
+    <img src="https://badge.fury.io/js/react-screenshot-test.svg" alt="npm" />
+  </a>
+  <a href="https://www.npmjs.com/package/react-screenshot-test">
+    <img src="https://img.shields.io/npm/dt/react-screenshot-test.svg" alt="downloads" />
+  </a>
+  <a href="https://www.npmjs.com/package/react-screenshot-test">
+    <img src="https://img.shields.io/npm/l/react-screenshot-test.svg" alt="license" />
+  </a>
+</p>
 
-[![dependencies](https://david-dm.org/fwouts/react-screenshot-test/status.svg)](https://david-dm.org/fwouts/react-screenshot-test)
-[![dev dependencies](https://david-dm.org/fwouts/react-screenshot-test/dev-status.svg)](https://david-dm.org/fwouts/react-screenshot-test)
-[![peer dependencies](https://david-dm.org/fwouts/react-screenshot-test/peer-status.svg)](https://david-dm.org/fwouts/react-screenshot-test)
+<p align="center">
+  <a href="https://david-dm.org/fwouts/react-screenshot-test">
+    <img src="https://david-dm.org/fwouts/react-screenshot-test/status.svg" alt="dependencies" />
+  </a>
+  <a href="https://david-dm.org/fwouts/react-screenshot-test">
+    <img src="https://david-dm.org/fwouts/react-screenshot-test/dev-status.svg" alt="dev dependencies" />
+  </a>
+  <a href="https://david-dm.org/fwouts/react-screenshot-test">
+    <img src="https://david-dm.org/fwouts/react-screenshot-test/peer-status.svg" alt="peer dependencies" />
+  </a>
+</p>
 
 This is a dead simple library to screenshot test React components.
 
