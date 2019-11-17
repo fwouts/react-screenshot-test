@@ -27,13 +27,14 @@
   </a>
 </p>
 
-This is a dead simple library to screenshot test React components.
+<br />
+<br />
+
+Here is a screenshot test written with `react-screenshot-test`:
 
 [![Code example](example-code.png)](https://github.com/fwouts/react-screenshot-test/tree/master/example/FancyButton.screenshot.jsx)
 
-That's it. Well, almost!
-
-All that's left is configuring Jest for your screenshot tests:
+All you need is to install `react-screenshot-test` and configure Jest:
 
 ```js
 // jest.screenshot.config.js
