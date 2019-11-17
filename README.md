@@ -54,15 +54,13 @@ variable to `local`, which will always use a local browser instead of Docker.
 
 CSS-in-JS libraries such as Emotion and Styled Components are supported.
 
-However, CSS imports are mocked out by Jest, which means that `react-screenshot-test` cannot support them.
-
-| CSS technique                                          | Supported |
-| ------------------------------------------------------ | --------- |
-| `<div style={...}`                                     | ✅        |
-| [Emotion](https://emotion.sh)                          | ✅        |
-| [Styled Components](https://www.styled-components.com) | ✅        |
-| `import "./style.css"`                                 | ❌        |
-| `import css from "./style.css"`                        | ❌        |
+| CSS technique                                          | Supported                                                               |
+| ------------------------------------------------------ | ----------------------------------------------------------------------- |
+| `<div style={...}`                                     | ✅                                                                      |
+| [Emotion](https://emotion.sh)                          | ✅                                                                      |
+| [Styled Components](https://www.styled-components.com) | ✅                                                                      |
+| `import "./style.css"`                                 | [Coming soon!](https://github.com/fwouts/react-screenshot-test/pull/19) |
+| `import css from "./style.css"`                        | [Coming soon!](https://github.com/fwouts/react-screenshot-test/pull/19) |
 
 ## Storing image snapshots
 
