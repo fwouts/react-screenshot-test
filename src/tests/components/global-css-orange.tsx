@@ -1,9 +1,9 @@
 import React from "react";
-import "./global-style.css";
+import "./global-style-orange.css";
 
-export const GlobalCssComponent = () => (
+export const GlobalCssOrangeComponent = () => (
   <div className="container">
-    <button className="styled-button">
+    <button className="styledButton">
       This component was styled with global CSS
     </button>
   </div>

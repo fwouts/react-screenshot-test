@@ -17,7 +17,7 @@ describe("ReactComponentServer", () => {
       expect(data).toContain("<div>Hello, World!</div>");
       // Exact match.
       expect(data).toMatchInlineSnapshot(
-        `"<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/></head><body><div>Hello, World!</div></body></html>"`
+        `"<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><style></style></head><body><div>Hello, World!</div></body></html>"`
       );
       rendered = true;
     });

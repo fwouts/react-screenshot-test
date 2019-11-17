@@ -4,6 +4,7 @@ import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import uuid from "uuid";
+import { readRecordedCss } from "../recorded-css";
 
 // Import ServerStyleSheet without importing styled-components, so that
 // projects which don't use styled-components don't crash.
@@ -68,6 +69,7 @@ export class ReactComponentServer {
               "head",
               null,
               viewportMeta,
+              React.createElement("style", null, readRecordedCss()),
               sheet.getStyleElement()
             ),
             React.createElement("body", {
@@ -88,7 +90,12 @@ export class ReactComponentServer {
         React.createElement(
           "html",
           null,
-          React.createElement("head", null, viewportMeta),
+          React.createElement(
+            "head",
+            null,
+            viewportMeta,
+            React.createElement("style", null, readRecordedCss())
+          ),
           React.createElement("body", null, node)
         )
       )
