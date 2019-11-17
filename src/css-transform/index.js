@@ -35,7 +35,7 @@ module.exports = {
     try {
       // we likely logged something to the console from postcss-runner
       // in order to debug, and hence the parsing fails!
-      parsed = JSON.parse(result.stdout.toString());
+      const parsed = JSON.parse(result.stdout.toString());
       css = parsed.css;
       tokens = parsed.tokens;
       if (Array.isArray(parsed.warnings))
@@ -46,7 +46,7 @@ module.exports = {
       // we forward the logs and return no mappings
       console.error(result.stderr.toString());
       console.log(result.stdout.toString());
-      return stripIndent`
+      return `
         console.error("transform-css: Failed to load '${filename}'");
         module.exports = {};
       `;
