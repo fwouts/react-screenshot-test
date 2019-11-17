@@ -1,6 +1,8 @@
 import React from "react";
 import { ReactScreenshotTest } from "react-screenshot-test";
 import { FancyButton } from "./FancyButton";
+import "./global.css";
+import { redLabel } from "./style.module.css";
 
 ReactScreenshotTest.create("FancyButton")
   .viewport("Desktop", {
@@ -17,4 +19,8 @@ ReactScreenshotTest.create("FancyButton")
   })
   .shoot("with label", <FancyButton label="Hello, World!" />)
   .shoot("empty label", <FancyButton />)
+  .shoot(
+    "custom label",
+    <FancyButton label={<span className={redLabel}>Red label</span>} />
+  )
   .run();
