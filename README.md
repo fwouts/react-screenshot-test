@@ -104,7 +104,18 @@ module.exports = {
 ## Storing image snapshots
 
 We recommend using [Git LFS](https://git-lfs.github.com) to store image
-snapshots. This will help prevent your Git repository from becoming bloated over time. See our [`.gitattributes`](.gitattributes) for an example setup.
+snapshots. This will help prevent your Git repository from becoming bloated over time.
+
+If you're unfamiliar with Git LFS, you can learn about it with [this short video (2 min)](https://www.youtube.com/watch?v=uLR1RNqJ1Mw) and/or going through [the official tutorial](https://github.com/git-lfs/git-lfs/wiki/Tutorial).
+
+To set up Git LFS, [install the Git extension](https://git-lfs.github.com/) and add the following to `.gitattributes` in your repository ([source](https://github.com/americanexpress/jest-image-snapshot/issues/92#issuecomment-493582776)):
+```
+**/__image_snapshots__/*.* binary
+**/__image_snapshots__/*.* filter=lfs diff=lfs merge=lfs -text
+```
+
+You may also need to set up Git LFS for continuous integration. See [our config](https://github.com/fwouts/react-screenshot-test/blob/master/.circleci/config.yml) for an example with CircleCI.
+
 
 ## TypeScript support
 
