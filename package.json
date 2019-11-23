@@ -19,6 +19,7 @@
   "devDependencies": {
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
+    "@percy/script": "^1.0.2",
     "@types/dockerode": "^2.5.20",
     "@types/express": "^4.17.2",
     "@types/jest": "^24.0.23",
