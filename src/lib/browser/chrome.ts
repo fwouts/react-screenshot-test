@@ -8,7 +8,13 @@ export async function launchChrome(): Promise<Browser> {
     puppeteer = await import("puppeteer");
   } catch (e) {
     throw new Error(
-      `Please install the 'puppeteer' package:\n\nUsing NPM:\n$ npm install -D puppeteer\n\nUsing Yarn:\n$ yarn add -D puppeteer`
+      `Please install the 'puppeteer' package:
+
+Using NPM:
+$ npm install -D puppeteer
+
+Using Yarn:
+$ yarn add -D puppeteer`
     );
   }
   return puppeteer.default.launch({

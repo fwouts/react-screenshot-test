@@ -114,18 +114,28 @@ export class ReactScreenshotTest {
             const page = await browser.newPage();
             await componentServer.serve(shot, async (port, path) => {
               await page.goto(`http://localhost:${port}${path}`);
-              await import("@percy/puppeteer").then(
-                async ({ percySnapshot }) => {
-                  await percySnapshot(
-                    page,
-                    `${this.componentName} - ${shotName}`,
-                    {
-                      widths: Object.values(this._viewports).map(
-                        viewport =>
-                          viewport.width / (viewport.deviceScaleFactor || 1)
-                      )
-                    }
-                  );
+              let percy: typeof import("@percy/puppeteer");
+              try {
+                percy = await import("@percy/puppeteer");
+              } catch (e) {
+                throw new Error(
+                  `Please install the '@percy/puppeteer' package:
+            
+            Using NPM:
+            $ npm install -D @percy/puppeteer
+            
+            Using Yarn:
+            $ yarn add -D @percy/puppeteer`
+                );
+              }
+              await percy.percySnapshot(
+                page,
+                `${this.componentName} - ${shotName}`,
+                {
+                  widths: Object.values(this._viewports).map(
+                    viewport =>
+                      viewport.width / (viewport.deviceScaleFactor || 1)
+                  )
                 }
               );
             });
