@@ -13,7 +13,7 @@
     "build": "rm -rf dist; tsc",
     "unit-test": "jest",
     "screenshot-test": "jest -c jest.screenshot.config.js",
-    "percy-test": "percy exec -- jest -c jest.percy.config.js",
+    "percy-test": "SCREENSHOT_MODE=percy percy exec -- yarn screenshot-test",
     "prepublishOnly": "yarn build"
   },
   "types": "dist/lib/index.d.ts",
