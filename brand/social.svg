@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="640px" viewBox="0 0 1280 640" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>social</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="136" cy="136" r="110"></circle>
+        <filter x="-9.5%" y="-8.2%" width="121.8%" height="121.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="3" dy="6" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="7" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="136" cy="136" r="86"></circle>
+        <filter x="-10.2%" y="-10.2%" width="120.3%" height="120.3%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="17" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="social" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo" transform="translate(502.000000, 93.000000)">
+            <rect id="Rectangle" stroke="#256AB2" stroke-width="7" fill="#4A90E2" fill-rule="evenodd" x="0" y="0" width="272" height="272" rx="24"></rect>
+            <g id="Oval">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <g id="Oval">
+                <use fill="#4C4C4C" fill-rule="evenodd" xlink:href="#path-3"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+            </g>
+            <circle id="Oval" fill="#89B5FF" fill-rule="evenodd" cx="136" cy="136" r="69"></circle>
+            <circle id="Oval" fill="#A5C7FF" fill-rule="evenodd" cx="136.5" cy="122.5" r="55.5"></circle>
+        </g>
+        <text id="react-screenshot-tes" font-family="Helvetica" font-size="83" font-weight="normal" fill="#4A4A4A">
+            <tspan x="247.708008" y="513">react-screenshot-test</tspan>
+        </text>
+    </g>
+</svg>

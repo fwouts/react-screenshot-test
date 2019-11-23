@@ -7,7 +7,8 @@ module.exports = {
   },
   transform: {
     "^.+\\.[t|j]sx?$": "ts-jest",
-    "^.+\\.css$": "./css-transform"
+    "^.+\\.css$": "./css-transform",
+    "^.+\\.(svg|png|jpg|jpeg)$": "./asset-transform"
   },
   testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"],
   testPathIgnorePatterns: ["/dist/", "/example/", "/node_modules/"]

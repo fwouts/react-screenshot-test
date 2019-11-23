@@ -4,6 +4,7 @@ import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import uuid from "uuid";
+import { ASSET_SERVING_PREFIX, getAssetFilename } from "../recorded-assets";
 import { readRecordedCss } from "../recorded-css";
 
 // Import ServerStyleSheet without importing styled-components, so that
@@ -48,6 +49,10 @@ export class ReactComponentServer {
         .catch(() => {
           this.renderWithoutStyledComponents(res, node);
         });
+    });
+    this.app.get(`${ASSET_SERVING_PREFIX}:asset.:ext`, (req, res) => {
+      const filePath = getAssetFilename(req.path);
+      res.sendFile(filePath);
     });
   }
 
