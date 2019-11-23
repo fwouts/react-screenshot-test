@@ -103,6 +103,10 @@ module.exports = {
 };
 ```
 
+## Usage with create-react-app
+
+If you'd like to set up `react-screenshot-test` with a `create-react-app`, [here is everything you need](https://github.com/fwouts/react-screenshot-test-with-create-react-app/commit/b758c26937c20bf762463174014909d58d5ec2e3).
+
 ## Storing image snapshots
 
 We recommend using [Git LFS](https://git-lfs.github.com) to store image
