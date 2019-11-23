@@ -4352,10 +4352,10 @@ react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.11.0.tgz#b85dfecd48ad1ce469ff558a882ca8e8313928fa"
   integrity sha512-gbBVYR2p8mnriqAwWx9LbuUrShnAuSCNnuPGyc7GJrMVQtPDAh8iLpv7FRuMPFb56KkaVZIYSz1PrjI9q0QPCw==
 
-react-screenshot-test@^0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-0.1.4.tgz#1910abef74407e03387c321682ea4c71a445ad7f"
-  integrity sha512-YYcZcfNbUuF7ET9988iPDQQ5W2ptx3NI7n7eAQYkIuPML/shpezKXKcZQS8jvpUe+oXW6d8JvNW+i1XQOHXpiw==
+react-screenshot-test@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-1.0.0.tgz#7a83f560d3af8fed06e7ef89863bb785157e8797"
+  integrity sha512-m+AjlLJAjg0xCq/stUDTF0fiqF23H3KKO3aWbmhttwDpsgQNgVRb2JakYgSIFcZ/E7xD7Tykrp6SlkM68KXFPg==
   dependencies:
     assert-never "^1.2.0"
     axios "^0.19.0"
