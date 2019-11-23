@@ -45,7 +45,7 @@ jobs:
       - *restore_cache
       - run: yarn install
       - *save_cache
-      - run: yarn screenshot-test-local
+      - run: yarn screenshot-test
       - store_artifacts:
           path: src/examples/__image_snapshots__
           destination: snapshots
