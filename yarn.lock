@@ -554,10 +554,10 @@
     which "^2.0.1"
     winston "^3.0.0"
 
-"@percy/script@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@percy/script/-/script-1.0.2.tgz#1ac575f7e922e4b03213961c9ac81105decda8a1"
-  integrity sha512-+XZlw7i6qmksFzUzqXUDrd1TTuPGDbObbdzjdio51p9nOzFBDEQNT+mMlSbr/f5TorN82za/pGowjm+Sls1wPQ==
+"@percy/puppeteer@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@percy/puppeteer/-/puppeteer-1.0.8.tgz#9ce4359f885e446bea12bfaa99e746ff38755b03"
+  integrity sha512-YTR5scNNANchsP4iUurXYHVaBg3XPJBMmnfgHwJD9/SnSMjPvSEr7uN4cPGKH78rWibl/js8FFggedkK5+7fQA==
   dependencies:
     "@percy/agent" "~0"
 

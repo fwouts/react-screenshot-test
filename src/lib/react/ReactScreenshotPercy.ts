@@ -1,4 +1,5 @@
-import PercyScript from "@percy/script";
+import { percySnapshot } from "@percy/puppeteer";
+import { Browser, launch } from "puppeteer";
 import { ReactComponentServer } from "./ReactComponentServer";
 
 /**
@@ -83,26 +84,31 @@ export class ReactScreenshotPercy {
       throw new Error(`Please define shots with .shoot()`);
     }
 
-    const componentServer = new ReactComponentServer();
-    const startComponentServer = componentServer.start();
+    describe(this.componentName, () => {
+      const componentServer = new ReactComponentServer();
+      let browser: Browser;
 
-    const pendingRuns: Array<Promise<void>> = [];
-    for (const [shotName, shot] of Object.entries(this._shots)) {
-      pendingRuns.push(
-        new Promise<void>(resolve => {
-          PercyScript.run(async (page, percySnapshot) => {
-            await startComponentServer;
-            await componentServer.serve(shot, async (port, path) => {
-              await page.goto(`http://localhost:${port}${path}`);
-              await percySnapshot(`${this.componentName} - ${shotName}`, {
-                widths: this._widths
-              });
+      beforeAll(async () => {
+        await componentServer.start();
+        browser = await launch();
+      });
+
+      afterAll(async () => {
+        await componentServer.stop();
+        await browser.close();
+      });
+
+      for (const [shotName, shot] of Object.entries(this._shots)) {
+        it(shotName, async () => {
+          const page = await browser.newPage();
+          await componentServer.serve(shot, async (port, path) => {
+            await page.goto(`http://localhost:${port}${path}`);
+            await percySnapshot(page, `${this.componentName} - ${shotName}`, {
+              widths: this._widths
             });
-            resolve();
           });
-        })
-      );
-    }
-    Promise.all(pendingRuns).then(() => componentServer.stop());
+        });
+      }
+    });
   }
 }
