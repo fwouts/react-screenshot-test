@@ -12,8 +12,8 @@
   "scripts": {
     "build": "rm -rf dist; tsc",
     "unit-test": "jest",
-    "screenshot-test": "jest -c jest.screenshot.config.js",
-    "percy-test": "SCREENSHOT_MODE=percy percy exec -- yarn screenshot-test",
+    "screenshot-test-local": "jest -c jest.screenshot.config.js",
+    "screenshot-test-percy": "SCREENSHOT_MODE=percy percy exec -- yarn screenshot-test",
     "prepublishOnly": "yarn build"
   },
   "types": "dist/lib/index.d.ts",
