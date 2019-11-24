@@ -1,15 +1,17 @@
 {
   "name": "example",
   "scripts": {
-    "screenshot-test": "jest -c jest.screenshot.config.js"
+    "screenshot-test-local": "jest -c jest.screenshot.config.js",
+    "screenshot-test-percy": "SCREENSHOT_MODE=percy percy exec -- jest -c jest.screenshot.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
+    "@percy/puppeteer": "^1.0.8",
     "jest": "^24.9.0",
     "puppeteer": "^2.0.0",
-    "react-screenshot-test": "^1.0.0"
+    "react-screenshot-test": "1.1.0-beta"
   },
   "dependencies": {
     "@emotion/core": "^10.0.22",

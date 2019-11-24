@@ -63,7 +63,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run: docker build .
-  example:
+  example-local:
     <<: *defaults
     steps:
       - checkout
@@ -74,10 +74,16 @@ jobs:
             git lfs install
             git lfs pull
       - run: cd example && yarn install
-      - run: cd example && yarn screenshot-test
+      - run: cd example && yarn screenshot-test-local
       - store_artifacts:
           path: example/__image_snapshots__
           destination: example-snapshots
+  example-percy:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: cd example && yarn install
+      - run: cd example && PERCY_TOKEN=$PERCY_TOKEN_EXAMPLE yarn screenshot-test-percy
 workflows:
   check:
     jobs:
@@ -86,4 +92,5 @@ workflows:
       - screenshot-test-local
       - screenshot-test-percy
       - docker-image
-      - example
+      - example-local
+      - example-percy
