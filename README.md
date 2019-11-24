@@ -133,7 +133,7 @@ If you prefer to keep image snapshots out of your repository, you can use a thir
 
 ```json
 {
-  "scripts": "SCREENSHOT_MODE=percy percy exec -- jest -c jest.screenshot.config.js"
+  "screenshot-test-percy": "SCREENSHOT_MODE=percy percy exec -- jest -c jest.screenshot.config.js"
 }
 ```
 
