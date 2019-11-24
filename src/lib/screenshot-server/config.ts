@@ -21,11 +21,3 @@ function getScreenshotMode(): "local" | "docker" | "percy" {
   }
   return isDocker() ? "local" : "docker";
 }
-
-export function getPercyToken() {
-  const token = process.env.PERCY_TOKEN;
-  if (!token) {
-    throw new Error(`Could not find PERCY_TOKEN in environment variables.`);
-  }
-  return token;
-}
