@@ -32,7 +32,7 @@ jobs:
       - run: yarn install
       - *save_cache
       - run: yarn unit-test
-  screenshot-test:
+  screenshot-test-local:
     <<: *defaults
     steps:
       - checkout
@@ -45,10 +45,18 @@ jobs:
       - *restore_cache
       - run: yarn install
       - *save_cache
-      - run: yarn screenshot-test
+      - run: yarn screenshot-test-local
       - store_artifacts:
           path: src/examples/__image_snapshots__
           destination: snapshots
+  screenshot-test-percy:
+    <<: *defaults
+    steps:
+      - checkout
+      - *restore_cache
+      - run: yarn install
+      - *save_cache
+      - run: yarn screenshot-test-percy
   docker-image:
     <<: *defaults
     steps:
@@ -75,6 +83,7 @@ workflows:
     jobs:
       - build
       - unit-test
-      - screenshot-test
+      - screenshot-test-local
+      - screenshot-test-percy
       - docker-image
       - example

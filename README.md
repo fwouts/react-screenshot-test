@@ -123,6 +123,20 @@ To set up Git LFS, [install the Git extension](https://git-lfs.github.com/) and 
 
 You may also need to set up Git LFS for continuous integration. See [our config](https://github.com/fwouts/react-screenshot-test/blob/master/.circleci/config.yml) for an example with CircleCI.
 
+## Usage with Percy
+
+If you prefer to keep image snapshots out of your repository, you can use a third-party service such as [Percy](https://percy.io):
+
+- Install `@percy/puppeteer`
+- Ensure that `PERCY_TOKEN` is set in your enviroment
+- Set up a script to invoke Jest through Percy:
+
+```json
+{
+  "scripts": "SCREENSHOT_MODE=percy percy exec -- jest -c jest.screenshot.config.js"
+}
+```
+
 ## TypeScript support
 
 This library is written in TypeScript. All declarations are included.

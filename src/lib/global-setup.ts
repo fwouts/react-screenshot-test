@@ -17,19 +17,33 @@ export async function setUpScreenshotServer() {
     throw new Error(`Please only call setUpScreenshotServer() once.`);
   }
   screenshotServer = createScreenshotServer();
+  if (!screenshotServer) {
+    // If no screenshot server was needed (e.g. Percy), abort early.
+    return;
+  }
   try {
     await screenshotServer.start();
   } catch (e) {
     if (e.message.indexOf("connect ECONNREFUSED /var/run/docker.sock") !== -1) {
       throw chalk.red(
-        `\n\nBy default, ${PACKAGE_NAME} requires Docker to produce consistent screenshots across platforms.\n\nPlease ensure Docker is running, or force local rendering with:\n$ export SCREENSHOT_MODE=local\n`
+        `
+
+By default, ${PACKAGE_NAME} requires Docker to produce consistent screenshots across platforms.
+
+Please ensure Docker is running, or force local rendering with:
+$ export SCREENSHOT_MODE=local
+
+Alternatively if you'd like to use Percy (https://percy.io), set it up with:
+$ export SCREENSHOT_MODE=percy
+$ export PERCY_TOKEN=...
+`
       );
     }
     throw e;
   }
 }
 
-function createScreenshotServer(): ScreenshotServer {
+function createScreenshotServer(): ScreenshotServer | null {
   switch (SCREENSHOT_MODE) {
     case "local":
       return new LocalScreenshotServer(
@@ -38,6 +52,9 @@ function createScreenshotServer(): ScreenshotServer {
       );
     case "docker":
       return new DockerizedScreenshotServer(SCREENSHOT_SERVER_PORT);
+    case "percy":
+      // No need for a screenshot server.
+      return null;
     default:
       throw assertNever(SCREENSHOT_MODE);
   }

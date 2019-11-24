@@ -6,15 +6,16 @@ export const SCREENSHOT_SERVER_PORT = parseInt(
 
 export const SCREENSHOT_MODE = getScreenshotMode();
 
-function getScreenshotMode(): "local" | "docker" {
+function getScreenshotMode(): "local" | "docker" | "percy" {
   if (process.env.SCREENSHOT_MODE) {
     switch (process.env.SCREENSHOT_MODE) {
       case "local":
       case "docker":
+      case "percy":
         return process.env.SCREENSHOT_MODE;
       default:
         throw new Error(
-          `Valid values for SCREENSHOT_MODE are 'local' and 'docker'. Received '${process.env.SCREENSHOT_MODE}'.`
+          `Valid values for SCREENSHOT_MODE are 'local', 'docker' and 'percy'. Received '${process.env.SCREENSHOT_MODE}'.`
         );
     }
   }
