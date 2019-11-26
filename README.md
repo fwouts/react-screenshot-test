@@ -47,6 +47,7 @@ module.exports = {
   transform: {
     "^.+\\.[t|j]sx?$": "babel-jest", // or ts-jest
     "^.+\\.css$": "react-screenshot-test/css-transform",
+    "^.+\\.scss$": "react-screenshot-test/sass-transform", // only if you use SCSS
     "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
       "react-screenshot-test/asset-transform"
   }
@@ -87,12 +88,13 @@ CSS-in-JS libraries such as Emotion and Styled Components are supported.
 | CSS technique                                          | Supported |
 | ------------------------------------------------------ | --------- |
 | `<div style={...}`                                     | ✅        |
+| CSS stylesheets <br>`import "./style.css"`             | ✅        |
+| Sass stylesheets<br>`import "./style.scss"`            | ✅        |
+| CSS Modules<br>`import css from "./style.css"`         | ✅        |
 | [Emotion](https://emotion.sh)                          | ✅        |
 | [Styled Components](https://www.styled-components.com) | ✅        |
-| `import "./style.css"`                                 | ✅        |
-| `import css from "./style.css"`                        | ✅        |
 
-In order to use CSS Modules, you will need to create a config file to tell us
+Note: in order to use CSS Modules, you will to tell `react-screenshot-test`
 which CSS files represent CSS modules:
 
 ```js

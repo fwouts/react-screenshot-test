@@ -6,6 +6,7 @@ import { EmotionComponent } from "./components/emotion";
 import { GlobalCssBlueComponent } from "./components/global-css-blue";
 import { GlobalCssOrangeComponent } from "./components/global-css-orange";
 import { InlineStyleComponent } from "./components/inline-style";
+import { SassGreenComponent } from "./components/sass-green";
 import { StyledComponentsComponent } from "./components/styled-components";
 import "./global-style.css";
 import { VIEWPORTS } from "./viewports";
@@ -25,4 +26,5 @@ ReactScreenshotTest.create("Styled components")
   // generated for each.
   .shoot("CSS modules red", <CssModulesRedComponent />)
   .shoot("CSS modules green", <CssModulesGreenComponent />)
+  .shoot("SASS green", <SassGreenComponent />)
   .run();
