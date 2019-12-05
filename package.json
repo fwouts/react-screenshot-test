@@ -26,7 +26,7 @@
     "@types/jest": "^24.0.23",
     "@types/jest-image-snapshot": "^2.11.0",
     "@types/puppeteer": "^2.0.0",
-    "@types/react": "^16.9.14",
+    "@types/react": "^16.9.15",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.0",
     "@types/uuid": "^3.4.6",
