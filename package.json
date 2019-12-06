@@ -21,7 +21,7 @@
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
     "@percy/puppeteer": "^1.0.8",
-    "@types/dockerode": "^2.5.20",
+    "@types/dockerode": "^2.5.21",
     "@types/express": "^4.17.2",
     "@types/jest": "^24.0.23",
     "@types/jest-image-snapshot": "^2.11.0",
