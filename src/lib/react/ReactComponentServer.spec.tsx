@@ -11,21 +11,27 @@ describe("ReactComponentServer", () => {
     const server = new ReactComponentServer();
     await server.start();
     let rendered = false;
-    await server.serve(<div>Hello, World!</div>, async (port, path) => {
-      const { data } = await axios.get(`http://localhost:${port}${path}`);
-      // Fuzzy match.
-      expect(data).toContain("<div>Hello, World!</div>");
-      // Exact match.
-      expect(data).toMatchInlineSnapshot(`
-        "<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><style>
-        * {
-          transition: none !important;
-          animation: none !important;
-        }
-        </style></head><body><div>Hello, World!</div></body></html>"
-      `);
-      rendered = true;
-    });
+    await server.serve(
+      {
+        reactNode: <div>Hello, World!</div>,
+        remoteStylesheetUrls: ["https://fonts.googleapis.com/css?family=Roboto"]
+      },
+      async (port, path) => {
+        const { data } = await axios.get(`http://localhost:${port}${path}`);
+        // Fuzzy match.
+        expect(data).toContain("<div>Hello, World!</div>");
+        // Exact match.
+        expect(data).toMatchInlineSnapshot(`
+          "<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Roboto\\"/><style>
+          * {
+            transition: none !important;
+            animation: none !important;
+          }
+          </style></head><body><div>Hello, World!</div></body></html>"
+        `);
+        rendered = true;
+      }
+    );
     expect(rendered).toBe(true);
     await server.stop();
   });

@@ -25,7 +25,7 @@ export class ReactComponentServer {
   private port: number | null = null;
 
   private readonly nodes: {
-    [id: string]: React.ReactNode;
+    [id: string]: NodeDescription;
   } = {};
 
   constructor() {
@@ -59,39 +59,15 @@ export class ReactComponentServer {
   private renderWithStyledComponents(
     sheet: ServerStyleSheet,
     res: Response,
-    node: React.ReactNode
+    node: NodeDescription
   ) {
     // See https://www.styled-components.com/docs/advanced#server-side-rendering
     // for details.
     try {
-      const rendered = ReactDOMServer.renderToString(sheet.collectStyles(node));
-      res.send(
-        ReactDOMServer.renderToString(
-          React.createElement(
-            "html",
-            null,
-            React.createElement(
-              "head",
-              null,
-              viewportMeta,
-              React.createElement("style", null, readRecordedCss()),
-              sheet.getStyleElement()
-            ),
-            React.createElement("body", {
-              dangerouslySetInnerHTML: { __html: rendered }
-            })
-          )
-        )
+      const rendered = ReactDOMServer.renderToString(
+        sheet.collectStyles(node.reactNode)
       );
-    } finally {
-      sheet.seal();
-    }
-  }
-
-  private renderWithoutStyledComponents(res: Response, node: React.ReactNode) {
-    // Simply render the node. This works with Emotion, too!
-    res.send(
-      ReactDOMServer.renderToString(
+      const html = ReactDOMServer.renderToString(
         React.createElement(
           "html",
           null,
@@ -99,12 +75,48 @@ export class ReactComponentServer {
             "head",
             null,
             viewportMeta,
-            React.createElement("style", null, readRecordedCss())
+            ...node.remoteStylesheetUrls.map(url =>
+              React.createElement("link", {
+                rel: "stylesheet",
+                href: url
+              })
+            ),
+            React.createElement("style", null, readRecordedCss()),
+            sheet.getStyleElement()
           ),
-          React.createElement("body", null, node)
+          React.createElement("body", {
+            dangerouslySetInnerHTML: { __html: rendered }
+          })
         )
+      );
+      res.send(html);
+    } finally {
+      sheet.seal();
+    }
+  }
+
+  private renderWithoutStyledComponents(res: Response, node: NodeDescription) {
+    // Simply render the node. This works with Emotion, too!
+    const html = ReactDOMServer.renderToString(
+      React.createElement(
+        "html",
+        null,
+        React.createElement(
+          "head",
+          null,
+          viewportMeta,
+          ...node.remoteStylesheetUrls.map(url =>
+            React.createElement("link", {
+              rel: "stylesheet",
+              href: url
+            })
+          ),
+          React.createElement("style", null, readRecordedCss())
+        ),
+        React.createElement("body", null, node.reactNode)
       )
     );
+    res.send(html);
   }
 
   async start(): Promise<void> {
@@ -132,7 +144,7 @@ export class ReactComponentServer {
   }
 
   async serve<T>(
-    node: React.ReactNode,
+    node: NodeDescription,
     ready: (port: number, path: string) => Promise<T>,
     id = uuid.v4()
   ): Promise<T> {
@@ -146,4 +158,9 @@ export class ReactComponentServer {
     delete this.nodes[id];
     return result;
   }
+}
+
+export interface NodeDescription {
+  reactNode: React.ReactNode;
+  remoteStylesheetUrls: string[];
 }

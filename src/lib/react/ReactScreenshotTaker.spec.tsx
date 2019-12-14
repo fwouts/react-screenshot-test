@@ -1,8 +1,8 @@
 import React from "react";
 import { partialMock } from "../../testing/partial-mock";
-import { ReactComponentServer } from "./ReactComponentServer";
-import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 import { ScreenshotRenderer } from "../screenshot-renderer/api";
+import { NodeDescription, ReactComponentServer } from "./ReactComponentServer";
+import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 
 describe("ReactScreenshotTaker", () => {
   let mockComponentServer: jest.Mocked<ReactComponentServer>;
@@ -55,7 +55,10 @@ describe("ReactScreenshotTaker", () => {
         mockComponentServer,
         mockScreenshotRenderer
       );
-      const node = <div>Hello, World!</div>;
+      const node: NodeDescription = {
+        reactNode: <div>Hello, World!</div>,
+        remoteStylesheetUrls: []
+      };
       await renderer.render(node);
       expect(mockComponentServer.serve).toHaveBeenCalledWith(
         node,
@@ -71,7 +74,10 @@ describe("ReactScreenshotTaker", () => {
         mockComponentServer,
         mockScreenshotRenderer
       );
-      const node = <div>Hello, World!</div>;
+      const node: NodeDescription = {
+        reactNode: <div>Hello, World!</div>,
+        remoteStylesheetUrls: []
+      };
       await renderer.render(node, {
         width: 1024,
         height: 768

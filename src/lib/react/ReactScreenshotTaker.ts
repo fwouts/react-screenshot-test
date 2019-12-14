@@ -1,11 +1,10 @@
-import React from "react";
-import { ReactComponentServer } from "./ReactComponentServer";
 import { ScreenshotRenderer, Viewport } from "../screenshot-renderer/api";
 import { HttpScreenshotRenderer } from "../screenshot-renderer/HttpScreenshotRenderer";
 import {
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
 } from "../screenshot-server/config";
+import { NodeDescription, ReactComponentServer } from "./ReactComponentServer";
 
 /**
  * ReactScreenshotTaker renders screenshots of React components.
@@ -32,7 +31,7 @@ export class ReactScreenshotTaker {
     ]);
   }
 
-  async render(node: React.ReactNode, viewport?: Viewport) {
+  async render(node: NodeDescription, viewport?: Viewport) {
     return this.componentServer.serve(node, async (port, path) => {
       const url =
         SCREENSHOT_MODE === "local"
