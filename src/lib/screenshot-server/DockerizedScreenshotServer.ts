@@ -14,7 +14,12 @@ export class DockerizedScreenshotServer implements ScreenshotServer {
   private container: Docker.Container | null = null;
 
   constructor(private readonly port: number) {
-    this.docker = new Docker({ socketPath: "/var/run/docker.sock" });
+    this.docker = new Docker({
+      socketPath:
+        process.platform === "win32"
+          ? "//./pipe/docker_engine"
+          : "/var/run/docker.sock"
+    });
   }
 
   async start() {
