@@ -1,5 +1,7 @@
+@import "./sass-constants.scss";
+
 .sass-container {
-  padding: 16px;
+  padding: $paddingSize;
 
   .styledButton {
     background: #0a0;

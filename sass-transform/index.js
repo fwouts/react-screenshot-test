@@ -26,7 +26,7 @@ module.exports = {
 
   process: (src, filename) => {
     const { css: buffer } = sass.renderSync({
-      data: src
+      file: filename
     });
     const css = buffer.toString("utf8");
     return `
