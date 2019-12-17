@@ -50,7 +50,8 @@ module.exports = {
     "^.+\\.scss$": "react-screenshot-test/sass-transform",
     "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
       "react-screenshot-test/asset-transform"
-  }
+  },
+  transformIgnorePatterns: ["node_modules/.+\\.js"]
 };
 ```
 
