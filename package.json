@@ -54,7 +54,7 @@
     "is-docker": "^2.0.0",
     "jest-image-snapshot": "^2.11.1",
     "postcss-load-config": "2.1.0",
-    "postcss-modules": "1.4.1",
+    "postcss-modules": "^1.4.1",
     "uuid": "^3.3.3"
   },
   "peerDependencies": {
