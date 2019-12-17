@@ -8,6 +8,7 @@ import { GlobalCssOrangeComponent } from "./components/global-css-orange";
 import { InlineStyleComponent } from "./components/inline-style";
 import { SassGreenComponent } from "./components/sass-green";
 import { StyledComponentsComponent } from "./components/styled-components";
+import "normalize.css";
 import "./global-style.css";
 import { VIEWPORTS } from "./viewports";
 

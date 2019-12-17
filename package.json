@@ -32,6 +32,7 @@
     "@types/uuid": "^3.4.6",
     "jest": "^24.9.0",
     "node-sass": "^4.13.0",
+    "normalize.css": "^8.0.1",
     "prettier": "^1.19.1",
     "puppeteer": "^2.0.0",
     "react": "^16.12.0",
