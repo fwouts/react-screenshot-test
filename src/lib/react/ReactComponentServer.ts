@@ -128,16 +128,13 @@ export class ReactComponentServer {
     });
   }
 
-  stop(): Promise<void> {
+  async stop(): Promise<void> {
     const server = this.server;
     if (!server) {
       throw new Error(
         `Server is not running! Please make sure that start() was called.`
       );
     }
-    return new Promise((resolve, reject) => {
-      server.close(err => (err ? reject(err) : resolve()));
-    });
   }
 
   async serve<T>(
@@ -151,9 +148,7 @@ export class ReactComponentServer {
       );
     }
     this.nodes[id] = node;
-    const result = await ready(this.port, `/render/${id}`);
-    delete this.nodes[id];
-    return result;
+    return await ready(this.port, `/render/${id}`);
   }
 }
 
