@@ -1,4 +1,4 @@
-import express, { Express, Response } from "express";
+import express, { Express } from "express";
 import getPort from "get-port";
 import { Server } from "net";
 import React from "react";
@@ -43,12 +43,11 @@ export class ReactComponentServer {
       // which we expect to fail if the package isn't installed. That's OK,
       // because that means we can render without it.
       import("styled-components")
-        .then(({ ServerStyleSheet }) => {
-          this.renderWithStyledComponents(new ServerStyleSheet(), res, node);
-        })
-        .catch(() => {
-          this.renderWithoutStyledComponents(res, node);
-        });
+        .then(({ ServerStyleSheet }) =>
+          this.renderWithStyledComponents(new ServerStyleSheet(), node)
+        )
+        .catch(() => this.renderWithoutStyledComponents(node))
+        .then(html => res.send(html));
     });
     this.app.get(`${ASSET_SERVING_PREFIX}:asset.:ext`, (req, res) => {
       const filePath = getAssetFilename(req.path);
@@ -58,7 +57,6 @@ export class ReactComponentServer {
 
   private renderWithStyledComponents(
     sheet: ServerStyleSheet,
-    res: Response,
     node: NodeDescription
   ) {
     // See https://www.styled-components.com/docs/advanced#server-side-rendering
@@ -89,15 +87,15 @@ export class ReactComponentServer {
           })
         )
       );
-      res.send(html);
+      return html;
     } finally {
       sheet.seal();
     }
   }
 
-  private renderWithoutStyledComponents(res: Response, node: NodeDescription) {
+  private renderWithoutStyledComponents(node: NodeDescription) {
     // Simply render the node. This works with Emotion, too!
-    const html = ReactDOMServer.renderToString(
+    return ReactDOMServer.renderToString(
       React.createElement(
         "html",
         null,
@@ -116,7 +114,6 @@ export class ReactComponentServer {
         React.createElement("body", null, node.reactNode)
       )
     );
-    res.send(html);
   }
 
   async start(): Promise<void> {
