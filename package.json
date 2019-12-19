@@ -68,7 +68,7 @@
     "cross-spawn": "7.0.1",
     "dockerode": "^3.0.2",
     "express": "^4.17.1",
-    "get-port": "^5.0.0",
+    "get-port": "^5.1.0",
     "is-docker": "^2.0.0",
     "jest-image-snapshot": "^2.11.1",
     "postcss-load-config": "2.1.0",
