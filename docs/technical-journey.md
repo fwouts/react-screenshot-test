@@ -1,8 +1,4 @@
-# Internal Documentation
-
-How does React Screenshot Test work? Good question.
-
-## The technical journey
+# The technical journey
 
 In order to understand how the internal architecture of React Screenshot Test came about, let's rewind a bit.
 
@@ -42,7 +38,7 @@ Instead, I wanted it to generate a screenshot:
 
 ![facebook-link-screenshot](./assets/facebook-link-screenshot.png)
 
-It turns out, generating a screenshot from a React component isn't a straightforward as I'd hoped.
+It turns out, generating a screenshot from a React component isn't as straightforward as I'd hoped.
 
 The first thing you need to get a screenshot of a piece of HTML is, obviously, a web browser. Luckily, Google Chrome can be controlled easily from Node by using the [Puppeteer library](https://github.com/puppeteer/puppeteer). Great, we have a browser.
 
@@ -103,28 +99,3 @@ The solution, which may seem a bit convoluted at first, was to:
 - Ask the screenshot server to take screenshots URLs served by the component server.
 
 This is how React Screenshot Test came about.
-
-## Architecture
-
-There are multiple layers to the library:
-
-- **[ReactScreenshotTest](https://github.com/fwouts/react-screenshot-test/blob/master/src/lib/react/ReactScreenshotTest.ts) is the library's main entrypoint.**
-  - It exposes a simple API.
-  - Internally, it coordinates Jest, the component server and the screenshot renderer.
-- **[ReactComponentServer](https://github.com/fwouts/react-screenshot-test/blob/master/src/lib/react/ReactComponentServer.ts) is an HTTP server that renders React components server-side.**
-- **[ScreenshotRenderer](https://github.com/fwouts/react-screenshot-test/blob/master/src/lib/screenshot-renderer/api.ts) is an interface wrapping a browser.**
-  - There are multiple implementations, in particular [**ChromeScreenshotRenderer**](https://github.com/fwouts/react-screenshot-test/blob/master/src/lib/screenshot-renderer/ChromeScreenshotRenderer.ts) (using Puppeteer) and [**HttpScreenshotRenderer**](https://github.com/fwouts/react-screenshot-test/blob/master/src/lib/screenshot-renderer/HttpScreenshotRenderer.ts) (loading screenshots over HTTP).
-- **[ScreenshotServer](https://github.com/fwouts/react-screenshot-test/blob/master/src/lib/screenshot-server/api.ts) is an HTTP server that takes a screenshot of a particular URL.**
-  - A screenshot server can either be local or it can run within Docker.
-  - Running it in Docker allows us to take consistent snapshots across platforms.
-
-**TODO:**
-
-- Overall diagram
-- ReactScreenshotTest wrapper
-- ReactComponentServer, and how it handle stylesheets
-- Processing of assets via Jest transformations
-- Talk about how Selenium could be added
-- Integration with Percy
-- Reasoning for Git LFS
-- Discussion of global Jest hooks.

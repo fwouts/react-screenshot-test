@@ -4,7 +4,7 @@ First of all, thank you for helping out!
 
 ## Understanding how it works
 
-Please refer to the [internal documentation](./docs/internals.md) to understand how React Screenshot Test works.
+Please refer to the [internal documentation](./docs/index.md) to understand how React Screenshot Test works.
 
 ## Code contributions
 
