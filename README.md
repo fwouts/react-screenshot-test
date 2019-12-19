@@ -67,6 +67,8 @@ Here's a [real example](https://github.com/fwouts/react-screenshot-test/pull/18/
 
 Under the hood, we start a local server which renders components server-side. Each component is given its own dedicated page (e.g. /render/my-component). Then we use Puppeteer to take a screenshot of that page.
 
+Curious to learn more? Check out the [internal documentation](./docs/index.md)!
+
 ## Cross-platform consistency
 
 If you work on a team where developers use a different OS (e.g. Mac OS and
