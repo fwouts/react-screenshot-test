@@ -10,7 +10,7 @@ export const ASSET_SERVING_PREFIX = "/assets/";
  *   "abc-123": "/home/example/project/original.jpg"
  * }
  */
-let recordedAssets: Record<string, string> = {};
+const recordedAssets: Record<string, string> = {};
 
 /**
  * Record an imported asset.

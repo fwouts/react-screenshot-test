@@ -27,6 +27,7 @@ describe("ChromeScreenshotRenderer", () => {
 
   describe("start", () => {
     it("does not launch the browser if start() isn't called", async () => {
+      // eslint-disable-next-line no-new
       new ChromeScreenshotRenderer();
       expect(mockPuppeteer.launch).not.toHaveBeenCalled();
     });
@@ -39,11 +40,11 @@ describe("ChromeScreenshotRenderer", () => {
 
     it("fails to start if browser could not be launched", async () => {
       mocked(mockPuppeteer.launch).mockRejectedValue(
-        new Error(`Could not start!`)
+        new Error("Could not start!")
       );
       const renderer = new ChromeScreenshotRenderer();
       await expect(renderer.start()).rejects.toEqual(
-        new Error(`Could not start!`)
+        new Error("Could not start!")
       );
     });
   });
@@ -53,7 +54,7 @@ describe("ChromeScreenshotRenderer", () => {
       const renderer = new ChromeScreenshotRenderer();
       await expect(renderer.stop()).rejects.toEqual(
         new Error(
-          `Browser is not open! Please make sure that start() was called.`
+          "Browser is not open! Please make sure that start() was called."
         )
       );
     });
@@ -66,11 +67,11 @@ describe("ChromeScreenshotRenderer", () => {
     });
 
     it("fails to stop if browser could not be closed", async () => {
-      mockBrowser.close.mockRejectedValue(new Error(`Could not stop!`));
+      mockBrowser.close.mockRejectedValue(new Error("Could not stop!"));
       const renderer = new ChromeScreenshotRenderer();
       await renderer.start();
       await expect(renderer.stop()).rejects.toEqual(
-        new Error(`Could not stop!`)
+        new Error("Could not stop!")
       );
     });
   });
@@ -79,7 +80,7 @@ describe("ChromeScreenshotRenderer", () => {
     it("cannot render without first starting it", async () => {
       const renderer = new ChromeScreenshotRenderer();
       await expect(renderer.render("http://example.com")).rejects.toEqual(
-        new Error(`Please call start() once before render().`)
+        new Error("Please call start() once before render().")
       );
     });
 

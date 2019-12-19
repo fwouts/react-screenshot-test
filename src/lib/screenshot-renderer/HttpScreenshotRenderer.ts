@@ -32,6 +32,7 @@ export class HttpScreenshotRenderer implements ScreenshotRenderer {
       );
       return response.data;
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(
         chalk.red(
           `Unable to reach screenshot server. Please make sure that your Jest configuration contains the following:

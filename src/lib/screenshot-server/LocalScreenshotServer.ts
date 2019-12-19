@@ -17,6 +17,7 @@ import { ScreenshotServer } from "./api";
  */
 export class LocalScreenshotServer implements ScreenshotServer {
   private readonly app: Express;
+
   private server: Server | null = null;
 
   constructor(
@@ -26,8 +27,8 @@ export class LocalScreenshotServer implements ScreenshotServer {
     this.app = express();
     this.app.use(bodyParser.json());
     this.app.post("/render", async (req, res) => {
-      const url = req.body.url;
-      const viewport = req.body.viewport;
+      const { url } = req.body;
+      const { viewport } = req.body;
       const screenshot = await (viewport
         ? this.renderer.render(url, viewport)
         : this.renderer.render(url));
@@ -44,10 +45,10 @@ export class LocalScreenshotServer implements ScreenshotServer {
   }
 
   async stop() {
-    const server = this.server;
+    const { server } = this;
     if (!server) {
       throw new Error(
-        `Server is not running! Please make sure that start() was called.`
+        "Server is not running! Please make sure that start() was called."
       );
     }
     await new Promise((resolve, reject) => {

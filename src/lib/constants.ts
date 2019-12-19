@@ -1,1 +1,1 @@
-export const PACKAGE_NAME = `react-screenshot-test`;
+export const PACKAGE_NAME = "react-screenshot-test";

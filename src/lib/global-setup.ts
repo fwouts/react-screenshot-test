@@ -10,11 +10,15 @@ import {
 import { DockerizedScreenshotServer } from "./screenshot-server/DockerizedScreenshotServer";
 import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer";
 
-export let screenshotServer: ScreenshotServer | null = null;
+let screenshotServer: ScreenshotServer | null = null;
+
+export function getScreenshotServer() {
+  return screenshotServer;
+}
 
 export async function setUpScreenshotServer() {
   if (screenshotServer) {
-    throw new Error(`Please only call setUpScreenshotServer() once.`);
+    throw new Error("Please only call setUpScreenshotServer() once.");
   }
   screenshotServer = createScreenshotServer();
   if (!screenshotServer) {

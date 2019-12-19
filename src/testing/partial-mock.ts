@@ -1,5 +1,5 @@
 export function partialMock<T>(
-  partialMock: Partial<jest.Mocked<T>>
+  partial: Partial<jest.Mocked<T>>
 ): jest.Mocked<T> {
-  return partialMock as jest.Mocked<T>;
+  return partial as jest.Mocked<T>;
 }

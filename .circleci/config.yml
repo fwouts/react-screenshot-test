@@ -24,6 +24,14 @@ jobs:
       - run: yarn install
       - *save_cache
       - run: yarn build
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - *restore_cache
+      - run: yarn install
+      - *save_cache
+      - run: yarn lint:check
   unit-test:
     <<: *defaults
     steps:
@@ -88,6 +96,7 @@ workflows:
   check:
     jobs:
       - build
+      - lint
       - unit-test
       - screenshot-test-local
       - screenshot-test-percy

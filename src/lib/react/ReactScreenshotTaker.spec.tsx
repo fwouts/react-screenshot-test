@@ -15,9 +15,9 @@ describe("ReactScreenshotTaker", () => {
       stop: jest.fn(),
       serve: jest.fn()
     });
-    mockComponentServer.serve.mockImplementation((_node, callback) => {
-      return callback(1234, "/rendered");
-    });
+    mockComponentServer.serve.mockImplementation((_node, callback) =>
+      callback(1234, "/rendered")
+    );
     mockScreenshotRenderer = partialMock<ScreenshotRenderer>({
       start: jest.fn(),
       stop: jest.fn(),

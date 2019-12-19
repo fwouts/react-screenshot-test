@@ -1,5 +1,6 @@
 declare module "@percy/puppeteer" {
   import { Page } from "puppeteer";
+
   function percySnapshot(
     page: Page,
     name: string,

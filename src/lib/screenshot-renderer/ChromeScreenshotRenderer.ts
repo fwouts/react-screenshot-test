@@ -15,7 +15,7 @@ export class ChromeScreenshotRenderer implements ScreenshotRenderer {
   async stop() {
     if (!this.browser) {
       throw new Error(
-        `Browser is not open! Please make sure that start() was called.`
+        "Browser is not open! Please make sure that start() was called."
       );
     }
     await this.browser.close();
@@ -23,7 +23,7 @@ export class ChromeScreenshotRenderer implements ScreenshotRenderer {
 
   async render(url: string, viewport?: Viewport) {
     if (!this.browser) {
-      throw new Error(`Please call start() once before render().`);
+      throw new Error("Please call start() once before render().");
     }
     const page = await this.browser.newPage();
     if (viewport) {

@@ -7,5 +7,7 @@ const screenshotServer = new LocalScreenshotServer(
 );
 screenshotServer
   .start()
+  // eslint-disable-next-line no-console
   .then(() => console.log("Ready."))
+  // eslint-disable-next-line no-console
   .catch(console.error);

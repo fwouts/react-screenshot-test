@@ -21,7 +21,9 @@ const viewportMeta = React.createElement("meta", {
  */
 export class ReactComponentServer {
   private readonly app: Express;
+
   private server: Server | null = null;
+
   private port: number | null = null;
 
   private readonly nodes: {
@@ -31,7 +33,7 @@ export class ReactComponentServer {
   constructor() {
     this.app = express();
     this.app.get("/render/:nodeId", (req, res) => {
-      const nodeId = req.params.nodeId;
+      const { nodeId } = req.params;
       const node = this.nodes[nodeId];
       if (!node) {
         throw new Error(`No node to render for ID: ${nodeId}`);
@@ -119,7 +121,7 @@ export class ReactComponentServer {
   async start(): Promise<void> {
     if (this.server) {
       throw new Error(
-        `Server is already running! Please only call start() once.`
+        "Server is already running! Please only call start() once."
       );
     }
     this.port = await getPort();
@@ -129,10 +131,10 @@ export class ReactComponentServer {
   }
 
   stop(): Promise<void> {
-    const server = this.server;
+    const { server } = this;
     if (!server) {
       throw new Error(
-        `Server is not running! Please make sure that start() was called.`
+        "Server is not running! Please make sure that start() was called."
       );
     }
     return new Promise((resolve, reject) => {
@@ -147,7 +149,7 @@ export class ReactComponentServer {
   ): Promise<T> {
     if (!this.server || !this.port) {
       throw new Error(
-        `Server is not running! Please make sure that start() was called.`
+        "Server is not running! Please make sure that start() was called."
       );
     }
     this.nodes[id] = node;

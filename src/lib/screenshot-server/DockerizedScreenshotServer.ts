@@ -11,6 +11,7 @@ const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
  */
 export class DockerizedScreenshotServer implements ScreenshotServer {
   private readonly docker: Docker;
+
   private container: Docker.Container | null = null;
 
   constructor(private readonly port: number) {
@@ -25,7 +26,7 @@ export class DockerizedScreenshotServer implements ScreenshotServer {
   async start() {
     if (this.container) {
       throw new Error(
-        `Container is already started! Please only call start() once.`
+        "Container is already started! Please only call start() once."
       );
     }
     await ensureDockerImagePresent(this.docker);
@@ -36,7 +37,7 @@ export class DockerizedScreenshotServer implements ScreenshotServer {
   async stop() {
     if (!this.container) {
       throw new Error(
-        `Container is not started! Please make sure that start() was called.`
+        "Container is not started! Please make sure that start() was called."
       );
     }
     await this.container.kill();
@@ -64,12 +65,15 @@ async function removeLeftoverContainers(docker: Docker) {
   for (const existingContainerInfo of existingContainers) {
     const [name] = existingContainerInfo.Image.split(":");
     if (name === DOCKER_IMAGE_TAG_NAME) {
+      // eslint-disable-next-line no-await-in-loop
       const existingContainer = await docker.getContainer(
         existingContainerInfo.Id
       );
       if (existingContainerInfo.State === "running") {
+        // eslint-disable-next-line no-await-in-loop
         await existingContainer.stop();
       }
+      // eslint-disable-next-line no-await-in-loop
       await existingContainer.remove();
     }
   }
@@ -85,11 +89,11 @@ async function startContainer(docker: Docker, port: number) {
     OpenStdin: false,
     StdinOnce: false,
     ExposedPorts: {
-      [`3000/tcp`]: {}
+      "3000/tcp": {}
     },
     HostConfig: {
       PortBindings: {
-        [`3000/tcp`]: [{ HostPort: `${port}` }]
+        "3000/tcp": [{ HostPort: `${port}` }]
       }
     }
   });

@@ -21,10 +21,13 @@ export class ReactScreenshotTest {
   private readonly _viewports: {
     [name: string]: Viewport;
   } = {};
+
   private readonly _shots: {
     [name: string]: React.ReactNode;
   } = {};
+
   private readonly _remoteStylesheetUrls: string[] = [];
+
   private ran = false;
 
   /**
@@ -37,7 +40,7 @@ export class ReactScreenshotTest {
   private constructor(private readonly componentName: string) {
     setImmediate(() => {
       if (!this.ran) {
-        throw new Error(`Please call .run()`);
+        throw new Error("Please call .run()");
       }
     });
   }
@@ -57,7 +60,7 @@ export class ReactScreenshotTest {
    */
   viewport(viewportName: string, viewport: Viewport) {
     if (this.ran) {
-      throw new Error(`Cannot add a viewport after running.`);
+      throw new Error("Cannot add a viewport after running.");
     }
     if (this._viewports[viewportName]) {
       throw new Error(`Viewport "${viewportName}" is declared more than once`);
@@ -71,7 +74,7 @@ export class ReactScreenshotTest {
    */
   shoot(shotName: string, component: React.ReactNode) {
     if (this.ran) {
-      throw new Error(`Cannot add a shot after running.`);
+      throw new Error("Cannot add a shot after running.");
     }
     if (this._shots[shotName]) {
       throw new Error(`Shot "${shotName}" is declared more than once`);
@@ -90,20 +93,20 @@ export class ReactScreenshotTest {
    */
   run() {
     if (this.ran) {
-      throw new Error(`Cannot run more than once.`);
+      throw new Error("Cannot run more than once.");
     }
     this.ran = true;
     if (Object.keys(this._viewports).length === 0) {
-      throw new Error(`Please define viewports with .viewport()`);
+      throw new Error("Please define viewports with .viewport()");
     }
     if (Object.keys(this._shots).length === 0) {
-      throw new Error(`Please define shots with .shoot()`);
+      throw new Error("Please define shots with .shoot()");
     }
 
     describe(this.componentName, () => {
       if (SCREENSHOT_MODE === "percy") {
         const componentServer = new ReactComponentServer();
-        let browser: Browser;
+        let browser: Browser | null = null;
 
         beforeAll(async () => {
           await componentServer.start();
@@ -112,11 +115,16 @@ export class ReactScreenshotTest {
 
         afterAll(async () => {
           await componentServer.stop();
-          await browser.close();
+          if (browser) {
+            await browser.close();
+          }
         });
 
         for (const [shotName, shot] of Object.entries(this._shots)) {
           it(shotName, async () => {
+            if (!browser) {
+              throw new Error("Browser was not launched successfully.");
+            }
             const page = await browser.newPage();
             await componentServer.serve(
               {
