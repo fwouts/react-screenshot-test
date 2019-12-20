@@ -186,7 +186,7 @@ What does [`recordCSS()`](https://github.com/fwouts/react-screenshot-test/blob/m
 
 Supporting CSS Modules is a bit more complicated. Thanks to [Dominik Ferber](https://twitter.com/dferber90) for his work here, without which I would probably never have figured it out.
 
-The idea is similar to the above, but we invoke PostCSS to generate the compiled CSS. Best to just [dig into the code](https://github.com/fwouts/react-screenshot-test/blob/master/css-transform/index.js) if you'd like to understand it all!
+The idea is similar to the above, but we invoke PostCSS to generate the compiled CSS. Best to just [dig into the code](https://github.com/fwouts/react-screenshot-test/blob/master/css-modules-transform/index.js) if you'd like to understand it all!
 
 The one difference compared to plain CSS is that we must return a mapping of JS symbols to generated class names. In the example above, we'd generate:
 
@@ -205,8 +205,6 @@ module.exports = {
   container: "UserProfile_container_ax7yz"
 };
 ```
-
-Also worth mentioning is that different developers use different file extensions for CSS Modules. Some use `.mod.css`, others `.module.css`. Technically even `.css` is valid. Because of this, React Screenshot Test will look for a `react-screenshot-test.config.js` configuration which specifies which files are CSS Modules. This may be something that could be simplified ([see issue](https://github.com/fwouts/react-screenshot-test/issues/43)).
 
 ### Sass stylesheets
 

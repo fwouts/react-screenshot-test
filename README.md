@@ -46,6 +46,7 @@ module.exports = {
   testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"],
   transform: {
     "^.+\\.[t|j]sx?$": "babel-jest", // or ts-jest
+    "^.+\\.module\\.css$": "react-screenshot-test/css-modules-transform",
     "^.+\\.css$": "react-screenshot-test/css-transform",
     "^.+\\.scss$": "react-screenshot-test/sass-transform",
     "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
@@ -96,17 +97,6 @@ CSS-in-JS libraries such as Emotion and Styled Components are supported.
 | CSS Modules<br>`import css from "./style.css"`         | ✅        |
 | [Emotion](https://emotion.sh)                          | ✅        |
 | [Styled Components](https://www.styled-components.com) | ✅        |
-
-Note: in order to use CSS Modules, you will to tell `react-screenshot-test`
-which CSS files represent CSS modules:
-
-```js
-// react-screenshot-test.config.js
-
-module.exports = {
-  cssModules: name => name.endsWith(".module.css")
-};
-```
 
 ## Usage with create-react-app
 
