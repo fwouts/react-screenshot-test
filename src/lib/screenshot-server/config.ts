@@ -1,7 +1,7 @@
 import isDocker from "is-docker";
 
 export const SCREENSHOT_SERVER_PORT = parseInt(
-  process.env.SCREENSHOT_SERVER_PORT || "3038",
+  process.env.SCREENSHOT_SERVER_PORT || "3039",
   10
 );
 

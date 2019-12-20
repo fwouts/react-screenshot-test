@@ -1,7 +1,7 @@
 import assertNever from "assert-never";
 import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
-import { ChromeScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
+import { WebdriverScreenshotRenderer } from "./screenshot-renderer/WebdriverScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
   SCREENSHOT_MODE,
@@ -51,7 +51,10 @@ function createScreenshotServer(): ScreenshotServer | null {
   switch (SCREENSHOT_MODE) {
     case "local":
       return new LocalScreenshotServer(
-        new ChromeScreenshotRenderer(),
+        // new ChromeScreenshotRenderer(),
+        new WebdriverScreenshotRenderer({
+          browserName: "firefox"
+        }),
         SCREENSHOT_SERVER_PORT
       );
     case "docker":
