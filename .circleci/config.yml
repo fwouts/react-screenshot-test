@@ -123,7 +123,8 @@ workflows:
       - build
       - lint
       - unit-test
-      - screenshot-test-local
+      - screenshot-test-local-puppeteer
+      - screenshot-test-local-selenium
       - screenshot-test-percy
       - docker-image
       - example-local
