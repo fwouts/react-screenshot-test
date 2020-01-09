@@ -9,6 +9,7 @@ import { ScreenshotRenderer, Viewport } from "./api";
  */
 export class SeleniumScreenshotRenderer implements ScreenshotRenderer {
   private seleniumProcess: ChildProcess | null = null;
+
   private browser: WebdriverIOAsync.BrowserObject | null = null;
 
   constructor(private readonly capabilities: WebDriver.DesiredCapabilities) {}
