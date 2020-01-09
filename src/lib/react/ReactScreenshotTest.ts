@@ -1,5 +1,5 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
-import { join, sep } from "path";
+import { dirname, join, sep } from "path";
 import { Browser, launchChrome } from "../browser/chrome";
 import { Viewport } from "../screenshot-renderer/api";
 import {
@@ -207,7 +207,7 @@ export class ReactScreenshotTest {
                   )
                 ).toMatchImageSnapshot({
                   customSnapshotsDir: join(
-                    __dirname,
+                    dirname(module!.parent!.parent!.filename),
                     "__screenshots__",
                     this.componentName,
                     subdirectory
