@@ -34,9 +34,9 @@ export class ReactScreenshotTaker {
   async render(node: NodeDescription, viewport?: Viewport) {
     return this.componentServer.serve(node, async (port, path) => {
       const url =
-        SCREENSHOT_MODE === "local"
-          ? `http://localhost:${port}${path}`
-          : `http://host.docker.internal:${port}${path}`;
+        SCREENSHOT_MODE === "docker"
+          ? `http://host.docker.internal:${port}${path}`
+          : `http://localhost:${port}${path}`;
       return viewport
         ? this.screenshotRenderer.render(url, viewport)
         : this.screenshotRenderer.render(url);

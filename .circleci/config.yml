@@ -40,7 +40,7 @@ jobs:
       - run: yarn install
       - *save_cache
       - run: yarn unit-test
-  screenshot-test-local:
+  screenshot-test-local-puppeteer:
     <<: *defaults
     steps:
       - checkout
@@ -53,10 +53,35 @@ jobs:
       - *restore_cache
       - run: yarn install
       - *save_cache
-      - run: yarn screenshot-test-local
+      - run: |
+          # We don't set SCREENSHOT_MODE because it's the default.
+          # export SCREENSHOT_MODE=puppeteer
+          export SCREENSHOT_PREFIX=puppeteer/
+          yarn screenshot-test-local
       - store_artifacts:
-          path: src/tests/__image_snapshots__
-          destination: snapshots
+          path: src/tests/__screenshots__
+          destination: screenshots
+  screenshot-test-local-selenium:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Set up Git LFS
+          command: |
+            sudo apt-get install -y git-lfs
+            git lfs install
+            git lfs pull
+      - *restore_cache
+      - run: yarn install
+      - *save_cache
+      - run: |
+          export SCREENSHOT_MODE=selenium
+          export SCREENSHOT_SELENIUM_BROWSER=firefox
+          export SCREENSHOT_PREFIX=firefox/
+          yarn screenshot-test-local
+      - store_artifacts:
+          path: src/tests/__screenshots__
+          destination: screenshots
   screenshot-test-percy:
     <<: *defaults
     steps:
@@ -84,8 +109,8 @@ jobs:
       - run: cd example && yarn install
       - run: cd example && yarn screenshot-test-local
       - store_artifacts:
-          path: example/__image_snapshots__
-          destination: example-snapshots
+          path: example/__screenshots__
+          destination: example-screenshots
   example-percy:
     <<: *defaults
     steps:

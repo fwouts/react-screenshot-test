@@ -1,9 +1,11 @@
 import assertNever from "assert-never";
 import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
-import { WebdriverScreenshotRenderer } from "./screenshot-renderer/WebdriverScreenshotRenderer";
+import { PuppeteerScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
+import { SeleniumScreenshotRenderer } from "./screenshot-renderer/WebdriverScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
+  getSeleniumBrowser,
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
 } from "./screenshot-server/config";
@@ -35,7 +37,7 @@ export async function setUpScreenshotServer() {
 By default, ${PACKAGE_NAME} requires Docker to produce consistent screenshots across platforms.
 
 Please ensure Docker is running, or force local rendering with:
-$ export SCREENSHOT_MODE=local
+$ export SCREENSHOT_MODE=puppeteer (or selenium)
 
 Alternatively if you'd like to use Percy (https://percy.io), set it up with:
 $ export SCREENSHOT_MODE=percy
@@ -49,11 +51,15 @@ $ export PERCY_TOKEN=...
 
 function createScreenshotServer(): ScreenshotServer | null {
   switch (SCREENSHOT_MODE) {
-    case "local":
+    case "puppeteer":
       return new LocalScreenshotServer(
-        // new ChromeScreenshotRenderer(),
-        new WebdriverScreenshotRenderer({
-          browserName: "firefox"
+        new PuppeteerScreenshotRenderer(),
+        SCREENSHOT_SERVER_PORT
+      );
+    case "selenium":
+      return new LocalScreenshotServer(
+        new SeleniumScreenshotRenderer({
+          browserName: getSeleniumBrowser()
         }),
         SCREENSHOT_SERVER_PORT
       );

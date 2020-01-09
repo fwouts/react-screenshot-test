@@ -4,10 +4,10 @@ import * as webdriverio from "webdriverio";
 import { ScreenshotRenderer, Viewport } from "./api";
 
 /**
- * A screenshot renderer that uses a browser controlled by Webdriver to take
+ * A screenshot renderer that uses a browser controlled by Selenium to take
  * screenshots on the current platform.
  */
-export class WebdriverScreenshotRenderer implements ScreenshotRenderer {
+export class SeleniumScreenshotRenderer implements ScreenshotRenderer {
   private seleniumProcess: ChildProcess | null = null;
   private browser: WebdriverIOAsync.BrowserObject | null = null;
 

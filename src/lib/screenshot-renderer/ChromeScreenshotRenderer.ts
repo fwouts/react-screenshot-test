@@ -5,7 +5,7 @@ import { ScreenshotRenderer, Viewport } from "./api";
  * A screenshot renderer that uses Chrome (via Puppeteer) to take screenshots on
  * the current platform.
  */
-export class ChromeScreenshotRenderer implements ScreenshotRenderer {
+export class PuppeteerScreenshotRenderer implements ScreenshotRenderer {
   private browser: Browser | null = null;
 
   async start() {

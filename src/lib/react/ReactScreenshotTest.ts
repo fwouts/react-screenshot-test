@@ -1,7 +1,11 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
+import { join, sep } from "path";
 import { Browser, launchChrome } from "../browser/chrome";
 import { Viewport } from "../screenshot-renderer/api";
-import { SCREENSHOT_MODE } from "../screenshot-server/config";
+import {
+  getScreenshotPrefix,
+  SCREENSHOT_MODE
+} from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 
@@ -163,7 +167,21 @@ export class ReactScreenshotTest {
         }
       } else {
         expect.extend({ toMatchImageSnapshot });
+        jest.setTimeout(60000);
         const renderer = new ReactScreenshotTaker();
+        const prefix = getScreenshotPrefix();
+
+        // jest-image-snapshot doesn't support a snapshot identifier such as
+        // "abc/def". Instead, we need some logic to look for a directory
+        // separator (using `sep`) and set the subdirectory to "abc", only using
+        // "def" as the identifier prefix.
+        let subdirectory = "";
+        let filenamePrefix = "";
+        if (prefix.indexOf(sep) > -1) {
+          [subdirectory, filenamePrefix] = prefix.split(sep, 2);
+        } else {
+          filenamePrefix = prefix;
+        }
 
         beforeAll(async () => {
           await renderer.start();
@@ -188,8 +206,13 @@ export class ReactScreenshotTest {
                     viewport
                   )
                 ).toMatchImageSnapshot({
-                  customSnapshotIdentifier: () =>
-                    `${this.componentName} - ${viewportName} - ${shotName}`
+                  customSnapshotsDir: join(
+                    __dirname,
+                    "__screenshots__",
+                    this.componentName,
+                    subdirectory
+                  ),
+                  customSnapshotIdentifier: `${filenamePrefix}${viewportName} - ${shotName}`
                 });
               });
             }
