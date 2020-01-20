@@ -1,9 +1,7 @@
+import * as ngrok from "ngrok";
 import { ScreenshotRenderer, Viewport } from "../screenshot-renderer/api";
 import { HttpScreenshotRenderer } from "../screenshot-renderer/HttpScreenshotRenderer";
-import {
-  SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_PORT
-} from "../screenshot-server/config";
+import { SCREENSHOT_SERVER_PORT } from "../screenshot-server/config";
 import { NodeDescription, ReactComponentServer } from "./ReactComponentServer";
 
 /**
@@ -33,10 +31,7 @@ export class ReactScreenshotTaker {
 
   async render(node: NodeDescription, viewport?: Viewport) {
     return this.componentServer.serve(node, async (port, path) => {
-      const url =
-        SCREENSHOT_MODE === "docker"
-          ? `http://host.docker.internal:${port}${path}`
-          : `http://localhost:${port}${path}`;
+      const url = `${await ngrok.connect(port)}${path}`;
       return viewport
         ? this.screenshotRenderer.render(url, viewport)
         : this.screenshotRenderer.render(url);
