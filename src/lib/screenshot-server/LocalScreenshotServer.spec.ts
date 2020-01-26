@@ -24,6 +24,7 @@ describe("LocalScreenshotServer", () => {
     expect(mockRenderer.start).toHaveBeenCalled();
 
     await axios.post(`http://localhost:${port}/render`, {
+      name: "screenshot",
       url: "http://example.com",
       viewport: {
         with: 1024,
@@ -51,6 +52,7 @@ describe("LocalScreenshotServer", () => {
     expect(mockRenderer.start).toHaveBeenCalled();
 
     await axios.post(`http://localhost:${port}/render`, {
+      name: "screenshot",
       url: "http://example.com"
     });
     expect(mockRenderer.render).toHaveBeenCalledWith(
