@@ -26,3 +26,7 @@ function getScreenshotMode(): "local" | "docker" | "percy" {
   }
   return isDocker() ? "local" : "docker";
 }
+
+export function getScreenshotPrefix() {
+  return process.env.SCREENSHOT_PREFIX || "";
+}
