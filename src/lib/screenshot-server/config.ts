@@ -43,7 +43,3 @@ export function getSeleniumBrowser() {
 export function getScreenshotPrefix() {
   return process.env.SCREENSHOT_PREFIX || "";
 }
-
-export function getScreenshotPrefix() {
-  return process.env.SCREENSHOT_PREFIX || "";
-}
