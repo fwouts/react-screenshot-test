@@ -24,7 +24,7 @@ describe("HttpScreenshotRenderer", () => {
     it("takes a screenshot", async () => {
       const renderer = new HttpScreenshotRenderer(SERVER_URL);
       await renderer.start();
-      const screenshot = await renderer.render("http://example.com");
+      const screenshot = await renderer.render("test", "http://example.com");
       expect(screenshot).toBe(dummyBinaryScreenshot);
       expect(axios.post).toHaveBeenCalledWith(
         "http://localhost:1234/render",
@@ -40,7 +40,7 @@ describe("HttpScreenshotRenderer", () => {
     it("sets the viewport if provided", async () => {
       const renderer = new HttpScreenshotRenderer(SERVER_URL);
       await renderer.start();
-      await renderer.render("http://example.com", {
+      await renderer.render("test", "http://example.com", {
         width: 1024,
         height: 768
       });
@@ -60,7 +60,7 @@ describe("HttpScreenshotRenderer", () => {
     it("does not set the viewport if not provided", async () => {
       const renderer = new HttpScreenshotRenderer(SERVER_URL);
       await renderer.start();
-      await renderer.render("http://example.com");
+      await renderer.render("test", "http://example.com");
       expect(axios.post).toHaveBeenCalledWith(
         expect.anything(),
         {

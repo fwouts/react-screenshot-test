@@ -56,6 +56,7 @@ describe("ReactScreenshotTaker", () => {
         mockScreenshotRenderer
       );
       const node: NodeDescription = {
+        name: "test",
         reactNode: <div>Hello, World!</div>,
         remoteStylesheetUrls: []
       };
@@ -75,6 +76,7 @@ describe("ReactScreenshotTaker", () => {
         mockScreenshotRenderer
       );
       const node: NodeDescription = {
+        name: "test",
         reactNode: <div>Hello, World!</div>,
         remoteStylesheetUrls: []
       };
