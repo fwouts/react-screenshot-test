@@ -30,10 +30,14 @@ describe("LocalScreenshotServer", () => {
         height: 768
       }
     });
-    expect(mockRenderer.render).toHaveBeenCalledWith("http://example.com", {
-      with: 1024,
-      height: 768
-    });
+    expect(mockRenderer.render).toHaveBeenCalledWith(
+      "screenshot",
+      "http://example.com",
+      {
+        with: 1024,
+        height: 768
+      }
+    );
 
     await server.stop();
     expect(mockRenderer.stop).toHaveBeenCalled();
@@ -49,7 +53,10 @@ describe("LocalScreenshotServer", () => {
     await axios.post(`http://localhost:${port}/render`, {
       url: "http://example.com"
     });
-    expect(mockRenderer.render).toHaveBeenCalledWith("http://example.com");
+    expect(mockRenderer.render).toHaveBeenCalledWith(
+      "screenshot",
+      "http://example.com"
+    );
 
     await server.stop();
     expect(mockRenderer.stop).toHaveBeenCalled();

@@ -66,6 +66,7 @@ describe("ReactScreenshotTaker", () => {
         expect.anything()
       );
       expect(mockScreenshotRenderer.render).toHaveBeenCalledWith(
+        "test",
         expect.stringMatching(":1234/rendered")
       );
     });
@@ -89,6 +90,7 @@ describe("ReactScreenshotTaker", () => {
         expect.anything()
       );
       expect(mockScreenshotRenderer.render).toHaveBeenCalledWith(
+        "test",
         expect.stringMatching(":1234/rendered"),
         {
           width: 1024,
