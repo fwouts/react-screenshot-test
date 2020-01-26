@@ -1,7 +1,11 @@
 import { toMatchImageSnapshot } from "jest-image-snapshot";
-import { Browser, launchChrome } from "../browser/chrome";
 import { Viewport } from "../screenshot-renderer/api";
-import { SCREENSHOT_MODE } from "../screenshot-server/config";
+import { HttpScreenshotRenderer } from "../screenshot-renderer/HttpScreenshotRenderer";
+import { PercyScreenshotRenderer } from "../screenshot-renderer/PercyScreenshotRenderer";
+import {
+  SCREENSHOT_MODE,
+  SCREENSHOT_SERVER_PORT
+} from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 
@@ -104,97 +108,47 @@ export class ReactScreenshotTest {
     }
 
     describe(this.componentName, () => {
-      if (SCREENSHOT_MODE === "percy") {
-        const componentServer = new ReactComponentServer();
-        let browser: Browser | null = null;
+      expect.extend({ toMatchImageSnapshot });
+      const screenshotRenderer =
+        SCREENSHOT_MODE == "percy"
+          ? new PercyScreenshotRenderer()
+          : new HttpScreenshotRenderer(
+              `http://localhost:${SCREENSHOT_SERVER_PORT}`
+            );
+      const screenshotTaker = new ReactScreenshotTaker(
+        new ReactComponentServer(),
+        screenshotRenderer
+      );
 
-        beforeAll(async () => {
-          await componentServer.start();
-          browser = await launchChrome();
-        });
+      beforeAll(async () => {
+        await screenshotTaker.start();
+      });
 
-        afterAll(async () => {
-          await componentServer.stop();
-          if (browser) {
-            await browser.close();
+      afterAll(async () => {
+        await screenshotTaker.stop();
+      });
+
+      for (const [viewportName, viewport] of Object.entries(this._viewports)) {
+        describe(viewportName, () => {
+          for (const [shotName, shot] of Object.entries(this._shots)) {
+            it(shotName, async () => {
+              const name = `${this.componentName} - ${viewportName} - ${shotName}`;
+              const screenshot = await screenshotTaker.render(
+                {
+                  name,
+                  reactNode: shot,
+                  remoteStylesheetUrls: this._remoteStylesheetUrls
+                },
+                viewport
+              );
+              if (screenshot) {
+                expect(screenshot).toMatchImageSnapshot({
+                  customSnapshotIdentifier: () => name
+                });
+              }
+            });
           }
         });
-
-        for (const [shotName, shot] of Object.entries(this._shots)) {
-          it(shotName, async () => {
-            if (!browser) {
-              throw new Error("Browser was not launched successfully.");
-            }
-            const page = await browser.newPage();
-            await componentServer.serve(
-              {
-                reactNode: shot,
-                remoteStylesheetUrls: this._remoteStylesheetUrls
-              },
-              async (port, path) => {
-                await page.goto(`http://localhost:${port}${path}`);
-                let percy: typeof import("@percy/puppeteer");
-                try {
-                  percy = await import("@percy/puppeteer");
-                } catch (e) {
-                  throw new Error(
-                    `Please install the '@percy/puppeteer' package:
-            
-            Using NPM:
-            $ npm install -D @percy/puppeteer
-            
-            Using Yarn:
-            $ yarn add -D @percy/puppeteer`
-                  );
-                }
-                await percy.percySnapshot(
-                  page,
-                  `${this.componentName} - ${shotName}`,
-                  {
-                    widths: Object.values(this._viewports).map(
-                      viewport =>
-                        viewport.width / (viewport.deviceScaleFactor || 1)
-                    )
-                  }
-                );
-              }
-            );
-          });
-        }
-      } else {
-        expect.extend({ toMatchImageSnapshot });
-        const renderer = new ReactScreenshotTaker();
-
-        beforeAll(async () => {
-          await renderer.start();
-        });
-
-        afterAll(async () => {
-          await renderer.stop();
-        });
-
-        for (const [viewportName, viewport] of Object.entries(
-          this._viewports
-        )) {
-          describe(viewportName, () => {
-            for (const [shotName, shot] of Object.entries(this._shots)) {
-              it(shotName, async () => {
-                expect(
-                  await renderer.render(
-                    {
-                      reactNode: shot,
-                      remoteStylesheetUrls: this._remoteStylesheetUrls
-                    },
-                    viewport
-                  )
-                ).toMatchImageSnapshot({
-                  customSnapshotIdentifier: () =>
-                    `${this.componentName} - ${viewportName} - ${shotName}`
-                });
-              });
-            }
-          });
-        }
       }
     });
   }
