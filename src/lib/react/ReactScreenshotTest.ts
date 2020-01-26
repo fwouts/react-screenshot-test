@@ -4,7 +4,7 @@ import { toMatchImageSnapshot } from "jest-image-snapshot";
 import { Viewport } from "../screenshot-renderer/api";
 import {
   SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_PORT
+  SCREENSHOT_SERVER_URL
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 
@@ -153,7 +153,7 @@ export class ReactScreenshotTest {
   private async render(name: string, url: string, viewport: Viewport) {
     try {
       const response = await axios.post(
-        `http://localhost:${SCREENSHOT_SERVER_PORT}/render`,
+        `${SCREENSHOT_SERVER_URL}/render`,
         {
           name,
           url,
