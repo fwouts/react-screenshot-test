@@ -3,8 +3,10 @@ import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
 import { PercyScreenshotRenderer } from "./screenshot-renderer/PercyScreenshotRenderer";
 import { PuppeteerScreenshotRenderer } from "./screenshot-renderer/PuppeteerScreenshotRenderer";
+import { SeleniumScreenshotRenderer } from "./screenshot-renderer/WebdriverScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
+  getSeleniumBrowser,
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
 } from "./screenshot-server/config";
@@ -46,7 +48,7 @@ $ export PERCY_TOKEN=...
 
 function createScreenshotServer(): ScreenshotServer {
   switch (SCREENSHOT_MODE) {
-    case "local":
+    case "puppeteer":
       return new LocalScreenshotServer(
         new PuppeteerScreenshotRenderer(),
         SCREENSHOT_SERVER_PORT
@@ -56,6 +58,13 @@ function createScreenshotServer(): ScreenshotServer {
     case "percy":
       return new LocalScreenshotServer(
         new PercyScreenshotRenderer(),
+        SCREENSHOT_SERVER_PORT
+      );
+    case "selenium":
+      return new LocalScreenshotServer(
+        new SeleniumScreenshotRenderer({
+          browserName: getSeleniumBrowser()
+        }),
         SCREENSHOT_SERVER_PORT
       );
     default:
