@@ -72,7 +72,6 @@
     "get-port": "^5.1.0",
     "is-docker": "^2.0.0",
     "jest-image-snapshot": "^2.11.1",
-    "ngrok": "^3.2.7",
     "postcss-load-config": "2.1.0",
     "postcss-modules": "^1.4.1",
     "selenium-standalone": "^6.17.0",
