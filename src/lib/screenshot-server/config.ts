@@ -14,7 +14,9 @@ export const SCREENSHOT_MODE = getScreenshotMode();
 function getScreenshotMode(): "puppeteer" | "selenium" | "docker" | "percy" {
   if (process.env.SCREENSHOT_MODE) {
     switch (process.env.SCREENSHOT_MODE) {
+      case "local":
       case "puppeteer":
+        return "puppeteer";
       case "selenium":
       case "docker":
       case "percy":
