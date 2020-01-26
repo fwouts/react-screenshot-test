@@ -18,7 +18,7 @@ export class HttpScreenshotRenderer implements ScreenshotRenderer {
     // Do nothing.
   }
 
-  async render(url: string, viewport?: Viewport) {
+  async render(_name: string, url: string, viewport?: Viewport) {
     try {
       const response = await axios.post(
         `${this.baseUrl}/render`,

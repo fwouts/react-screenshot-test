@@ -79,9 +79,9 @@ describe("ChromeScreenshotRenderer", () => {
   describe("render", () => {
     it("cannot render without first starting it", async () => {
       const renderer = new ChromeScreenshotRenderer();
-      await expect(renderer.render("http://example.com")).rejects.toEqual(
-        new Error("Please call start() once before render().")
-      );
+      await expect(
+        renderer.render("test", "http://example.com")
+      ).rejects.toEqual(new Error("Please call start() once before render()."));
     });
 
     it("takes a screenshot", async () => {
@@ -89,7 +89,7 @@ describe("ChromeScreenshotRenderer", () => {
       mockPage.screenshot.mockResolvedValue(dummyBinaryScreenshot);
       const renderer = new ChromeScreenshotRenderer();
       await renderer.start();
-      const screenshot = await renderer.render("http://example.com");
+      const screenshot = await renderer.render("test", "http://example.com");
       expect(screenshot).toBe(dummyBinaryScreenshot);
       expect(mockPage.goto).toHaveBeenCalledWith("http://example.com");
       expect(mockPage.screenshot).toHaveBeenCalledWith({
@@ -101,7 +101,7 @@ describe("ChromeScreenshotRenderer", () => {
     it("sets the viewport if provided", async () => {
       const renderer = new ChromeScreenshotRenderer();
       await renderer.start();
-      await renderer.render("http://example.com", {
+      await renderer.render("test", "http://example.com", {
         width: 1024,
         height: 768
       });
@@ -114,7 +114,7 @@ describe("ChromeScreenshotRenderer", () => {
     it("does not set the viewport if not provided", async () => {
       const renderer = new ChromeScreenshotRenderer();
       await renderer.start();
-      await renderer.render("http://example.com");
+      await renderer.render("test", "http://example.com");
       expect(mockPage.setViewport).not.toHaveBeenCalled();
     });
   });

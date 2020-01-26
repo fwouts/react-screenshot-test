@@ -56,6 +56,7 @@ describe("ReactScreenshotTaker", () => {
         mockScreenshotRenderer
       );
       const node: NodeDescription = {
+        name: "test",
         reactNode: <div>Hello, World!</div>,
         remoteStylesheetUrls: []
       };
@@ -65,6 +66,7 @@ describe("ReactScreenshotTaker", () => {
         expect.anything()
       );
       expect(mockScreenshotRenderer.render).toHaveBeenCalledWith(
+        "test",
         expect.stringMatching(":1234/rendered")
       );
     });
@@ -75,6 +77,7 @@ describe("ReactScreenshotTaker", () => {
         mockScreenshotRenderer
       );
       const node: NodeDescription = {
+        name: "test",
         reactNode: <div>Hello, World!</div>,
         remoteStylesheetUrls: []
       };
@@ -87,6 +90,7 @@ describe("ReactScreenshotTaker", () => {
         expect.anything()
       );
       expect(mockScreenshotRenderer.render).toHaveBeenCalledWith(
+        "test",
         expect.stringMatching(":1234/rendered"),
         {
           width: 1024,

@@ -162,6 +162,7 @@ export class ReactComponentServer {
 }
 
 export interface NodeDescription {
+  name: string;
   reactNode: React.ReactNode;
   remoteStylesheetUrls: string[];
 }
