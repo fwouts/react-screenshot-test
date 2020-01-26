@@ -1,8 +1,8 @@
 import assertNever from "assert-never";
 import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
-import { ChromeScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
 import { PercyScreenshotRenderer } from "./screenshot-renderer/PercyScreenshotRenderer";
+import { PuppeteerScreenshotRenderer } from "./screenshot-renderer/PuppeteerScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
   SCREENSHOT_MODE,
@@ -48,7 +48,7 @@ function createScreenshotServer(): ScreenshotServer {
   switch (SCREENSHOT_MODE) {
     case "local":
       return new LocalScreenshotServer(
-        new ChromeScreenshotRenderer(),
+        new PuppeteerScreenshotRenderer(),
         SCREENSHOT_SERVER_PORT
       );
     case "docker":
