@@ -61,27 +61,27 @@ jobs:
       - store_artifacts:
           path: src/tests/__screenshots__
           destination: screenshots
-  screenshot-test-local-selenium:
-    <<: *defaults
-    steps:
-      - checkout
-      - run:
-          name: Set up Git LFS
-          command: |
-            sudo apt-get install -y git-lfs
-            git lfs install
-            git lfs pull
-      - *restore_cache
-      - run: yarn install
-      - *save_cache
-      - run: |
-          export SCREENSHOT_MODE=selenium
-          export SCREENSHOT_SELENIUM_BROWSER=firefox
-          export SCREENSHOT_PREFIX=firefox/
-          yarn screenshot-test-local
-      - store_artifacts:
-          path: src/tests/__screenshots__
-          destination: screenshots
+  # screenshot-test-local-selenium:
+  #   <<: *defaults
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: Set up Git LFS
+  #         command: |
+  #           sudo apt-get install -y git-lfs
+  #           git lfs install
+  #           git lfs pull
+  #     - *restore_cache
+  #     - run: yarn install
+  #     - *save_cache
+  #     - run: |
+  #         export SCREENSHOT_MODE=selenium
+  #         export SCREENSHOT_SELENIUM_BROWSER=firefox
+  #         export SCREENSHOT_PREFIX=firefox/
+  #         yarn screenshot-test-local
+  #     - store_artifacts:
+  #         path: src/tests/__screenshots__
+  #         destination: screenshots
   screenshot-test-percy:
     <<: *defaults
     steps:
@@ -124,7 +124,7 @@ workflows:
       - lint
       - unit-test
       - screenshot-test-local-puppeteer
-      - screenshot-test-local-selenium
+      # - screenshot-test-local-selenium
       - screenshot-test-percy
       - docker-image
       - example-local
