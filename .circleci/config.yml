@@ -40,7 +40,7 @@ jobs:
       - run: yarn install
       - *save_cache
       - run: yarn unit-test
-  screenshot-test-local-puppeteer:
+  screenshot-test-local:
     <<: *defaults
     steps:
       - checkout
@@ -53,14 +53,10 @@ jobs:
       - *restore_cache
       - run: yarn install
       - *save_cache
-      - run: |
-          # We don't set SCREENSHOT_MODE because it's the default.
-          # export SCREENSHOT_MODE=puppeteer
-          export SCREENSHOT_PREFIX=puppeteer/
-          yarn screenshot-test-local
+      - run: yarn screenshot-test-local
       - store_artifacts:
           path: src/tests/__screenshots__
-          destination: screenshots
+          destination: snapshots
   screenshot-test-percy:
     <<: *defaults
     steps:
@@ -88,8 +84,8 @@ jobs:
       - run: cd example && yarn install
       - run: cd example && yarn screenshot-test-local
       - store_artifacts:
-          path: example/__screenshots__
-          destination: example-screenshots
+          path: example/__image_snapshots__
+          destination: example-snapshots
   example-percy:
     <<: *defaults
     steps:
@@ -102,7 +98,7 @@ workflows:
       - build
       - lint
       - unit-test
-      - screenshot-test-local-puppeteer
+      - screenshot-test-local
       - screenshot-test-percy
       - docker-image
       - example-local
