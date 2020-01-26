@@ -55,7 +55,7 @@ jobs:
       - *save_cache
       - run: yarn screenshot-test-local
       - store_artifacts:
-          path: src/tests/__image_snapshots__
+          path: src/tests/__screenshots__
           destination: snapshots
   screenshot-test-percy:
     <<: *defaults
