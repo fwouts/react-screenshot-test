@@ -1,8 +1,10 @@
 import axios from "axios";
 import chalk from "chalk";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
+import { dirname, join, sep } from "path";
 import { Viewport } from "../screenshot-renderer/api";
 import {
+  getScreenshotPrefix,
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_URL
 } from "../screenshot-server/config";
@@ -118,6 +120,19 @@ export class ReactScreenshotTest {
       await componentServer.stop();
     });
 
+    const prefix = getScreenshotPrefix();
+    // jest-image-snapshot doesn't support a snapshot identifier such as
+    // "abc/def". Instead, we need some logic to look for a directory
+    // separator (using `sep`) and set the subdirectory to "abc", only using
+    // "def" as the identifier prefix.
+    let subdirectory = "";
+    let filenamePrefix = "";
+    if (prefix.indexOf(sep) > -1) {
+      [subdirectory, filenamePrefix] = prefix.split(sep, 2);
+    } else {
+      filenamePrefix = prefix;
+    }
+
     describe(this.componentName, () => {
       for (const [viewportName, viewport] of Object.entries(this._viewports)) {
         describe(viewportName, () => {
@@ -140,7 +155,13 @@ export class ReactScreenshotTest {
               );
               if (screenshot) {
                 expect(screenshot).toMatchImageSnapshot({
-                  customSnapshotIdentifier: () => name
+                  customSnapshotsDir: join(
+                    dirname(module!.parent!.parent!.filename),
+                    "__screenshots__",
+                    this.componentName,
+                    subdirectory
+                  ),
+                  customSnapshotIdentifier: `${filenamePrefix}${viewportName} - ${shotName}`
                 });
               }
             });
