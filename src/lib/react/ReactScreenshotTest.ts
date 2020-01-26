@@ -107,27 +107,28 @@ export class ReactScreenshotTest {
       throw new Error("Please define shots with .shoot()");
     }
 
+    const screenshotRenderer =
+      SCREENSHOT_MODE === "percy"
+        ? new PercyScreenshotRenderer()
+        : new HttpScreenshotRenderer(
+            `http://localhost:${SCREENSHOT_SERVER_PORT}`
+          );
+    const screenshotTaker = new ReactScreenshotTaker(
+      new ReactComponentServer(),
+      screenshotRenderer
+    );
+
+    expect.extend({ toMatchImageSnapshot });
+
+    beforeAll(async () => {
+      await screenshotTaker.start();
+    });
+
+    afterAll(async () => {
+      await screenshotTaker.stop();
+    });
+
     describe(this.componentName, () => {
-      expect.extend({ toMatchImageSnapshot });
-      const screenshotRenderer =
-        SCREENSHOT_MODE === "percy"
-          ? new PercyScreenshotRenderer()
-          : new HttpScreenshotRenderer(
-              `http://localhost:${SCREENSHOT_SERVER_PORT}`
-            );
-      const screenshotTaker = new ReactScreenshotTaker(
-        new ReactComponentServer(),
-        screenshotRenderer
-      );
-
-      beforeAll(async () => {
-        await screenshotTaker.start();
-      });
-
-      afterAll(async () => {
-        await screenshotTaker.stop();
-      });
-
       for (const [viewportName, viewport] of Object.entries(this._viewports)) {
         describe(viewportName, () => {
           for (const [shotName, shot] of Object.entries(this._shots)) {
