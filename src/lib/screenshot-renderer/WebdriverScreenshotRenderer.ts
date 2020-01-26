@@ -48,7 +48,7 @@ export class SeleniumScreenshotRenderer implements ScreenshotRenderer {
     }
   }
 
-  async render(url: string, viewport?: Viewport) {
+  async render(_name: string, url: string, viewport?: Viewport) {
     if (!this.browser) {
       throw new Error("Please call start() once before render().");
     }

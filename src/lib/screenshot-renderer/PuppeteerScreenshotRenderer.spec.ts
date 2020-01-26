@@ -2,11 +2,11 @@ import mockPuppeteer, { Browser, Page } from "puppeteer";
 import { dummy } from "../../testing/dummy";
 import { mocked } from "../../testing/mock";
 import { partialMock } from "../../testing/partial-mock";
-import { ChromeScreenshotRenderer } from "./ChromeScreenshotRenderer";
+import { PuppeteerScreenshotRenderer } from "./PuppeteerScreenshotRenderer";
 
 jest.mock("puppeteer");
 
-describe("ChromeScreenshotRenderer", () => {
+describe("PuppeteerScreenshotRenderer", () => {
   let mockBrowser: jest.Mocked<Browser>;
   let mockPage: jest.Mocked<Page>;
 
@@ -28,12 +28,12 @@ describe("ChromeScreenshotRenderer", () => {
   describe("start", () => {
     it("does not launch the browser if start() isn't called", async () => {
       // eslint-disable-next-line no-new
-      new ChromeScreenshotRenderer();
+      new PuppeteerScreenshotRenderer();
       expect(mockPuppeteer.launch).not.toHaveBeenCalled();
     });
 
     it("launches the browser when start() is called", async () => {
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await renderer.start();
       expect(mockPuppeteer.launch).toHaveBeenCalled();
     });
@@ -42,7 +42,7 @@ describe("ChromeScreenshotRenderer", () => {
       mocked(mockPuppeteer.launch).mockRejectedValue(
         new Error("Could not start!")
       );
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await expect(renderer.start()).rejects.toEqual(
         new Error("Could not start!")
       );
@@ -51,7 +51,7 @@ describe("ChromeScreenshotRenderer", () => {
 
   describe("stop", () => {
     it("cannot close the browser without first starting it", async () => {
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await expect(renderer.stop()).rejects.toEqual(
         new Error(
           "Browser is not open! Please make sure that start() was called."
@@ -60,7 +60,7 @@ describe("ChromeScreenshotRenderer", () => {
     });
 
     it("closes the browser when stop() is called", async () => {
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await renderer.start();
       await renderer.stop();
       expect(mockBrowser.close).toHaveBeenCalled();
@@ -68,7 +68,7 @@ describe("ChromeScreenshotRenderer", () => {
 
     it("fails to stop if browser could not be closed", async () => {
       mockBrowser.close.mockRejectedValue(new Error("Could not stop!"));
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await renderer.start();
       await expect(renderer.stop()).rejects.toEqual(
         new Error("Could not stop!")
@@ -78,7 +78,7 @@ describe("ChromeScreenshotRenderer", () => {
 
   describe("render", () => {
     it("cannot render without first starting it", async () => {
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await expect(
         renderer.render("test", "http://example.com")
       ).rejects.toEqual(new Error("Please call start() once before render()."));
@@ -87,7 +87,7 @@ describe("ChromeScreenshotRenderer", () => {
     it("takes a screenshot", async () => {
       const dummyBinaryScreenshot: Buffer = dummy();
       mockPage.screenshot.mockResolvedValue(dummyBinaryScreenshot);
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await renderer.start();
       const screenshot = await renderer.render("test", "http://example.com");
       expect(screenshot).toBe(dummyBinaryScreenshot);
@@ -99,7 +99,7 @@ describe("ChromeScreenshotRenderer", () => {
     });
 
     it("sets the viewport if provided", async () => {
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await renderer.start();
       await renderer.render("test", "http://example.com", {
         width: 1024,
@@ -112,7 +112,7 @@ describe("ChromeScreenshotRenderer", () => {
     });
 
     it("does not set the viewport if not provided", async () => {
-      const renderer = new ChromeScreenshotRenderer();
+      const renderer = new PuppeteerScreenshotRenderer();
       await renderer.start();
       await renderer.render("test", "http://example.com");
       expect(mockPage.setViewport).not.toHaveBeenCalled();

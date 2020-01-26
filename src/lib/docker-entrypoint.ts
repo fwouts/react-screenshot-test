@@ -1,4 +1,4 @@
-import { PuppeteerScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
+import { PuppeteerScreenshotRenderer } from "./screenshot-renderer/PuppeteerScreenshotRenderer";
 import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer";
 
 const screenshotServer = new LocalScreenshotServer(
