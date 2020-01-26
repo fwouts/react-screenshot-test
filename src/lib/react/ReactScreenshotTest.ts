@@ -110,7 +110,7 @@ export class ReactScreenshotTest {
     describe(this.componentName, () => {
       expect.extend({ toMatchImageSnapshot });
       const screenshotRenderer =
-        SCREENSHOT_MODE == "percy"
+        SCREENSHOT_MODE === "percy"
           ? new PercyScreenshotRenderer()
           : new HttpScreenshotRenderer(
               `http://localhost:${SCREENSHOT_SERVER_PORT}`
