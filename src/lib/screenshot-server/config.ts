@@ -5,6 +5,10 @@ export const SCREENSHOT_SERVER_PORT = parseInt(
   10
 );
 
+export const SCREENSHOT_SERVER_URL =
+  process.env.SCREENSHOT_SERVER_URL ||
+  `http://localhost:${SCREENSHOT_SERVER_PORT}`;
+
 export const SCREENSHOT_MODE = getScreenshotMode();
 
 function getScreenshotMode(): "puppeteer" | "selenium" | "docker" | "percy" {

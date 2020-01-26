@@ -8,7 +8,16 @@
 export interface ScreenshotRenderer {
   start(): Promise<void>;
   stop(): Promise<void>;
-  render(url: string, viewport?: Viewport): Promise<Buffer>;
+
+  /**
+   * Returns a buffer representing a PNG screenshot, or `null` when screenshot
+   * comparison is delegated to a third-party.
+   */
+  render(
+    name: string,
+    url: string,
+    viewport?: Viewport
+  ): Promise<Buffer | null>;
 }
 
 export interface Viewport {
