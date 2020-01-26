@@ -7,7 +7,6 @@ import {
   SCREENSHOT_SERVER_PORT
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
-import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 
 /**
  * ReactScreenshotTest is a builder for screenshot tests.
@@ -113,19 +112,16 @@ export class ReactScreenshotTest {
         : new HttpScreenshotRenderer(
             `http://localhost:${SCREENSHOT_SERVER_PORT}`
           );
-    const screenshotTaker = new ReactScreenshotTaker(
-      new ReactComponentServer(),
-      screenshotRenderer
-    );
+    const componentServer = new ReactComponentServer();
 
     expect.extend({ toMatchImageSnapshot });
 
     beforeAll(async () => {
-      await screenshotTaker.start();
+      await Promise.all([componentServer.start(), screenshotRenderer.start()]);
     });
 
     afterAll(async () => {
-      await screenshotTaker.stop();
+      await Promise.all([componentServer.stop(), screenshotRenderer.stop()]);
     });
 
     describe(this.componentName, () => {
@@ -134,13 +130,21 @@ export class ReactScreenshotTest {
           for (const [shotName, shot] of Object.entries(this._shots)) {
             it(shotName, async () => {
               const name = `${this.componentName} - ${viewportName} - ${shotName}`;
-              const screenshot = await screenshotTaker.render(
+              const screenshot = await componentServer.serve(
                 {
                   name,
                   reactNode: shot,
                   remoteStylesheetUrls: this._remoteStylesheetUrls
                 },
-                viewport
+                async (port, path) => {
+                  const url =
+                    SCREENSHOT_MODE === "docker"
+                      ? `http://host.docker.internal:${port}${path}`
+                      : `http://localhost:${port}${path}`;
+                  return viewport
+                    ? screenshotRenderer.render(name, url, viewport)
+                    : screenshotRenderer.render(name, url);
+                }
               );
               if (screenshot) {
                 expect(screenshot).toMatchImageSnapshot({
