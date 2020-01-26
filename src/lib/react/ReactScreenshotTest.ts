@@ -1,7 +1,7 @@
+import axios from "axios";
+import chalk from "chalk";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import { Viewport } from "../screenshot-renderer/api";
-import { HttpScreenshotRenderer } from "../screenshot-renderer/HttpScreenshotRenderer";
-import { PercyScreenshotRenderer } from "../screenshot-renderer/PercyScreenshotRenderer";
 import {
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
@@ -106,22 +106,16 @@ export class ReactScreenshotTest {
       throw new Error("Please define shots with .shoot()");
     }
 
-    const screenshotRenderer =
-      SCREENSHOT_MODE === "percy"
-        ? new PercyScreenshotRenderer()
-        : new HttpScreenshotRenderer(
-            `http://localhost:${SCREENSHOT_SERVER_PORT}`
-          );
     const componentServer = new ReactComponentServer();
 
     expect.extend({ toMatchImageSnapshot });
 
     beforeAll(async () => {
-      await Promise.all([componentServer.start(), screenshotRenderer.start()]);
+      await componentServer.start();
     });
 
     afterAll(async () => {
-      await Promise.all([componentServer.stop(), screenshotRenderer.stop()]);
+      await componentServer.stop();
     });
 
     describe(this.componentName, () => {
@@ -141,9 +135,7 @@ export class ReactScreenshotTest {
                     SCREENSHOT_MODE === "docker"
                       ? `http://host.docker.internal:${port}${path}`
                       : `http://localhost:${port}${path}`;
-                  return viewport
-                    ? screenshotRenderer.render(name, url, viewport)
-                    : screenshotRenderer.render(name, url);
+                  return this.render(name, url, viewport);
                 }
               );
               if (screenshot) {
@@ -156,5 +148,39 @@ export class ReactScreenshotTest {
         });
       }
     });
+  }
+
+  private async render(name: string, url: string, viewport: Viewport) {
+    try {
+      const response = await axios.post(
+        `http://localhost:${SCREENSHOT_SERVER_PORT}/render`,
+        {
+          name,
+          url,
+          viewport
+        },
+        {
+          responseType: "arraybuffer"
+        }
+      );
+      if (response.status === 204) {
+        return null;
+      }
+      return response.data;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(
+        chalk.red(
+          `Unable to reach screenshot server. Please make sure that your Jest configuration contains the following:
+
+{
+  "globalSetup": "react-screenshot-test/global-setup",
+  "globalTeardown": "react-screenshot-test/global-teardown"
+}
+`
+        )
+      );
+      throw e;
+    }
   }
 }
