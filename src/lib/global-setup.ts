@@ -2,6 +2,7 @@ import assertNever from "assert-never";
 import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
 import { ChromeScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
+import { PercyScreenshotRenderer } from "./screenshot-renderer/PercyScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
   SCREENSHOT_MODE,
@@ -21,10 +22,6 @@ export async function setUpScreenshotServer() {
     throw new Error("Please only call setUpScreenshotServer() once.");
   }
   screenshotServer = createScreenshotServer();
-  if (!screenshotServer) {
-    // If no screenshot server was needed (e.g. Percy), abort early.
-    return;
-  }
   try {
     await screenshotServer.start();
   } catch (e) {
@@ -47,7 +44,7 @@ $ export PERCY_TOKEN=...
   }
 }
 
-function createScreenshotServer(): ScreenshotServer | null {
+function createScreenshotServer(): ScreenshotServer {
   switch (SCREENSHOT_MODE) {
     case "local":
       return new LocalScreenshotServer(
@@ -57,8 +54,10 @@ function createScreenshotServer(): ScreenshotServer | null {
     case "docker":
       return new DockerizedScreenshotServer(SCREENSHOT_SERVER_PORT);
     case "percy":
-      // No need for a screenshot server.
-      return null;
+      return new LocalScreenshotServer(
+        new PercyScreenshotRenderer(),
+        SCREENSHOT_SERVER_PORT
+      );
     default:
       throw assertNever(SCREENSHOT_MODE);
   }
