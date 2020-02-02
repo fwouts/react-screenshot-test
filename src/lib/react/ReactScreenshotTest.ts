@@ -1,9 +1,14 @@
+import axios from "axios";
+import chalk from "chalk";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
-import { Browser, launchChrome } from "../browser/chrome";
+import { dirname, join, sep } from "path";
 import { Viewport } from "../screenshot-renderer/api";
-import { SCREENSHOT_MODE } from "../screenshot-server/config";
+import {
+  getScreenshotPrefix,
+  SCREENSHOT_MODE,
+  SCREENSHOT_SERVER_URL
+} from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
-import { ReactScreenshotTaker } from "./ReactScreenshotTaker";
 
 /**
  * ReactScreenshotTest is a builder for screenshot tests.
@@ -103,99 +108,100 @@ export class ReactScreenshotTest {
       throw new Error("Please define shots with .shoot()");
     }
 
+    const componentServer = new ReactComponentServer();
+
+    expect.extend({ toMatchImageSnapshot });
+
+    beforeAll(async () => {
+      await componentServer.start();
+    });
+
+    afterAll(async () => {
+      await componentServer.stop();
+    });
+
+    const prefix = getScreenshotPrefix();
+    // jest-image-snapshot doesn't support a snapshot identifier such as
+    // "abc/def". Instead, we need some logic to look for a directory
+    // separator (using `sep`) and set the subdirectory to "abc", only using
+    // "def" as the identifier prefix.
+    let subdirectory = "";
+    let filenamePrefix = "";
+    if (prefix.indexOf(sep) > -1) {
+      [subdirectory, filenamePrefix] = prefix.split(sep, 2);
+    } else {
+      filenamePrefix = prefix;
+    }
+
     describe(this.componentName, () => {
-      if (SCREENSHOT_MODE === "percy") {
-        const componentServer = new ReactComponentServer();
-        let browser: Browser | null = null;
-
-        beforeAll(async () => {
-          await componentServer.start();
-          browser = await launchChrome();
-        });
-
-        afterAll(async () => {
-          await componentServer.stop();
-          if (browser) {
-            await browser.close();
+      for (const [viewportName, viewport] of Object.entries(this._viewports)) {
+        describe(viewportName, () => {
+          for (const [shotName, shot] of Object.entries(this._shots)) {
+            it(shotName, async () => {
+              const name = `${this.componentName} - ${viewportName} - ${shotName}`;
+              const screenshot = await componentServer.serve(
+                {
+                  name,
+                  reactNode: shot,
+                  remoteStylesheetUrls: this._remoteStylesheetUrls
+                },
+                async (port, path) => {
+                  const url =
+                    SCREENSHOT_MODE === "docker"
+                      ? `http://host.docker.internal:${port}${path}`
+                      : `http://localhost:${port}${path}`;
+                  return this.render(name, url, viewport);
+                }
+              );
+              if (screenshot) {
+                expect(screenshot).toMatchImageSnapshot({
+                  customSnapshotsDir: join(
+                    dirname(module!.parent!.parent!.filename),
+                    "__screenshots__",
+                    this.componentName,
+                    subdirectory
+                  ),
+                  customSnapshotIdentifier: `${filenamePrefix}${viewportName} - ${shotName}`
+                });
+              }
+            });
           }
         });
-
-        for (const [shotName, shot] of Object.entries(this._shots)) {
-          it(shotName, async () => {
-            if (!browser) {
-              throw new Error("Browser was not launched successfully.");
-            }
-            const page = await browser.newPage();
-            await componentServer.serve(
-              {
-                reactNode: shot,
-                remoteStylesheetUrls: this._remoteStylesheetUrls
-              },
-              async (port, path) => {
-                await page.goto(`http://localhost:${port}${path}`);
-                let percy: typeof import("@percy/puppeteer");
-                try {
-                  percy = await import("@percy/puppeteer");
-                } catch (e) {
-                  throw new Error(
-                    `Please install the '@percy/puppeteer' package:
-            
-            Using NPM:
-            $ npm install -D @percy/puppeteer
-            
-            Using Yarn:
-            $ yarn add -D @percy/puppeteer`
-                  );
-                }
-                await percy.percySnapshot(
-                  page,
-                  `${this.componentName} - ${shotName}`,
-                  {
-                    widths: Object.values(this._viewports).map(
-                      viewport =>
-                        viewport.width / (viewport.deviceScaleFactor || 1)
-                    )
-                  }
-                );
-              }
-            );
-          });
-        }
-      } else {
-        expect.extend({ toMatchImageSnapshot });
-        const renderer = new ReactScreenshotTaker();
-
-        beforeAll(async () => {
-          await renderer.start();
-        });
-
-        afterAll(async () => {
-          await renderer.stop();
-        });
-
-        for (const [viewportName, viewport] of Object.entries(
-          this._viewports
-        )) {
-          describe(viewportName, () => {
-            for (const [shotName, shot] of Object.entries(this._shots)) {
-              it(shotName, async () => {
-                expect(
-                  await renderer.render(
-                    {
-                      reactNode: shot,
-                      remoteStylesheetUrls: this._remoteStylesheetUrls
-                    },
-                    viewport
-                  )
-                ).toMatchImageSnapshot({
-                  customSnapshotIdentifier: () =>
-                    `${this.componentName} - ${viewportName} - ${shotName}`
-                });
-              });
-            }
-          });
-        }
       }
     });
+  }
+
+  private async render(name: string, url: string, viewport: Viewport) {
+    try {
+      const response = await axios.post(
+        `${SCREENSHOT_SERVER_URL}/render`,
+        {
+          name,
+          url,
+          viewport
+        },
+        {
+          responseType: "arraybuffer"
+        }
+      );
+      if (response.status === 204) {
+        return null;
+      }
+      return response.data;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(
+        chalk.red(
+          `Unable to reach screenshot server. Please make sure that your Jest configuration contains the following:
+
+{
+  "globalSetup": "react-screenshot-test/global-setup",
+  "globalTeardown": "react-screenshot-test/global-teardown"
+}
+`
+        )
+      );
+      throw e;
+    }
   }
 }

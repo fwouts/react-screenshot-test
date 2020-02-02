@@ -1,2 +1,2 @@
-**/__image_snapshots__/*.* binary
-**/__image_snapshots__/*.* filter=lfs diff=lfs merge=lfs -text
+**/__screenshots__/*.* binary
+**/__screenshots__/*.* filter=lfs diff=lfs merge=lfs -text

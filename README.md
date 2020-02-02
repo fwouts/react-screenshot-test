@@ -112,8 +112,8 @@ If you're unfamiliar with Git LFS, you can learn about it with [this short video
 To set up Git LFS, [install the Git extension](https://git-lfs.github.com/) and add the following to `.gitattributes` in your repository ([source](https://github.com/americanexpress/jest-image-snapshot/issues/92#issuecomment-493582776)):
 
 ```
-**/__image_snapshots__/*.* binary
-**/__image_snapshots__/*.* filter=lfs diff=lfs merge=lfs -text
+**/__screenshots__/*.* binary
+**/__screenshots__/*.* filter=lfs diff=lfs merge=lfs -text
 ```
 
 You may also need to set up Git LFS for continuous integration. See [our config](https://github.com/fwouts/react-screenshot-test/blob/master/.circleci/config.yml) for an example with CircleCI.

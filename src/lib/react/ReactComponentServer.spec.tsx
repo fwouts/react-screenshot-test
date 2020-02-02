@@ -13,6 +13,7 @@ describe("ReactComponentServer", () => {
     let rendered = false;
     await server.serve(
       {
+        name: "test",
         reactNode: <div>Hello, World!</div>,
         remoteStylesheetUrls: ["https://fonts.googleapis.com/css?family=Roboto"]
       },

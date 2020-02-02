@@ -1,9 +1,12 @@
 import assertNever from "assert-never";
 import chalk from "chalk";
 import { PACKAGE_NAME } from "./constants";
-import { ChromeScreenshotRenderer } from "./screenshot-renderer/ChromeScreenshotRenderer";
+import { PercyScreenshotRenderer } from "./screenshot-renderer/PercyScreenshotRenderer";
+import { PuppeteerScreenshotRenderer } from "./screenshot-renderer/PuppeteerScreenshotRenderer";
+import { SeleniumScreenshotRenderer } from "./screenshot-renderer/WebdriverScreenshotRenderer";
 import { ScreenshotServer } from "./screenshot-server/api";
 import {
+  getSeleniumBrowser,
   SCREENSHOT_MODE,
   SCREENSHOT_SERVER_PORT
 } from "./screenshot-server/config";
@@ -21,10 +24,6 @@ export async function setUpScreenshotServer() {
     throw new Error("Please only call setUpScreenshotServer() once.");
   }
   screenshotServer = createScreenshotServer();
-  if (!screenshotServer) {
-    // If no screenshot server was needed (e.g. Percy), abort early.
-    return;
-  }
   try {
     await screenshotServer.start();
   } catch (e) {
@@ -47,18 +46,27 @@ $ export PERCY_TOKEN=...
   }
 }
 
-function createScreenshotServer(): ScreenshotServer | null {
+function createScreenshotServer(): ScreenshotServer {
   switch (SCREENSHOT_MODE) {
-    case "local":
+    case "puppeteer":
       return new LocalScreenshotServer(
-        new ChromeScreenshotRenderer(),
+        new PuppeteerScreenshotRenderer(),
         SCREENSHOT_SERVER_PORT
       );
     case "docker":
       return new DockerizedScreenshotServer(SCREENSHOT_SERVER_PORT);
     case "percy":
-      // No need for a screenshot server.
-      return null;
+      return new LocalScreenshotServer(
+        new PercyScreenshotRenderer(),
+        SCREENSHOT_SERVER_PORT
+      );
+    case "selenium":
+      return new LocalScreenshotServer(
+        new SeleniumScreenshotRenderer({
+          browserName: getSeleniumBrowser()
+        }),
+        SCREENSHOT_SERVER_PORT
+      );
     default:
       throw assertNever(SCREENSHOT_MODE);
   }
