@@ -1,4 +1,5 @@
 import axios from "axios";
+import callsites from "callsites";
 import chalk from "chalk";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import { dirname, join, sep } from "path";
@@ -120,6 +121,9 @@ export class ReactScreenshotTest {
       await componentServer.stop();
     });
 
+    const testFilename = callsites()[1].getFileName()!;
+    const snapshotsDir = dirname(testFilename);
+
     const prefix = getScreenshotPrefix();
     // jest-image-snapshot doesn't support a snapshot identifier such as
     // "abc/def". Instead, we need some logic to look for a directory
@@ -156,7 +160,7 @@ export class ReactScreenshotTest {
               if (screenshot) {
                 expect(screenshot).toMatchImageSnapshot({
                   customSnapshotsDir: join(
-                    dirname(module!.parent!.parent!.filename),
+                    snapshotsDir,
                     "__screenshots__",
                     this.componentName,
                     subdirectory
