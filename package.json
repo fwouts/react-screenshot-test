@@ -65,7 +65,6 @@
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "chalk": "^3.0.0",
-    "cosmiconfig": "^6.0.0",
     "cross-spawn": "7.0.1",
     "dockerode": "^3.0.2",
     "express": "^4.17.1",
