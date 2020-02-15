@@ -8,7 +8,7 @@
     "@babel/core": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
-    "@percy/puppeteer": "^1.0.8",
+    "@percy/puppeteer": "^1.1.0",
     "jest": "^25.1.0",
     "puppeteer": "^2.1.0",
     "react-screenshot-test": "^1.4.0"
