@@ -6,7 +6,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
     "@percy/puppeteer": "^1.1.0",
     "jest": "^25.1.0",
