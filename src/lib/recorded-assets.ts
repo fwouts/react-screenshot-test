@@ -1,4 +1,4 @@
-import uuid from "uuid";
+import * as uuid from "uuid";
 
 export const ASSET_SERVING_PREFIX = "/assets/";
 

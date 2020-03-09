@@ -28,7 +28,7 @@ describe("ReactComponentServer", () => {
             transition: none !important;
             animation: none !important;
           }
-          </style></head><body><div>Hello, World!</div></body></html>"
+          </style><style data-styled=\\"\\" data-styled-version=\\"5.0.1\\"></style></head><body><div>Hello, World!</div></body></html>"
         `);
         rendered = true;
       }
