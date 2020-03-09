@@ -4,7 +4,8 @@ module.exports = {
   globalTeardown: "react-screenshot-test/global-teardown",
   testMatch: ["**/?(*.)+(screenshot).[jt]s?(x)"],
   transform: {
-    "^.+\\.[t|j]sx?$": "babel-jest",
+    "^.+\\.[t|j]sx?$": "babel-jest", // or ts-jest
+    "^.+\\.module\\.css$": "react-screenshot-test/css-modules-transform",
     "^.+\\.css$": "react-screenshot-test/css-transform",
     "^.+\\.scss$": "react-screenshot-test/sass-transform",
     "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
