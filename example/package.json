@@ -11,7 +11,7 @@
     "@percy/puppeteer": "^1.1.0",
     "jest": "^25.1.0",
     "puppeteer": "^2.1.1",
-    "react-screenshot-test": "^1.4.0"
+    "react-screenshot-test": "^2.0.1"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
