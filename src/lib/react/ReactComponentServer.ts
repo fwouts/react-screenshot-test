@@ -3,7 +3,7 @@ import getPort from "get-port";
 import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
-import uuid from "uuid";
+import * as uuid from "uuid";
 import { ASSET_SERVING_PREFIX, getAssetFilename } from "../recorded-assets";
 import { readRecordedCss } from "../recorded-css";
 
