@@ -84,8 +84,8 @@ jobs:
       - run: cd example && yarn install
       - run: cd example && yarn screenshot-test-local
       - store_artifacts:
-          path: example/__image_snapshots__
-          destination: example-snapshots
+          path: example/__screenshots__
+          destination: example-screenshots
   example-percy:
     <<: *defaults
     steps:
