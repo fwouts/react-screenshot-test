@@ -13,7 +13,7 @@ type ServerStyleSheet = import("styled-components").ServerStyleSheet;
 
 const viewportMeta = React.createElement("meta", {
   name: "viewport",
-  content: "width=device-width, initial-scale=1.0"
+  content: "width=device-width, initial-scale=1.0",
 });
 
 /**
@@ -49,7 +49,7 @@ export class ReactComponentServer {
           this.renderWithStyledComponents(new ServerStyleSheet(), node)
         )
         .catch(() => this.renderWithoutStyledComponents(node))
-        .then(html => res.send(html));
+        .then((html) => res.send(html));
     });
     this.app.get(`${ASSET_SERVING_PREFIX}:asset.:ext`, (req, res) => {
       const filePath = getAssetFilename(req.path);
@@ -75,19 +75,19 @@ export class ReactComponentServer {
             "head",
             null,
             viewportMeta,
-            ...node.remoteStylesheetUrls.map(url =>
+            ...node.remoteStylesheetUrls.map((url) =>
               React.createElement("link", {
                 rel: "stylesheet",
-                href: url
+                href: url,
               })
             ),
             React.createElement("style", {
-              dangerouslySetInnerHTML: { __html: readRecordedCss() }
+              dangerouslySetInnerHTML: { __html: readRecordedCss() },
             }),
             sheet.getStyleElement()
           ),
           React.createElement("body", {
-            dangerouslySetInnerHTML: { __html: rendered }
+            dangerouslySetInnerHTML: { __html: rendered },
           })
         )
       );
@@ -107,10 +107,10 @@ export class ReactComponentServer {
           "head",
           null,
           viewportMeta,
-          ...node.remoteStylesheetUrls.map(url =>
+          ...node.remoteStylesheetUrls.map((url) =>
             React.createElement("link", {
               rel: "stylesheet",
-              href: url
+              href: url,
             })
           ),
           React.createElement("style", null, readRecordedCss())
@@ -127,7 +127,7 @@ export class ReactComponentServer {
       );
     }
     this.port = await getPort();
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.server = this.app.listen(this.port, resolve);
     });
   }
@@ -140,7 +140,7 @@ export class ReactComponentServer {
       );
     }
     return new Promise((resolve, reject) => {
-      server.close(err => (err ? reject(err) : resolve()));
+      server.close((err) => (err ? reject(err) : resolve()));
     });
   }
 

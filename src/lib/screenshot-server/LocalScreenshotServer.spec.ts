@@ -12,7 +12,7 @@ describe("LocalScreenshotServer", () => {
     mockRenderer = partialMock<ScreenshotRenderer>({
       start: jest.fn(),
       stop: jest.fn(),
-      render: jest.fn()
+      render: jest.fn(),
     });
   });
 
@@ -28,15 +28,15 @@ describe("LocalScreenshotServer", () => {
       url: "http://example.com",
       viewport: {
         with: 1024,
-        height: 768
-      }
+        height: 768,
+      },
     });
     expect(mockRenderer.render).toHaveBeenCalledWith(
       "screenshot",
       "http://example.com",
       {
         with: 1024,
-        height: 768
+        height: 768,
       }
     );
 
@@ -53,7 +53,7 @@ describe("LocalScreenshotServer", () => {
 
     await axios.post(`http://localhost:${port}/render`, {
       name: "screenshot",
-      url: "http://example.com"
+      url: "http://example.com",
     });
     expect(mockRenderer.render).toHaveBeenCalledWith(
       "screenshot",

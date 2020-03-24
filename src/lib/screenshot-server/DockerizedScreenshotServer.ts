@@ -19,7 +19,7 @@ export class DockerizedScreenshotServer implements ScreenshotServer {
       socketPath:
         process.platform === "win32"
           ? "//./pipe/docker_engine"
-          : "/var/run/docker.sock"
+          : "/var/run/docker.sock",
     });
   }
 
@@ -49,9 +49,9 @@ async function ensureDockerImagePresent(docker: Docker) {
   const images = await docker.listImages({
     filters: {
       reference: {
-        [DOCKER_IMAGE_TAG]: true
-      }
-    }
+        [DOCKER_IMAGE_TAG]: true,
+      },
+    },
   });
   if (images.length === 0) {
     throw new Error(
@@ -89,22 +89,22 @@ async function startContainer(docker: Docker, port: number) {
     OpenStdin: false,
     StdinOnce: false,
     ExposedPorts: {
-      "3000/tcp": {}
+      "3000/tcp": {},
     },
     HostConfig: {
       PortBindings: {
-        "3000/tcp": [{ HostPort: `${port}` }]
-      }
-    }
+        "3000/tcp": [{ HostPort: `${port}` }],
+      },
+    },
   });
   await container.start();
   const stream = await container.logs({
     stdout: true,
     stderr: true,
-    follow: true
+    follow: true,
   });
-  await new Promise<void>(resolve => {
-    stream.on("data", message => {
+  await new Promise<void>((resolve) => {
+    stream.on("data", (message) => {
       if (message.toString().indexOf("Ready.") > -1) {
         resolve();
       }

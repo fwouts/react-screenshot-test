@@ -15,7 +15,9 @@ describe("ReactComponentServer", () => {
       {
         name: "test",
         reactNode: <div>Hello, World!</div>,
-        remoteStylesheetUrls: ["https://fonts.googleapis.com/css?family=Roboto"]
+        remoteStylesheetUrls: [
+          "https://fonts.googleapis.com/css?family=Roboto",
+        ],
       },
       async (port, path) => {
         const { data } = await axios.get(`http://localhost:${port}${path}`);

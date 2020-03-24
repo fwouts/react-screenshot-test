@@ -6,7 +6,7 @@ export const VIEWPORTS: {
 } = {
   Desktop: {
     width: 1024,
-    height: 768
+    height: 768,
   },
-  "iPhone X": devices["iPhone X"].viewport
+  "iPhone X": devices["iPhone X"].viewport,
 };

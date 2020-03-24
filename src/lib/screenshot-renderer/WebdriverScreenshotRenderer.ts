@@ -16,7 +16,7 @@ export class SeleniumScreenshotRenderer implements ScreenshotRenderer {
 
   async start() {
     // Install Selenium if required.
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       selenium.install(resolve);
     });
     // Start Selenium server.
@@ -31,7 +31,7 @@ export class SeleniumScreenshotRenderer implements ScreenshotRenderer {
     );
     this.browser = await webdriverio.remote({
       capabilities: this.capabilities,
-      logLevel: "warn"
+      logLevel: "warn",
     });
   }
 
