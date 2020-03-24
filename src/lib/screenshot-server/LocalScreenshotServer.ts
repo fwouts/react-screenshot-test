@@ -43,7 +43,7 @@ export class LocalScreenshotServer implements ScreenshotServer {
 
   async start() {
     await this.renderer.start();
-    return new Promise<void>(resolve => {
+    return new Promise<void>((resolve) => {
       this.server = this.app.listen(this.port, resolve);
     });
   }
@@ -56,7 +56,7 @@ export class LocalScreenshotServer implements ScreenshotServer {
       );
     }
     await new Promise((resolve, reject) => {
-      server.close(err => (err ? reject(err) : resolve()));
+      server.close((err) => (err ? reject(err) : resolve()));
     });
     await this.renderer.stop();
   }

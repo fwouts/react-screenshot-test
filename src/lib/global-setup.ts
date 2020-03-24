@@ -8,7 +8,7 @@ import { ScreenshotServer } from "./screenshot-server/api";
 import {
   getSeleniumBrowser,
   SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_PORT
+  SCREENSHOT_SERVER_PORT,
 } from "./screenshot-server/config";
 import { DockerizedScreenshotServer } from "./screenshot-server/DockerizedScreenshotServer";
 import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer";
@@ -63,7 +63,7 @@ function createScreenshotServer(): ScreenshotServer {
     case "selenium":
       return new LocalScreenshotServer(
         new SeleniumScreenshotRenderer({
-          browserName: getSeleniumBrowser()
+          browserName: getSeleniumBrowser(),
         }),
         SCREENSHOT_SERVER_PORT
       );

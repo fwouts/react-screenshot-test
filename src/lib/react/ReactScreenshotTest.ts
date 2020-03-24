@@ -7,7 +7,7 @@ import { Viewport } from "../screenshot-renderer/api";
 import {
   getScreenshotPrefix,
   SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_URL
+  SCREENSHOT_SERVER_URL,
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 
@@ -147,7 +147,7 @@ export class ReactScreenshotTest {
                 {
                   name,
                   reactNode: shot,
-                  remoteStylesheetUrls: this._remoteStylesheetUrls
+                  remoteStylesheetUrls: this._remoteStylesheetUrls,
                 },
                 async (port, path) => {
                   const url =
@@ -165,7 +165,7 @@ export class ReactScreenshotTest {
                     this.componentName,
                     subdirectory
                   ),
-                  customSnapshotIdentifier: `${filenamePrefix}${viewportName} - ${shotName}`
+                  customSnapshotIdentifier: `${filenamePrefix}${viewportName} - ${shotName}`,
                 });
               }
             });
@@ -182,10 +182,10 @@ export class ReactScreenshotTest {
         {
           name,
           url,
-          viewport
+          viewport,
         },
         {
-          responseType: "arraybuffer"
+          responseType: "arraybuffer",
         }
       );
       if (response.status === 204) {

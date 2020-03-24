@@ -16,11 +16,11 @@ describe("PuppeteerScreenshotRenderer", () => {
       goto: jest.fn(),
       screenshot: jest.fn(),
       setViewport: jest.fn(),
-      close: jest.fn()
+      close: jest.fn(),
     });
     mockBrowser = partialMock<Browser>({
       newPage: jest.fn().mockReturnValue(mockPage),
-      close: jest.fn()
+      close: jest.fn(),
     });
     mocked(mockPuppeteer.launch).mockResolvedValue(mockBrowser);
   });
@@ -93,7 +93,7 @@ describe("PuppeteerScreenshotRenderer", () => {
       expect(screenshot).toBe(dummyBinaryScreenshot);
       expect(mockPage.goto).toHaveBeenCalledWith("http://example.com");
       expect(mockPage.screenshot).toHaveBeenCalledWith({
-        encoding: "binary"
+        encoding: "binary",
       });
       expect(mockPage.close).toHaveBeenCalled();
     });
@@ -103,11 +103,11 @@ describe("PuppeteerScreenshotRenderer", () => {
       await renderer.start();
       await renderer.render("test", "http://example.com", {
         width: 1024,
-        height: 768
+        height: 768,
       });
       expect(mockPage.setViewport).toHaveBeenCalledWith({
         width: 1024,
-        height: 768
+        height: 768,
       });
     });
 

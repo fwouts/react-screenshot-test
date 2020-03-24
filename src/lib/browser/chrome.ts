@@ -18,6 +18,6 @@ $ yarn add -D puppeteer`
     );
   }
   return puppeteer.default.launch({
-    args: ["--no-sandbox"]
+    args: ["--no-sandbox"],
   });
 }

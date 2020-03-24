@@ -44,7 +44,7 @@ export class PercyScreenshotRenderer implements ScreenshotRenderer {
       page,
       name,
       viewport && {
-        widths: [viewport.width / (viewport.deviceScaleFactor || 1)]
+        widths: [viewport.width / (viewport.deviceScaleFactor || 1)],
       }
     );
     return null;
