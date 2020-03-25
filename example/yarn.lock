@@ -5163,10 +5163,10 @@ react-is@^16.12.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-screenshot-test@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-2.0.3.tgz#1a27dffc6aa0464b6e7945f9944f81bff998cbd7"
-  integrity sha512-eE4Aj0uRtYUtZLiibc/uVHQaqoxvW/P5yAhtKWoDDty/YTNm7HHKANLdbb6olWIEg8ER1xCAbpPv06XNRoGfhg==
+react-screenshot-test@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-2.0.4.tgz#f815b67163d0358971710ff480661e6208460cd7"
+  integrity sha512-vMOn0/Z4w5GzSE6HymU1mveMdJUXJdeZti2iZtJGAz2zg6am/JYICQRPo0XW9PV963LO6DnC3dgULjiChfpd6A==
   dependencies:
     assert-never "^1.2.0"
     axios "^0.19.0"
@@ -5183,7 +5183,7 @@ react-screenshot-test@^2.0.3:
     postcss-modules "^1.4.1"
     selenium-standalone "^6.17.0"
     uuid "^7.0.2"
-    webdriverio "^5.18.0"
+    webdriverio "^5.22.4"
 
 react@^16.13.1:
   version "16.13.1"
@@ -6370,7 +6370,7 @@ webdriver@5.22.4:
     lodash.merge "^4.6.1"
     request "^2.83.0"
 
-webdriverio@^5.18.0:
+webdriverio@^5.22.4:
   version "5.22.4"
   resolved "https://registry.yarnpkg.com/webdriverio/-/webdriverio-5.22.4.tgz#56819998196d86f5a405a76fb41cae10e7dcd641"
   integrity sha512-6/Qi1/N8wK5r7Mp2aEwB+1FkDQiyiuwQn8lm+dfYhrfWs3kLOKKt3MPeM4I6j2Yv2/mGpYf7WKu2xTj/vkJzBA==
