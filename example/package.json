@@ -9,7 +9,7 @@
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
     "@percy/puppeteer": "^1.1.0",
-    "jest": "^25.3.0",
+    "jest": "^25.4.0",
     "puppeteer": "^2.1.1",
     "react-screenshot-test": "^2.0.4"
   },
