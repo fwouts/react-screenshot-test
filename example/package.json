@@ -10,7 +10,7 @@
     "@babel/preset-react": "^7.9.4",
     "@percy/puppeteer": "^1.1.0",
     "jest": "^25.4.0",
-    "puppeteer": "^2.1.1",
+    "puppeteer": "^3.0.0",
     "react-screenshot-test": "^2.0.4"
   },
   "dependencies": {
