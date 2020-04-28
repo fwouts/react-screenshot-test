@@ -1,9 +1,12 @@
 import Docker from "dockerode";
 import { ScreenshotServer } from "./api";
+import { debugLogger } from "../logger";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
 const DOCKER_IMAGE_VERSION = "1.0.0";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
+
+const logDebug = debugLogger("DockerizedScreenshotServer");
 
 /**
  * A screenshot server running inside a Docker container (which runs Chrome) to
@@ -24,24 +27,39 @@ export class DockerizedScreenshotServer implements ScreenshotServer {
   }
 
   async start() {
+    logDebug(`DockerizedScreenshotServer.start() initiated.`);
     if (this.container) {
       throw new Error(
         "Container is already started! Please only call start() once."
       );
     }
+
+    logDebug(`Ensuring that Docker image is present.`);
     await ensureDockerImagePresent(this.docker);
+
+    logDebug(`Removing any old Docker containers.`);
     await removeLeftoverContainers(this.docker);
+
+    logDebug(`Starting Docker container.`);
     this.container = await startContainer(this.docker, this.port);
+    logDebug(`Docker container started.`);
   }
 
   async stop() {
+    logDebug(`DockerizedScreenshotServer.stop() initiated.`);
     if (!this.container) {
       throw new Error(
         "Container is not started! Please make sure that start() was called."
       );
     }
+
+    logDebug(`Killing Docker container.`);
     await this.container.kill();
+    logDebug(`Docker container killed.`);
+
+    logDebug(`Removing Docker container.`);
     await this.container.remove();
+    logDebug(`Docker container removed.`);
   }
 }
 

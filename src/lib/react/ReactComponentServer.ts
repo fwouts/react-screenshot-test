@@ -6,6 +6,7 @@ import ReactDOMServer from "react-dom/server";
 import * as uuid from "uuid";
 import { ASSET_SERVING_PREFIX, getAssetFilename } from "../recorded-assets";
 import { readRecordedCss } from "../recorded-css";
+import { debugLogger } from "../logger";
 
 // Import ServerStyleSheet without importing styled-components, so that
 // projects which don't use styled-components don't crash.
@@ -15,6 +16,8 @@ const viewportMeta = React.createElement("meta", {
   name: "viewport",
   content: "width=device-width, initial-scale=1.0",
 });
+
+const logDebug = debugLogger("ReactComponentServer");
 
 /**
  * ReactComponentServer renders React nodes in a plain HTML page.
@@ -35,6 +38,7 @@ export class ReactComponentServer {
     this.app.get("/render/:nodeId", (req, res) => {
       const { nodeId } = req.params;
       const node = this.nodes[nodeId];
+      logDebug(`Received request to render node ${nodeId}.`);
       if (!node) {
         throw new Error(`No node to render for ID: ${nodeId}`);
       }
@@ -53,6 +57,7 @@ export class ReactComponentServer {
     });
     this.app.get(`${ASSET_SERVING_PREFIX}:asset.:ext`, (req, res) => {
       const filePath = getAssetFilename(req.path);
+      logDebug(`Serving static asset ${req.path} from ${filePath}.`);
       res.sendFile(filePath);
     });
   }
@@ -61,6 +66,8 @@ export class ReactComponentServer {
     sheet: ServerStyleSheet,
     node: NodeDescription
   ) {
+    logDebug(`Initiating render with styled-components.`);
+
     // See https://www.styled-components.com/docs/advanced#server-side-rendering
     // for details.
     try {
@@ -98,6 +105,8 @@ export class ReactComponentServer {
   }
 
   private renderWithoutStyledComponents(node: NodeDescription) {
+    logDebug(`Initiating render without styled-components.`);
+
     // Simply render the node. This works with Emotion, too!
     return ReactDOMServer.renderToString(
       React.createElement(
@@ -121,27 +130,37 @@ export class ReactComponentServer {
   }
 
   async start(): Promise<void> {
+    logDebug(`start() initiated.`);
+
     if (this.server) {
       throw new Error(
         "Server is already running! Please only call start() once."
       );
     }
     this.port = await getPort();
-    return new Promise((resolve) => {
+
+    logDebug(`Attempting to listen on port ${this.port}.`);
+    await new Promise((resolve) => {
       this.server = this.app.listen(this.port, resolve);
     });
+    logDebug(`Successfully listening on port ${this.port}.`);
   }
 
-  stop(): Promise<void> {
+  async stop(): Promise<void> {
+    logDebug(`stop() initiated.`);
+
     const { server } = this;
     if (!server) {
       throw new Error(
         "Server is not running! Please make sure that start() was called."
       );
     }
-    return new Promise((resolve, reject) => {
+
+    logDebug(`Attempting to shutdown server.`);
+    await new Promise((resolve, reject) => {
       server.close((err) => (err ? reject(err) : resolve()));
     });
+    logDebug(`Successfully shutdown server.`);
   }
 
   async serve<T>(
@@ -149,14 +168,24 @@ export class ReactComponentServer {
     ready: (port: number, path: string) => Promise<T>,
     id = uuid.v4()
   ): Promise<T> {
+    logDebug(`serve() initiated with node ID: ${id}`);
+
     if (!this.server || !this.port) {
       throw new Error(
         "Server is not running! Please make sure that start() was called."
       );
     }
+
+    logDebug(`Storing node.`);
     this.nodes[id] = node;
+
+    logDebug(`Rendering node.`);
     const result = await ready(this.port, `/render/${id}`);
+    logDebug(`Node rendered.`);
+
+    logDebug(`Deleting node.`);
     delete this.nodes[id];
+
     return result;
   }
 }

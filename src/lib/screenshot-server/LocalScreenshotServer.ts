@@ -3,6 +3,9 @@ import express, { Express } from "express";
 import { Server } from "net";
 import { ScreenshotRenderer } from "../screenshot-renderer/api";
 import { ScreenshotServer } from "./api";
+import { debugLogger } from "../logger";
+
+const logDebug = debugLogger("LocalScreenshotServer");
 
 /**
  * A local server with a /render POST endpoint, which takes a payload such as
@@ -42,22 +45,37 @@ export class LocalScreenshotServer implements ScreenshotServer {
   }
 
   async start() {
+    logDebug(`start() initiated.`);
+
+    logDebug(`Starting renderer.`);
     await this.renderer.start();
-    return new Promise<void>((resolve) => {
+    logDebug(`Renderer started.`);
+
+    logDebug(`Attempting to listen on port ${this.port}.`);
+    await new Promise((resolve) => {
       this.server = this.app.listen(this.port, resolve);
     });
+    logDebug(`Successfully listening on port ${this.port}.`);
   }
 
   async stop() {
+    logDebug(`stop() initiated.`);
+
     const { server } = this;
     if (!server) {
       throw new Error(
         "Server is not running! Please make sure that start() was called."
       );
     }
+
+    logDebug(`Attempting to shutdown server.`);
     await new Promise((resolve, reject) => {
       server.close((err) => (err ? reject(err) : resolve()));
     });
+    logDebug(`Successfully shutdown server.`);
+
+    logDebug(`Stopping renderer.`);
     await this.renderer.stop();
+    logDebug(`Renderer stopped.`);
   }
 }

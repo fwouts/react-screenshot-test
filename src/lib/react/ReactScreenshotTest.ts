@@ -10,6 +10,9 @@ import {
   SCREENSHOT_SERVER_URL,
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
+import { debugLogger } from "../logger";
+
+const logDebug = debugLogger("ReactScreenshotTest");
 
 /**
  * ReactScreenshotTest is a builder for screenshot tests.
@@ -143,6 +146,10 @@ export class ReactScreenshotTest {
           for (const [shotName, shot] of Object.entries(this._shots)) {
             it(shotName, async () => {
               const name = `${this.componentName} - ${viewportName} - ${shotName}`;
+
+              logDebug(
+                `Requesting component server to generate screenshot: ${name}`
+              );
               const screenshot = await componentServer.serve(
                 {
                   name,
@@ -157,7 +164,10 @@ export class ReactScreenshotTest {
                   return this.render(name, url, viewport);
                 }
               );
+              logDebug(`Screenshot generated.`);
+
               if (screenshot) {
+                logDebug(`Comparing screenshot.`);
                 expect(screenshot).toMatchImageSnapshot({
                   customSnapshotsDir: join(
                     snapshotsDir,
@@ -167,6 +177,9 @@ export class ReactScreenshotTest {
                   ),
                   customSnapshotIdentifier: `${filenamePrefix}${viewportName} - ${shotName}`,
                 });
+                logDebug(`Screenshot compared.`);
+              } else {
+                logDebug(`Skipping screenshot matching.`);
               }
             });
           }
@@ -177,6 +190,9 @@ export class ReactScreenshotTest {
 
   private async render(name: string, url: string, viewport: Viewport) {
     try {
+      logDebug(
+        `Initiating request to screenshot server at ${SCREENSHOT_SERVER_URL}.`
+      );
       const response = await axios.post(
         `${SCREENSHOT_SERVER_URL}/render`,
         {
@@ -188,6 +204,7 @@ export class ReactScreenshotTest {
           responseType: "arraybuffer",
         }
       );
+      logDebug(`Response received with status code ${response.status}.`);
       if (response.status === 204) {
         return null;
       }

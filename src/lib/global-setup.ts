@@ -12,6 +12,9 @@ import {
 } from "./screenshot-server/config";
 import { DockerizedScreenshotServer } from "./screenshot-server/DockerizedScreenshotServer";
 import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer";
+import { debugLogger } from "./logger";
+
+const logDebug = debugLogger("global-setup");
 
 let screenshotServer: ScreenshotServer | null = null;
 
@@ -20,12 +23,20 @@ export function getScreenshotServer() {
 }
 
 export async function setUpScreenshotServer() {
+  logDebug(`Screenshot server setup initiated.`);
+
   if (screenshotServer) {
     throw new Error("Please only call setUpScreenshotServer() once.");
   }
+
+  logDebug(`Creating screenshot server.`);
   screenshotServer = createScreenshotServer();
+  logDebug(`Screenshot server instance created.`);
+
   try {
+    logDebug(`Starting screenshot server.`);
     await screenshotServer.start();
+    logDebug(`Screenshot server started.`);
   } catch (e) {
     if (e.message.indexOf("connect ECONNREFUSED /var/run/docker.sock") !== -1) {
       throw chalk.red(

@@ -1,4 +1,5 @@
 import isDocker from "is-docker";
+import { LoggingConfig } from "../logger";
 
 export const SCREENSHOT_SERVER_PORT = parseInt(
   process.env.SCREENSHOT_SERVER_PORT || "3038",
@@ -42,4 +43,10 @@ export function getSeleniumBrowser() {
 
 export function getScreenshotPrefix() {
   return process.env.SCREENSHOT_PREFIX || "";
+}
+
+export function getLoggingLevel(): LoggingConfig {
+  return (process.env.SCREENSHOT_LOGGING_LEVEL || "").toLowerCase() === "debug"
+    ? "DEBUG"
+    : "NORMAL";
 }
