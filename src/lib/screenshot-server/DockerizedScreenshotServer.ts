@@ -1,9 +1,11 @@
 import Docker from "dockerode";
 import { ScreenshotServer } from "./api";
 import { debugLogger } from "../logger";
+import { getLoggingLevel } from "./config";
+import chalk from "chalk";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
-const DOCKER_IMAGE_VERSION = "1.0.0";
+const DOCKER_IMAGE_VERSION = "1.0.1";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
 const logDebug = debugLogger("DockerizedScreenshotServer");
@@ -109,6 +111,7 @@ async function startContainer(docker: Docker, port: number) {
     ExposedPorts: {
       "3000/tcp": {},
     },
+    Env: [`SCREENSHOT_LOGGING_LEVEL=${getLoggingLevel()}`],
     HostConfig: {
       PortBindings: {
         "3000/tcp": [{ HostPort: `${port}` }],
@@ -123,6 +126,9 @@ async function startContainer(docker: Docker, port: number) {
   });
   await new Promise<void>((resolve) => {
     stream.on("data", (message) => {
+      if (getLoggingLevel() === "DEBUG") {
+        console.log(chalk.yellow(`Docker container output:\n${message}`));
+      }
       if (message.toString().indexOf("Ready.") > -1) {
         resolve();
       }
