@@ -1,8 +1,8 @@
-import Docker from "dockerode";
-import { ScreenshotServer } from "./api";
-import { debugLogger } from "../logger";
-import { getLoggingLevel } from "./config";
 import chalk from "chalk";
+import Docker from "dockerode";
+import { debugLogger } from "../logger";
+import { ScreenshotServer } from "./api";
+import { getLoggingLevel } from "./config";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
 const DOCKER_IMAGE_VERSION = "1.0.1";
