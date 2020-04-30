@@ -1,4 +1,3 @@
-import axios from "axios";
 import callsites from "callsites";
 import chalk from "chalk";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
@@ -11,6 +10,7 @@ import {
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 import { debugLogger } from "../logger";
+import { fetch } from "../network/fetch";
 
 const logDebug = debugLogger("ReactScreenshotTest");
 
@@ -193,22 +193,16 @@ export class ReactScreenshotTest {
       logDebug(
         `Initiating request to screenshot server at ${SCREENSHOT_SERVER_URL}.`
       );
-      const response = await axios.post(
-        `${SCREENSHOT_SERVER_URL}/render`,
-        {
-          name,
-          url,
-          viewport,
-        },
-        {
-          responseType: "arraybuffer",
-        }
-      );
+      const response = await fetch(`${SCREENSHOT_SERVER_URL}/render`, "POST", {
+        name,
+        url,
+        viewport,
+      });
       logDebug(`Response received with status code ${response.status}.`);
       if (response.status === 204) {
         return null;
       }
-      return response.data;
+      return response.body;
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(

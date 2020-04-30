@@ -1,6 +1,6 @@
-import axios from "axios";
 import React from "react";
 import { ReactComponentServer } from "./ReactComponentServer";
+import { fetch } from "../network/fetch";
 
 describe("ReactComponentServer", () => {
   beforeEach(() => {
@@ -20,7 +20,8 @@ describe("ReactComponentServer", () => {
         ],
       },
       async (port, path) => {
-        const { data } = await axios.get(`http://localhost:${port}${path}`);
+        const { body } = await fetch(`http://localhost:${port}${path}`);
+        const data = body.toString("utf8");
         // Fuzzy match.
         expect(data).toContain("<div>Hello, World!</div>");
         // Exact match.

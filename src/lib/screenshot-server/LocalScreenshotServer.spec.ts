@@ -1,8 +1,8 @@
-import axios from "axios";
 import getPort from "get-port";
 import { partialMock } from "../../testing/partial-mock";
 import { ScreenshotRenderer } from "../screenshot-renderer/api";
 import { LocalScreenshotServer } from "./LocalScreenshotServer";
+import { fetch } from "../network/fetch";
 
 describe("LocalScreenshotServer", () => {
   let mockRenderer: jest.Mocked<ScreenshotRenderer>;
@@ -23,7 +23,7 @@ describe("LocalScreenshotServer", () => {
     await server.start();
     expect(mockRenderer.start).toHaveBeenCalled();
 
-    await axios.post(`http://localhost:${port}/render`, {
+    await fetch(`http://localhost:${port}/render`, "POST", {
       name: "screenshot",
       url: "http://example.com",
       viewport: {
@@ -51,7 +51,7 @@ describe("LocalScreenshotServer", () => {
     await server.start();
     expect(mockRenderer.start).toHaveBeenCalled();
 
-    await axios.post(`http://localhost:${port}/render`, {
+    await fetch(`http://localhost:${port}/render`, "POST", {
       name: "screenshot",
       url: "http://example.com",
     });
