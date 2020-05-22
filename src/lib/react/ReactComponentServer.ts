@@ -122,7 +122,9 @@ export class ReactComponentServer {
               href: url,
             })
           ),
-          React.createElement("style", null, readRecordedCss())
+          React.createElement("style", {
+            dangerouslySetInnerHTML: { __html: readRecordedCss() },
+          })
         ),
         React.createElement("body", null, node.reactNode)
       )
