@@ -5207,10 +5207,10 @@ react-is@^16.12.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-screenshot-test@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-2.0.6.tgz#1b7ab4a3f0c856af8bb6da2d616e4f94544ad66a"
-  integrity sha512-bpkTU8BUuQSDJAsmw8DjUWT92xjmsyV93LO4fVUQ6g4e1QQ0LO3lNkcARVZIscjYUA9Mm28BHCINDok8rt+E3A==
+react-screenshot-test@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-2.0.7.tgz#4aa6d21c15ec355467f59cbd263601e25704b1f2"
+  integrity sha512-mTCzp6+QKkox2rDu3/19tJnSACRifbj1fy6FUwqttzMwoH4sTSxfze+AvokhbFBTUKXCa3tQ2Q471aklcw6h6A==
   dependencies:
     assert-never "^1.2.0"
     body-parser "^1.19.0"
@@ -6356,12 +6356,7 @@ uuid@^3.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
 
-uuid@^7.0.2:
-  version "7.0.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.2.tgz#7ff5c203467e91f5e0d85cfcbaaf7d2ebbca9be6"
-  integrity sha512-vy9V/+pKG+5ZTYKf+VcphF5Oc6EFiu3W8Nv3P3zIh0EqVI80ZxOzuPfe9EHjkFNvf8+xuTHVeei4Drydlx4zjw==
-
-uuid@^7.0.3:
+uuid@^7.0.2, uuid@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
   integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
