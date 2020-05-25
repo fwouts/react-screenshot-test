@@ -15,18 +15,6 @@
   </a>
 </p>
 
-<p align="center">
-  <a href="https://david-dm.org/fwouts/react-screenshot-test">
-    <img src="https://david-dm.org/fwouts/react-screenshot-test/status.svg" alt="dependencies" />
-  </a>
-  <a href="https://david-dm.org/fwouts/react-screenshot-test">
-    <img src="https://david-dm.org/fwouts/react-screenshot-test/dev-status.svg" alt="dev dependencies" />
-  </a>
-  <a href="https://david-dm.org/fwouts/react-screenshot-test">
-    <img src="https://david-dm.org/fwouts/react-screenshot-test/peer-status.svg" alt="peer dependencies" />
-  </a>
-</p>
-
 <br />
 <br />
 
