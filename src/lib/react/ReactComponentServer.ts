@@ -88,6 +88,12 @@ export class ReactComponentServer {
                 href: url,
               })
             ),
+            ...node.remoteJavascriptUrls.map((src) =>
+                React.createElement("script", {
+                  src,
+                  type: "application/javascript",
+                })
+            ),
             React.createElement("style", {
               dangerouslySetInnerHTML: { __html: readRecordedCss() },
             }),
