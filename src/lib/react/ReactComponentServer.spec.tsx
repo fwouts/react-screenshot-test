@@ -18,6 +18,7 @@ describe("ReactComponentServer", () => {
         remoteStylesheetUrls: [
           "https://fonts.googleapis.com/css?family=Roboto",
         ],
+        remoteJavascriptUrls: [],
       },
       async (port, path) => {
         const { body } = await fetch(`http://localhost:${port}${path}`);
