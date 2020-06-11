@@ -1,6 +1,6 @@
 import React from "react";
-import { ReactComponentServer } from "./ReactComponentServer";
 import { fetch } from "../network/fetch";
+import { ReactComponentServer } from "./ReactComponentServer";
 
 describe("ReactComponentServer", () => {
   beforeEach(() => {
@@ -8,7 +8,7 @@ describe("ReactComponentServer", () => {
   });
 
   it("renders the requested node", async () => {
-    const server = new ReactComponentServer();
+    const server = new ReactComponentServer({});
     await server.start();
     let rendered = false;
     await server.serve(

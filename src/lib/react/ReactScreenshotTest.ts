@@ -1,7 +1,10 @@
 import callsites from "callsites";
 import chalk from "chalk";
+import { existsSync } from "fs";
 import { toMatchImageSnapshot } from "jest-image-snapshot";
 import { dirname, join, sep } from "path";
+import { debugLogger } from "../logger";
+import { fetch } from "../network/fetch";
 import { Viewport } from "../screenshot-renderer/api";
 import {
   getScreenshotPrefix,
@@ -9,8 +12,6 @@ import {
   SCREENSHOT_SERVER_URL,
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
-import { debugLogger } from "../logger";
-import { fetch } from "../network/fetch";
 
 const logDebug = debugLogger("ReactScreenshotTest");
 
@@ -36,6 +37,8 @@ export class ReactScreenshotTest {
   } = {};
 
   private readonly _remoteStylesheetUrls: string[] = [];
+
+  private readonly _staticPaths: Record<string, string> = {};
 
   private ran = false;
 
@@ -97,6 +100,22 @@ export class ReactScreenshotTest {
     return this;
   }
 
+  static(mappedPath: string, dirOrFilePath: string) {
+    if (!mappedPath.startsWith("/")) {
+      throw new Error("Directory mapping path must start with /");
+    }
+    if (!existsSync(dirOrFilePath)) {
+      throw new Error(
+        `Could not find path "${dirOrFilePath}". Consider using path.resolve() to get an absolute path.`
+      );
+    }
+    if (this._staticPaths[mappedPath]) {
+      throw new Error("Cannot map multiple directories to the same path");
+    }
+    this._staticPaths[mappedPath] = dirOrFilePath;
+    return this;
+  }
+
   /**
    * Runs the actual test (delegating to Jest).
    */
@@ -112,7 +131,7 @@ export class ReactScreenshotTest {
       throw new Error("Please define shots with .shoot()");
     }
 
-    const componentServer = new ReactComponentServer();
+    const componentServer = new ReactComponentServer(this._staticPaths);
 
     expect.extend({ toMatchImageSnapshot });
 

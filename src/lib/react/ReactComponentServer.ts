@@ -4,9 +4,9 @@ import { Server } from "net";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import * as uuid from "uuid";
+import { debugLogger } from "../logger";
 import { ASSET_SERVING_PREFIX, getAssetFilename } from "../recorded-assets";
 import { readRecordedCss } from "../recorded-css";
-import { debugLogger } from "../logger";
 
 // Import ServerStyleSheet without importing styled-components, so that
 // projects which don't use styled-components don't crash.
@@ -33,8 +33,11 @@ export class ReactComponentServer {
     [id: string]: NodeDescription;
   } = {};
 
-  constructor() {
+  constructor(staticPaths: Record<string, string>) {
     this.app = express();
+    for (const [mappedPath, dirOrFilePath] of Object.entries(staticPaths)) {
+      this.app.use(mappedPath, express.static(dirOrFilePath));
+    }
     this.app.get("/render/:nodeId", (req, res) => {
       const { nodeId } = req.params;
       const node = this.nodes[nodeId];
