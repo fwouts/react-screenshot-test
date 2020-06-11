@@ -106,7 +106,7 @@ export class ReactScreenshotTest {
     }
     if (!existsSync(dirOrFilePath)) {
       throw new Error(
-        `Could not find path "${dirOrFilePath}". Consider using an absolute path.`
+        `Could not find path "${dirOrFilePath}". Consider using path.resolve() to get an absolute path.`
       );
     }
     if (this._staticPaths[mappedPath]) {
