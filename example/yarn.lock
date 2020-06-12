@@ -5264,10 +5264,10 @@ react-is@^16.12.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-screenshot-test@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-2.0.7.tgz#4aa6d21c15ec355467f59cbd263601e25704b1f2"
-  integrity sha512-mTCzp6+QKkox2rDu3/19tJnSACRifbj1fy6FUwqttzMwoH4sTSxfze+AvokhbFBTUKXCa3tQ2Q471aklcw6h6A==
+react-screenshot-test@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-screenshot-test/-/react-screenshot-test-2.1.0.tgz#e061a9e9f93d155439175f0606fd3f723e0c61e6"
+  integrity sha512-9aLeiBm6lDjC63906Q5OuWKTkcHNbs4R9AkV8mnP5E18EOtaiCgOF0emFe5kc2mOwAc9B8uX/SwTGJbUFk6FEQ==
   dependencies:
     assert-never "^1.2.0"
     body-parser "^1.19.0"
