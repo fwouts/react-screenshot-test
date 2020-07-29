@@ -26,7 +26,7 @@ describe("ReactComponentServer", () => {
         expect(data).toContain("<div>Hello, World!</div>");
         // Exact match.
         expect(data).toMatchInlineSnapshot(`
-          "<html data-reactroot=\\"\\"><head><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Roboto\\"/><style>
+          "<html data-reactroot=\\"\\"><head><meta name=\\"charset\\" content=\\"UTF-8\\"/><meta name=\\"viewport\\" content=\\"width=device-width, initial-scale=1.0\\"/><link rel=\\"stylesheet\\" href=\\"https://fonts.googleapis.com/css?family=Roboto\\"/><style>
           * {
             transition: none !important;
             animation: none !important;
