@@ -16,6 +16,10 @@ const viewportMeta = React.createElement("meta", {
   name: "viewport",
   content: "width=device-width, initial-scale=1.0",
 });
+const charsetMeta = React.createElement("meta", {
+  name: "charset",
+  content: "UTF-8",
+});
 
 const logDebug = debugLogger("ReactComponentServer");
 
@@ -56,7 +60,10 @@ export class ReactComponentServer {
           this.renderWithStyledComponents(new ServerStyleSheet(), node)
         )
         .catch(() => this.renderWithoutStyledComponents(node))
-        .then((html) => res.send(html));
+        .then((html) => {
+          res.header("Content-Type", "text/html; charset=utf-8");
+          res.send(html);
+        });
     });
     this.app.get(`${ASSET_SERVING_PREFIX}:asset.:ext`, (req, res) => {
       const filePath = getAssetFilename(req.path);
@@ -84,6 +91,7 @@ export class ReactComponentServer {
           React.createElement(
             "head",
             null,
+            charsetMeta,
             viewportMeta,
             ...node.remoteStylesheetUrls.map((url) =>
               React.createElement("link", {
@@ -118,6 +126,7 @@ export class ReactComponentServer {
         React.createElement(
           "head",
           null,
+          charsetMeta,
           viewportMeta,
           ...node.remoteStylesheetUrls.map((url) =>
             React.createElement("link", {
