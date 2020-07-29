@@ -50,6 +50,17 @@ jobs:
             sudo apt-get install -y git-lfs
             git lfs install
             git lfs pull
+      - run:
+          name: Install fonts
+          command: |
+            sudo apt-get install fonts-roboto \
+                                 fonts-noto-cjk \
+                                 fonts-ipafont-gothic \
+                                 fonts-wqy-zenhei \
+                                 fonts-kacst \
+                                 fonts-freefont-ttf \
+                                 fonts-thai-tlwg \
+                                 fonts-indic
       - *restore_cache
       - run: yarn install
       - *save_cache
