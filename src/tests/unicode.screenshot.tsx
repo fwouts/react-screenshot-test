@@ -7,6 +7,6 @@ ReactScreenshotTest.create("Unicode")
   .shoot("French", <div>Bonjour Sébastien, comment ça va ?</div>)
   .shoot("Chinese", <div>你好！</div>)
   .shoot("Japanese", <div>こんにちは</div>)
-  // eslint-disable-next-line jsx-a11y/accessible-emoji
-  .shoot("Emoji", <div>😃</div>)
+  // Disabled as Docker currently doesn't have the right font.
+  // .shoot("Emoji", <div>😃</div>)
   .run();
