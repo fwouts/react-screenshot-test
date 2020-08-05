@@ -5,7 +5,7 @@
     "screenshot-test-percy": "SCREENSHOT_MODE=percy percy exec -- jest -c jest.screenshot.config.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.0",
+    "@babel/core": "^7.11.1",
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "@percy/puppeteer": "^1.1.0",
