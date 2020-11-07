@@ -176,8 +176,9 @@ export class ReactScreenshotTest {
                   remoteStylesheetUrls: this._remoteStylesheetUrls,
                 },
                 async (port, path) => {
+                  // docker.interval is only available on window and mac
                   const url =
-                    SCREENSHOT_MODE === "docker"
+                    SCREENSHOT_MODE === "docker" && process.platform !== "linux"
                       ? `http://host.docker.internal:${port}${path}`
                       : `http://localhost:${port}${path}`;
                   return this.render(name, url, viewport);

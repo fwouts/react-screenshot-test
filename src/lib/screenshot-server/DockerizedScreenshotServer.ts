@@ -100,6 +100,17 @@ async function removeLeftoverContainers(docker: Docker) {
 }
 
 async function startContainer(docker: Docker, port: number) {
+  let hostConfig: Docker.ContainerCreateOptions["HostConfig"] = {
+    PortBindings: {
+      "3000/tcp": [{ HostPort: `${port}` }],
+    },
+  };
+  if (process.platform === "linux") {
+    hostConfig = {
+      NetworkMode: "host",
+    };
+  }
+
   const container = await docker.createContainer({
     Image: DOCKER_IMAGE_TAG,
     AttachStdin: false,
@@ -112,11 +123,7 @@ async function startContainer(docker: Docker, port: number) {
       "3000/tcp": {},
     },
     Env: [`SCREENSHOT_LOGGING_LEVEL=${getLoggingLevel()}`],
-    HostConfig: {
-      PortBindings: {
-        "3000/tcp": [{ HostPort: `${port}` }],
-      },
-    },
+    HostConfig: hostConfig,
   });
   await container.start();
   const stream = await container.logs({

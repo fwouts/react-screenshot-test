@@ -1,16 +1,20 @@
 import isDocker from "is-docker";
 import { LoggingConfig } from "../logger";
 
+export const SCREENSHOT_MODE = getScreenshotMode();
+
+const serverDefaultPort =
+  process.platform === "linux" && SCREENSHOT_MODE === "docker"
+    ? "3000"
+    : "3038";
 export const SCREENSHOT_SERVER_PORT = parseInt(
-  process.env.SCREENSHOT_SERVER_PORT || "3038",
+  process.env.SCREENSHOT_SERVER_PORT || serverDefaultPort,
   10
 );
 
 export const SCREENSHOT_SERVER_URL =
   process.env.SCREENSHOT_SERVER_URL ||
   `http://localhost:${SCREENSHOT_SERVER_PORT}`;
-
-export const SCREENSHOT_MODE = getScreenshotMode();
 
 function getScreenshotMode(): "puppeteer" | "selenium" | "docker" | "percy" {
   if (process.env.SCREENSHOT_MODE) {
