@@ -5,7 +5,7 @@ export const SCREENSHOT_MODE = getScreenshotMode();
 
 const serverDefaultPort =
   process.platform === "linux" && SCREENSHOT_MODE === "docker"
-    ? "3000"
+    ? "3001"
     : "3038";
 export const SCREENSHOT_SERVER_PORT = parseInt(
   process.env.SCREENSHOT_SERVER_PORT || serverDefaultPort,

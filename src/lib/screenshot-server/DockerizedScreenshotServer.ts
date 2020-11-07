@@ -102,7 +102,7 @@ async function removeLeftoverContainers(docker: Docker) {
 async function startContainer(docker: Docker, port: number) {
   let hostConfig: Docker.ContainerCreateOptions["HostConfig"] = {
     PortBindings: {
-      "3000/tcp": [{ HostPort: `${port}` }],
+      "3001/tcp": [{ HostPort: `${port}` }],
     },
   };
   if (process.platform === "linux") {
@@ -120,7 +120,7 @@ async function startContainer(docker: Docker, port: number) {
     OpenStdin: false,
     StdinOnce: false,
     ExposedPorts: {
-      "3000/tcp": {},
+      "3001/tcp": {},
     },
     Env: [`SCREENSHOT_LOGGING_LEVEL=${getLoggingLevel()}`],
     HostConfig: hostConfig,
