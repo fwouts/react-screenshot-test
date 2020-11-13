@@ -3,7 +3,7 @@ import { LocalScreenshotServer } from "./screenshot-server/LocalScreenshotServer
 
 const screenshotServer = new LocalScreenshotServer(
   new PuppeteerScreenshotRenderer(),
-  3000
+  3001
 );
 screenshotServer
   .start()

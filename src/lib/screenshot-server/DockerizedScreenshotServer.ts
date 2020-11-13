@@ -5,7 +5,7 @@ import { ScreenshotServer } from "./api";
 import { getLoggingLevel } from "./config";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
-const DOCKER_IMAGE_VERSION = "1.1.0";
+const DOCKER_IMAGE_VERSION = "1.2.0";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
 const logDebug = debugLogger("DockerizedScreenshotServer");
@@ -100,6 +100,17 @@ async function removeLeftoverContainers(docker: Docker) {
 }
 
 async function startContainer(docker: Docker, port: number) {
+  let hostConfig: Docker.ContainerCreateOptions["HostConfig"] = {
+    PortBindings: {
+      "3001/tcp": [{ HostPort: `${port}` }],
+    },
+  };
+  if (process.platform === "linux") {
+    hostConfig = {
+      NetworkMode: "host",
+    };
+  }
+
   const container = await docker.createContainer({
     Image: DOCKER_IMAGE_TAG,
     AttachStdin: false,
@@ -109,14 +120,10 @@ async function startContainer(docker: Docker, port: number) {
     OpenStdin: false,
     StdinOnce: false,
     ExposedPorts: {
-      "3000/tcp": {},
+      "3001/tcp": {},
     },
     Env: [`SCREENSHOT_LOGGING_LEVEL=${getLoggingLevel()}`],
-    HostConfig: {
-      PortBindings: {
-        "3000/tcp": [{ HostPort: `${port}` }],
-      },
-    },
+    HostConfig: hostConfig,
   });
   await container.start();
   const stream = await container.logs({

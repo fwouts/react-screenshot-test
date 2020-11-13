@@ -73,6 +73,8 @@ which platform you run your tests on.
 You can override this behaviour by setting the `SCREENSHOT_MODE` environment
 variable to `local`, which will always use a local browser instead of Docker.
 
+_Note: On Linux, `react-screenshot-test` will run Docker using host network mode on port 3001_
+
 ## CSS support
 
 CSS-in-JS libraries such as Emotion and Styled Components are supported.
