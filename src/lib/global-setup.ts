@@ -25,10 +25,6 @@ export function getScreenshotServer() {
 export async function setUpScreenshotServer() {
   logDebug(`Screenshot server setup initiated.`);
 
-  if (screenshotServer) {
-    throw new Error("Please only call setUpScreenshotServer() once.");
-  }
-
   logDebug(`Creating screenshot server.`);
   screenshotServer = createScreenshotServer();
   logDebug(`Screenshot server instance created.`);
