@@ -1,4 +1,4 @@
-import { getScreenshotServer } from "./global-setup";
+import { clearScreenshotServer, getScreenshotServer } from "./global-setup";
 import { debugLogger } from "./logger";
 
 const logDebug = debugLogger("global-teardown");
@@ -14,6 +14,7 @@ export async function tearDownScreenshotServer() {
   } else {
     logDebug(`No screenshot server was found.`);
   }
+  clearScreenshotServer();
 }
 
 export default tearDownScreenshotServer;

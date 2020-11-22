@@ -22,6 +22,10 @@ export function getScreenshotServer() {
   return screenshotServer;
 }
 
+export function clearScreenshotServer() {
+  screenshotServer = null;
+}
+
 export async function setUpScreenshotServer() {
   logDebug(`Screenshot server setup initiated.`);
 
