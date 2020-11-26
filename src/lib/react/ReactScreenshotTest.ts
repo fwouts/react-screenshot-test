@@ -9,7 +9,7 @@ import { Viewport } from "../screenshot-renderer/api";
 import {
   getScreenshotPrefix,
   SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_URL
+  SCREENSHOT_SERVER_URL,
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 
