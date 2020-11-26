@@ -9,7 +9,7 @@ import { Viewport } from "../screenshot-renderer/api";
 import {
   getScreenshotPrefix,
   SCREENSHOT_MODE,
-  SCREENSHOT_SERVER_URL,
+  SCREENSHOT_SERVER_URL
 } from "../screenshot-server/config";
 import { ReactComponentServer } from "./ReactComponentServer";
 
@@ -20,11 +20,13 @@ const logDebug = debugLogger("ReactScreenshotTest");
  *
  * Example usage:
  * ```
- * ReactScreenshotTest.create("Using runner")
- *     .viewports(VIEWPORTS)
- *     .shoot("with title", <MyComponent title="Hello, World!" />)
- *     .shoot("without title", <MyComponent title={null} />)
- *     .run();
+ * describe("screenshots", () => {
+ *   ReactScreenshotTest.create("MyComponent")
+ *       .viewports(VIEWPORTS)
+ *       .shoot("with title", <MyComponent title="Hello, World!" />)
+ *       .shoot("without title", <MyComponent title={null} />)
+ *       .run();
+ * });
  * ```
  */
 export class ReactScreenshotTest {
