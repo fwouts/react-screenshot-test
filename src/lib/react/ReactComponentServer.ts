@@ -61,9 +61,12 @@ export class ReactComponentServer {
         )
         .catch(() => this.renderWithoutStyledComponents(node))
         .then((html) => {
+          logDebug(`Finished render successfully.`);
           res.header("Content-Type", "text/html; charset=utf-8");
           res.send(html);
-        });
+          logDebug(`Rendered HTML sent.`);
+        })
+        .catch(console.error);
     });
     this.app.get(`${ASSET_SERVING_PREFIX}:asset.:ext`, (req, res) => {
       const filePath = getAssetFilename(req.path);
