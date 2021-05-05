@@ -31,15 +31,22 @@ export class LocalScreenshotServer implements ScreenshotServer {
     this.app.use(bodyParser.json());
     this.app.post("/render", async (req, res) => {
       const { name, url, viewport } = req.body;
-      const screenshot = await (viewport
-        ? this.renderer.render(name, url, viewport)
-        : this.renderer.render(name, url));
-      if (screenshot) {
-        res.contentType("image/png");
-        res.end(screenshot);
-      } else {
-        res.status(204);
-        res.end();
+      try {
+        const screenshot = await (viewport
+          ? this.renderer.render(name, url, viewport)
+          : this.renderer.render(name, url));
+        if (screenshot) {
+          res.contentType("image/png");
+          res.end(screenshot);
+        } else {
+          res.status(204);
+          res.end();
+        }
+      } catch (e) {
+        res.status(500);
+        // eslint-disable-next-line no-console
+        console.error(e);
+        res.end(e.message || `Unable to render a screenshot of ${url}`);
       }
     });
   }

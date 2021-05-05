@@ -211,20 +211,19 @@ export class ReactScreenshotTest {
   }
 
   private async render(name: string, url: string, viewport: Viewport) {
+    let response: {
+      status: number;
+      body: Buffer;
+    };
     try {
       logDebug(
         `Initiating request to screenshot server at ${SCREENSHOT_SERVER_URL}.`
       );
-      const response = await fetch(`${SCREENSHOT_SERVER_URL}/render`, "POST", {
+      response = await fetch(`${SCREENSHOT_SERVER_URL}/render`, "POST", {
         name,
         url,
         viewport,
       });
-      logDebug(`Response received with status code ${response.status}.`);
-      if (response.status === 204) {
-        return null;
-      }
-      return response.body;
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(
@@ -240,5 +239,24 @@ export class ReactScreenshotTest {
       );
       throw e;
     }
+    logDebug(`Response received with status code ${response.status}.`);
+    if (response.status === 204) {
+      return null;
+    }
+    if (response.status !== 200) {
+      // eslint-disable-next-line no-console
+      console.error(
+        chalk.red(
+          `Screenshot server failed to render (status ${response.status}).
+
+Error: ${response.body.toString("utf8")}
+`
+        )
+      );
+      throw new Error(
+        `Received response ${response.status} from screenshot server.`
+      );
+    }
+    return response.body;
   }
 }
