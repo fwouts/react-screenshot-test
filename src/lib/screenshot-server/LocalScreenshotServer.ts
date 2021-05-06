@@ -1,9 +1,9 @@
 import bodyParser from "body-parser";
 import express, { Express } from "express";
 import { Server } from "net";
+import { debugLogger } from "../logger";
 import { ScreenshotRenderer } from "../screenshot-renderer/api";
 import { ScreenshotServer } from "./api";
-import { debugLogger } from "../logger";
 
 const logDebug = debugLogger("LocalScreenshotServer");
 
@@ -76,7 +76,7 @@ export class LocalScreenshotServer implements ScreenshotServer {
     }
 
     logDebug(`Attempting to shutdown server.`);
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       server.close((err) => (err ? reject(err) : resolve()));
     });
     logDebug(`Successfully shutdown server.`);

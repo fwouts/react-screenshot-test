@@ -157,7 +157,7 @@ export class ReactComponentServer {
     this.port = await getPort();
 
     logDebug(`Attempting to listen on port ${this.port}.`);
-    await new Promise((resolve) => {
+    await new Promise<void>((resolve) => {
       this.server = this.app.listen(this.port, resolve);
     });
     logDebug(`Successfully listening on port ${this.port}.`);
@@ -174,7 +174,7 @@ export class ReactComponentServer {
     }
 
     logDebug(`Attempting to shutdown server.`);
-    await new Promise((resolve, reject) => {
+    await new Promise<void>((resolve, reject) => {
       server.close((err) => (err ? reject(err) : resolve()));
     });
     logDebug(`Successfully shutdown server.`);

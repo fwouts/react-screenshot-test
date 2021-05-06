@@ -1,7 +1,7 @@
 import { Viewport } from "puppeteer";
 import { Browser, launchChrome } from "../browser/chrome";
-import { ScreenshotRenderer } from "./api";
 import { debugLogger } from "../logger";
+import { ScreenshotRenderer } from "./api";
 
 const logDebug = debugLogger("PercyScreenshotRenderer");
 
@@ -62,6 +62,5 @@ export class PercyScreenshotRenderer implements ScreenshotRenderer {
         widths: [viewport.width / (viewport.deviceScaleFactor || 1)],
       }
     );
-    return null;
   }
 }
