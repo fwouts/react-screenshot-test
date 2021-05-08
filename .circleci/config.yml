@@ -2,7 +2,7 @@ version: 2.1
 anchors:
   defaults: &defaults
     docker:
-      - image: cimg/node:14.16.1-browsers
+      - image: fwouts/chrome-screenshot:1.2.1
     working_directory: ~/repo
   restore_cache: &restore_cache
     restore_cache:
@@ -17,31 +17,10 @@ anchors:
       key: v1-dependencies-{{ checksum "package.json" }}
   install_dependencies: &install_dependencies
     run:
-      name: Install Chrome dependencies
+      name: Install dependencies
       command: |
-        sudo apt-get update \
-        && sudo apt-get install -y git-lfs wget gnupg ca-certificates procps libxss1 \
-        && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
-        && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-        && sudo apt-get update \
-        && sudo apt-get install -y google-chrome-stable \
-        && sudo rm -rf /var/lib/apt/lists/* \
-        && sudo wget --quiet https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/sbin/wait-for-it.sh \
-        && sudo chmod +x /usr/sbin/wait-for-it.sh
-  install_fonts: &install_fonts
-    run:
-      name: Install fonts
-      command: |
-        sudo sh -c 'echo "deb [arch=amd64] http://ftp.debian.org/debian/ unstable main" >> /etc/apt/sources.list.d/fonts.list' \
-        && sudo apt-get update \
-        && sudo apt-get install fonts-roboto \
-                              fonts-noto-cjk \
-                              fonts-ipafont-gothic \
-                              fonts-wqy-zenhei \
-                              fonts-kacst \
-                              fonts-freefont-ttf \
-                              fonts-thai-tlwg \
-                              fonts-indic
+        apt-get update \
+        && apt-get install -y git-lfs
   setup_git_lfs: &setup_git_lfs
     run:
       name: Set up Git LFS
@@ -78,7 +57,6 @@ jobs:
     steps:
       - checkout
       - *install_dependencies
-      - *install_fonts
       - *setup_git_lfs
       - *restore_cache
       - run: yarn install
@@ -106,7 +84,6 @@ jobs:
     steps:
       - checkout
       - *install_dependencies
-      - *install_fonts
       - *setup_git_lfs
       - run: cd example && yarn install
       - run: cd example && yarn screenshot-test-local
