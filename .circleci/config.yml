@@ -15,6 +15,25 @@ anchors:
       paths:
         - node_modules
       key: v1-dependencies-{{ checksum "package.json" }}
+  install_dependencies: &install_dependencies
+    run:
+      name: Install Chrome dependencies
+      command: |
+        sudo apt-get update \
+        && sudo apt-get install -y git-lfs wget gnupg ca-certificates procps libxss1 \
+        && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
+        && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+        && sudo apt-get update \
+        && sudo apt-get install -y google-chrome-stable \
+        && sudo rm -rf /var/lib/apt/lists/* \
+        && sudo wget --quiet https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/sbin/wait-for-it.sh \
+        && sudo chmod +x /usr/sbin/wait-for-it.sh
+  setup_git_lfs: &setup_git_lfs
+    run:
+      name: Set up Git LFS
+      command: |
+        git lfs install
+        git lfs pull
 jobs:
   build:
     <<: *defaults
@@ -44,23 +63,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Install Chrome dependencies
-          command: |
-            sudo apt-get update \
-            && sudo apt-get install -y git-lfs wget gnupg ca-certificates procps libxss1 \
-            && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
-            && sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
-            && sudo apt-get update \
-            && sudo apt-get install -y google-chrome-stable \
-            && sudo rm -rf /var/lib/apt/lists/* \
-            && sudo wget --quiet https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh -O /usr/sbin/wait-for-it.sh \
-            && sudo chmod +x /usr/sbin/wait-for-it.sh
-      - run:
-          name: Set up Git LFS
-          command: |
-            git lfs install
-            git lfs pull
+      - *install_dependencies
+      - *setup_git_lfs
       - *restore_cache
       - run: yarn install
       - *save_cache
@@ -86,12 +90,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Set up Git LFS
-          command: |
-            sudo apt-get install -y git-lfs
-            git lfs install
-            git lfs pull
+      - *install_dependencies
+      - *setup_git_lfs
       - run: cd example && yarn install
       - run: cd example && yarn screenshot-test-local
       - store_artifacts:
