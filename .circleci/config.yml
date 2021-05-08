@@ -32,6 +32,8 @@ anchors:
     run:
       name: Install fonts
       command: |
+        sudo sh -c 'echo "deb [arch=amd64] http://ftp.debian.org/debian/ unstable main" >> /etc/apt/sources.list.d/fonts.list' \
+        && sudo apt-get update \
         sudo apt-get install fonts-roboto \
                               fonts-noto-cjk \
                               fonts-ipafont-gothic \
