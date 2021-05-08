@@ -74,6 +74,7 @@ jobs:
       - *save_cache
       - run: yarn screenshot-test-percy
   docker-image:
+    machine: true
     steps:
       - checkout
       - setup_remote_docker
