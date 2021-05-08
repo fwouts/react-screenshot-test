@@ -2,7 +2,7 @@ version: 2.1
 anchors:
   defaults: &defaults
     docker:
-      - image: fwouts/chrome-screenshot:1.2.1
+      - image: circleci/node:11-browsers
     working_directory: ~/repo
   restore_cache: &restore_cache
     restore_cache:
