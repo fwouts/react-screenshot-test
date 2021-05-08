@@ -5,18 +5,18 @@
     "screenshot-test-percy": "SCREENSHOT_MODE=percy percy exec -- jest -c jest.screenshot.config.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "@percy/puppeteer": "^1.1.0",
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-react": "^7.13.13",
+    "@percy/puppeteer": "^2.0.0",
     "jest": "^26.6.3",
-    "puppeteer": "^2.1.1",
-    "react-screenshot-test": "^2.1.1"
+    "puppeteer": "^9.1.1",
+    "react-screenshot-test": "^2.3.1"
   },
   "dependencies": {
-    "@emotion/core": "^10.1.1",
-    "@emotion/styled": "^10.0.27",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0"
+    "@emotion/react": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }
