@@ -2,7 +2,7 @@ version: 2.1
 anchors:
   defaults: &defaults
     docker:
-      - image: circleci/node:lts-browsers
+      - image: cimg/node:16.1.0-browsers
     working_directory: ~/repo
   restore_cache: &restore_cache
     restore_cache:
