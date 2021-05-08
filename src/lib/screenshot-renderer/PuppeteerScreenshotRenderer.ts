@@ -1,6 +1,6 @@
 import { Browser, launchChrome } from "../browser/chrome";
-import { ScreenshotRenderer, Viewport } from "./api";
 import { debugLogger } from "../logger";
+import { ScreenshotRenderer, Viewport } from "./api";
 
 const logDebug = debugLogger("PuppeteerScreenshotRenderer");
 
@@ -45,6 +45,7 @@ export class PuppeteerScreenshotRenderer implements ScreenshotRenderer {
     await page.goto(url);
     const screenshot = await page.screenshot({
       encoding: "binary",
+      fullPage: true,
     });
     await page.close();
     return screenshot;

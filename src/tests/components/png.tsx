@@ -3,7 +3,7 @@ import styled from "styled-components";
 import logo from "../../../brand/social.png";
 
 const Image = styled.img`
-  width: 100%;
+  width: 100vw;
 `;
 
 export const PngComponent = () => <Image src={logo} />;

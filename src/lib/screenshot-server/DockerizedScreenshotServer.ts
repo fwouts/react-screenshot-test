@@ -5,7 +5,7 @@ import { ScreenshotServer } from "./api";
 import { getLoggingLevel } from "./config";
 
 const DOCKER_IMAGE_TAG_NAME = "fwouts/chrome-screenshot";
-const DOCKER_IMAGE_VERSION = "1.2.1";
+const DOCKER_IMAGE_VERSION = "1.2.2";
 const DOCKER_IMAGE_TAG = `${DOCKER_IMAGE_TAG_NAME}:${DOCKER_IMAGE_VERSION}`;
 
 const logDebug = debugLogger("DockerizedScreenshotServer");
