@@ -26,7 +26,8 @@
   "devDependencies": {
     "@emotion/core": "^10.0.22",
     "@emotion/styled": "^10.0.23",
-    "@percy/puppeteer": "^1.0.8",
+    "@percy/cli": "^1.0.0-beta.48",
+    "@percy/puppeteer": "^2.0.0",
     "@types/dockerode": "^2.5.26",
     "@types/express": "^4.17.3",
     "@types/jest": "^25.1.4",

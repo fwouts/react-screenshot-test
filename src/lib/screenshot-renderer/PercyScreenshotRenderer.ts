@@ -1,4 +1,5 @@
 import { Viewport } from "puppeteer";
+import type PercySnapshot from "@percy/puppeteer";
 import { Browser, launchChrome } from "../browser/chrome";
 import { debugLogger } from "../logger";
 import { ScreenshotRenderer } from "./api";
@@ -41,9 +42,9 @@ export class PercyScreenshotRenderer implements ScreenshotRenderer {
     }
     const page = await this.browser.newPage();
     await page.goto(url);
-    let percy: typeof import("@percy/puppeteer");
+    let percySnapshot: typeof PercySnapshot;
     try {
-      percy = await import("@percy/puppeteer");
+      percySnapshot = (await import("@percy/puppeteer")).default;
     } catch (e) {
       throw new Error(
         `Please install the '@percy/puppeteer' package:
@@ -55,7 +56,7 @@ export class PercyScreenshotRenderer implements ScreenshotRenderer {
     $ yarn add -D @percy/puppeteer`
       );
     }
-    await percy.percySnapshot(
+    await percySnapshot(
       page,
       name,
       viewport && {
