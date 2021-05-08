@@ -11,6 +11,7 @@ export const InlineStyleComponent = () => (
         background: "#00f",
         color: "#fff",
         padding: 8,
+        border: "1px solid #000",
         borderRadius: 4,
         fontSize: "2em",
       }}
