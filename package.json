@@ -51,7 +51,7 @@
     "node-sass": "^5.0.0",
     "normalize.css": "^8.0.1",
     "prettier": "^2.0.2",
-    "puppeteer": "^9.1.1",
+    "puppeteer": "8.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-spinners": "^0.8.1",
