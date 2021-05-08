@@ -2,7 +2,7 @@ version: 2.1
 anchors:
   defaults: &defaults
     docker:
-      - image: cimg/node:16.1.0-browsers
+      - image: cimg/node:14.16.1-browsers
     working_directory: ~/repo
   restore_cache: &restore_cache
     restore_cache:
