@@ -1,4 +1,5 @@
 FROM buildkite/puppeteer:8.0.0
+RUN rm -rf /node_modules /package.json /package-lock.json
 RUN apt-get -qqy update && \
     apt-get -qqy --no-install-recommends install \
     fonts-roboto \

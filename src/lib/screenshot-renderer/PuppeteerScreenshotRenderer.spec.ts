@@ -94,6 +94,7 @@ describe("PuppeteerScreenshotRenderer", () => {
       expect(mockPage.goto).toHaveBeenCalledWith("http://example.com");
       expect(mockPage.screenshot).toHaveBeenCalledWith({
         encoding: "binary",
+        fullPage: true,
       });
       expect(mockPage.close).toHaveBeenCalled();
     });

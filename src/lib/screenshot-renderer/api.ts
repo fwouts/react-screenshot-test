@@ -17,7 +17,7 @@ export interface ScreenshotRenderer {
     name: string,
     url: string,
     viewport?: Viewport
-  ): Promise<Buffer | null>;
+  ): Promise<Buffer | string | void>;
 }
 
 export interface Viewport {

@@ -2,7 +2,7 @@ version: 2.1
 anchors:
   defaults: &defaults
     docker:
-      - image: circleci/node:11-browsers
+      - image: fwouts/chrome-screenshot:1.2.2
     working_directory: ~/repo
   restore_cache: &restore_cache
     restore_cache:
@@ -15,6 +15,18 @@ anchors:
       paths:
         - node_modules
       key: v1-dependencies-{{ checksum "package.json" }}
+  install_dependencies: &install_dependencies
+    run:
+      name: Install dependencies
+      command: |
+        apt-get update \
+        && apt-get install -y git-lfs
+  setup_git_lfs: &setup_git_lfs
+    run:
+      name: Set up Git LFS
+      command: |
+        git lfs install
+        git lfs pull
 jobs:
   build:
     <<: *defaults
@@ -44,23 +56,8 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Set up Git LFS
-          command: |
-            sudo apt-get install -y git-lfs
-            git lfs install
-            git lfs pull
-      - run:
-          name: Install fonts
-          command: |
-            sudo apt-get install fonts-roboto \
-                                 fonts-noto-cjk \
-                                 fonts-ipafont-gothic \
-                                 fonts-wqy-zenhei \
-                                 fonts-kacst \
-                                 fonts-freefont-ttf \
-                                 fonts-thai-tlwg \
-                                 fonts-indic
+      - *install_dependencies
+      - *setup_git_lfs
       - *restore_cache
       - run: yarn install
       - *save_cache
@@ -77,21 +74,16 @@ jobs:
       - *save_cache
       - run: yarn screenshot-test-percy
   docker-image:
-    <<: *defaults
+    machine: true
     steps:
       - checkout
-      - setup_remote_docker
       - run: docker build .
   example-local:
     <<: *defaults
     steps:
       - checkout
-      - run:
-          name: Set up Git LFS
-          command: |
-            sudo apt-get install -y git-lfs
-            git lfs install
-            git lfs pull
+      - *install_dependencies
+      - *setup_git_lfs
       - run: cd example && yarn install
       - run: cd example && yarn screenshot-test-local
       - store_artifacts:
