@@ -77,7 +77,6 @@ jobs:
     machine: true
     steps:
       - checkout
-      - setup_remote_docker
       - run: docker build .
   example-local:
     <<: *defaults
