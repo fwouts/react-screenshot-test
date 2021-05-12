@@ -60,7 +60,7 @@ export class LocalScreenshotServer implements ScreenshotServer {
 
     logDebug(`Attempting to listen on port ${this.port}.`);
     await new Promise((resolve) => {
-      this.server = this.app.listen(this.port, resolve);
+      this.server = this.app.listen(this.port, () => resolve(null));
     });
     logDebug(`Successfully listening on port ${this.port}.`);
   }

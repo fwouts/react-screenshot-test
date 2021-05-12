@@ -1,6 +1,6 @@
 import { ChildProcess } from "child_process";
 import selenium from "selenium-standalone";
-import * as webdriverio from "webdriverio";
+import webdriverio, { Browser } from "webdriverio";
 import { ScreenshotRenderer, Viewport } from "./api";
 import { debugLogger } from "../logger";
 
@@ -13,7 +13,7 @@ const logDebug = debugLogger("SeleniumScreenshotRenderer");
 export class SeleniumScreenshotRenderer implements ScreenshotRenderer {
   private seleniumProcess: ChildProcess | null = null;
 
-  private browser: WebdriverIOAsync.BrowserObject | null = null;
+  private browser: Browser<"async"> | null = null;
 
   constructor(private readonly capabilities: WebDriver.DesiredCapabilities) {}
 
