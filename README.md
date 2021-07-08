@@ -1,3 +1,9 @@
+<h1 align="center">
+🚀 For a better experience, try the newer <b><a href="https://github.com/zenclabs/viteshot">Viteshot 📸</a></b>
+</h1>
+<br/>
+<br/>
+
 [![Logo](brand/logo.png)](https://www.npmjs.com/package/react-screenshot-test)
 
 <p align="center">
