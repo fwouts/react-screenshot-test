@@ -2,7 +2,7 @@
 >
 > This package is no longer actively maintained.
 >
-> Check out [@previewjs/screenshot](https://github.com/fwouts/previewjs/screenshot) for an alternative.
+> Check out [@previewjs/screenshot](https://github.com/fwouts/previewjs/tree/main/screenshot) for an alternative.
 
 # React Screenshot Test
 
