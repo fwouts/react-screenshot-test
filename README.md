@@ -1,8 +1,10 @@
-<h1 align="center">
-🚀 For a better experience, try the newer <b><a href="https://github.com/zenclabs/viteshot">Viteshot 📸</a></b>
-</h1>
-<br/>
-<br/>
+> **Warning**
+>
+> This package is no longer actively maintained.
+>
+> Check out [@previewjs/screenshot](https://github.com/fwouts/previewjs/screenshot) for an alternative.
+
+# React Screenshot Test
 
 [![Logo](brand/logo.png)](https://www.npmjs.com/package/react-screenshot-test)
 
